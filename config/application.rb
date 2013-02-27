@@ -58,5 +58,9 @@ module Samensapp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # fix for Heroku
+    config.assets.initialize_on_precompile = false
+
   end
 end
