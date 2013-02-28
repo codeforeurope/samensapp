@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
   has_many :roles
+  validates_presence_of :name
 
   def has_role? (role)
     !roles.where(name: role).first.nil?
