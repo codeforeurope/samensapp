@@ -16,3 +16,4 @@
 
 # Ignore intellij cruft
 .idea/*
+.env
