@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  floor: 1
+  base_price: 9.99
+  blind_price: 9.99
+  capacity: 1
+
+two:
+  name: MyString
+  floor: 1
+  base_price: 9.99
+  blind_price: 9.99
+  capacity: 1
