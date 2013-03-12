@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312125159) do
+ActiveRecord::Schema.define(:version => 20130312161708) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -43,8 +43,9 @@ ActiveRecord::Schema.define(:version => 20130312125159) do
     t.integer  "capacity"
     t.text     "description"
     t.text     "notes"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.decimal  "cleaning_fee"
   end
 
   create_table "users", :force => true do |t|
