@@ -13,6 +13,21 @@
 
 ActiveRecord::Schema.define(:version => 20130312170056) do
 
+  create_table "booking_requests", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "people"
+    t.text     "description"
+    t.text     "catering_needs"
+    t.text     "equipment_needs"
+    t.text     "notes"
+    t.string   "status"
+    t.integer  "submitter_id"
+    t.integer  "assignee_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "buildings", :force => true do |t|
     t.string   "name"
     t.text     "address"
