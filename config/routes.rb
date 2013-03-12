@@ -1,5 +1,8 @@
 Samensapp::Application.routes.draw do
 
+  resources :room_configurations
+
+
   resources :buildings
   resources :organizations
 
