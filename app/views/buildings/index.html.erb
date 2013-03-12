@@ -12,7 +12,7 @@
   <% @buildings.each do |building| %>
       <tr>
         <td><%= building.name %></td>
-        <td><%= building.adress %></td>
+        <td><%= building.address %></td>
         <td><%= link_to 'Show', building %></td>
         <% if can? :update, building %>
             <td><%= link_to 'Edit', edit_building_path(building) %></td>
