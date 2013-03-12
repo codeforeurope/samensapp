@@ -2,7 +2,9 @@ Samensapp::Application.routes.draw do
 
   resources :buildings
   resources :organizations
+  resources :booking_requests do
 
+  end
 
   resources :rooms
 

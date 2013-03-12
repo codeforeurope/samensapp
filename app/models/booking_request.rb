@@ -6,9 +6,11 @@ class BookingRequest < ActiveRecord::Base
   #has_many :events
 
 
+  validates_presence_of :submitter, :catering_needs, :description, :end_time, :equipment_needs, :people, :start_time
+
   private
 
   def save_submitter
-    submitter.save(:validate => false)    # this is very hacky, but will do for now
+    submitter.save(:validate => false) # this is very hacky, but will do for now
   end
 end

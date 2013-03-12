@@ -12,12 +12,14 @@ class Ability
       if user.has_role? :booking
         can :manage, :request
       else
-        can :create, :request
-        #can [:update,:cancel], Request do |request|
-        #  user.id = request.submitter_id
-        #end
+        can [:create], BookingRequest
+        can [:update, :cancel, :read], BookingRequest do |request|
+          user.id = request.submitter_id
+        end
+
       end
-      can :read, :all
+      #can :read, :all
+      #cannot :index, BookingRequest
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.

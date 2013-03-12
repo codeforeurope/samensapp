@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+  booking_request: "Booking Request"
+  helpers:
+    label:
+      booking_request:
+        people: "Number of People"

@@ -1,7 +1,7 @@
 class BookingRequestsController < ApplicationController
-  #before_filter :extract_submitter, :only => :create
+
   load_and_authorize_resource :except => [:create]
-  #, :except => :new
+
   # GET /booking_requests
   # GET /booking_requests.json
   def index
@@ -23,7 +23,7 @@ class BookingRequestsController < ApplicationController
   # GET /booking_requests/new
   # GET /booking_requests/new.json
   def new
-
+    @booking_request.submitter = User.new()
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @booking_request }
@@ -37,14 +37,14 @@ class BookingRequestsController < ApplicationController
   # POST /booking_requests
   # POST /booking_requests.json
   def create
-    submitter_hash = params.delete :submitter
+    submitter_hash =params[:booking_request].delete :submitter
     submitter = User.find_all_by_email(submitter_hash[:email]).first || User.new(submitter_hash)
 
     @booking_request = BookingRequest.new(params[:booking_request])
     @booking_request.submitter = submitter
 
     respond_to do |format|
-      if @booking_request.save!
+      if @booking_request.save
         format.html { redirect_to @booking_request, notice: 'Booking request was successfully created.' }
         format.json { render json: @booking_request, status: :created, location: @booking_request }
       else
