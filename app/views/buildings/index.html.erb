@@ -9,17 +9,23 @@
     <th></th>
   </tr>
 
-<% @buildings.each do |building| %>
-  <tr>
-    <td><%= building.name %></td>
-    <td><%= building.adress %></td>
-    <td><%= link_to 'Show', building %></td>
-    <td><%= link_to 'Edit', edit_building_path(building) %></td>
-    <td><%= link_to 'Destroy', building, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <% @buildings.each do |building| %>
+      <tr>
+        <td><%= building.name %></td>
+        <td><%= building.adress %></td>
+        <td><%= link_to 'Show', building %></td>
+        <% if can? :update, building %>
+            <td><%= link_to 'Edit', edit_building_path(building) %></td>
+        <% end %>
+        <% if can? :delete, building %>
+            <td><%= link_to 'Destroy', building, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <% end %>
+      </tr>
+  <% end %>
 </table>
 
-<br />
+<br/>
 
-<%= link_to 'New Building', new_building_path %>
+<% if can? :create, Building %>
+    <%= link_to 'New Building', new_building_path %>
+<% end %>

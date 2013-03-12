@@ -10,6 +10,7 @@
   <%= @building.adress %>
 </p>
 
-
-<%= link_to 'Edit', edit_building_path(@building) %> |
+<% if can? :update, @building %>
+    <%= link_to 'Edit', edit_building_path(@building) %> |
+<% end %>
 <%= link_to 'Back', buildings_path %>

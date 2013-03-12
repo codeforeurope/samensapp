@@ -17,7 +17,7 @@ class Ability
         #  user.id = request.submitter_id
         #end
       end
-
+      can :read, :all
     end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
