@@ -21,6 +21,15 @@
   <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
   <%= f.password_field :current_password %></div>
 
+  <div><%= f.label :phone %><br />
+  <%= f.text_field :phone %></div>
+
+  <div><%= f.label :mobile_phone %><br />
+  <%= f.text_field :mobile_phone %></div>
+
+  <div><%= f.label :address %><br />
+  <%= f.text_area :address %></div>
+
   <div><%= f.submit "Update" %></div>
 <% end %>
 
