@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= label @user, :name %>:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b><%= label @user, :email %>:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b><%= label @user, :address %>:</b>
+  <%= @user.address %>
+</p>
+
+<p>
+  <b><%= label @user, :phone %>:</b>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <b><%= label @user, :mobile_phone %>:</b>
+  <%= @user.mobile_phone %>
+</p>
+
+<p>
+  <b><%= label @user, :organization %>:</b>
+  <%= @user.organization.name unless @user.organization.nil? %>
+</p>
+
+<p>
+  <b><%= label @user, :roles %>:</b>
+<ul>
+  <% @user.roles.each do |role| %>
+    <li><%= role.name %></li>
+
+  <% end %>
+</ul>
+</p>
+
+
+<% if can? :update, @user%>
+  <%= link_to :Edit, edit_user_path(@user) %> |
+<% end %>
+<%= link_to :Back, users_path %>
