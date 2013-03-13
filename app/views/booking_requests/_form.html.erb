@@ -1,7 +1,7 @@
 <%= labeled_form_for(@booking_request) do |f| %>
   <% if @booking_request.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@booking_request.errors.count, "error") %> prohibited this booking_request from being
+      <h2><%= pluralize(@booking_request.errors.count, "error") %> prohibited this <%= t :booking_request  %> from being
         saved:</h2>
 
       <ul>
