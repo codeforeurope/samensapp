@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313204304) do
+ActiveRecord::Schema.define(:version => 20130313212158) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_time"
@@ -24,9 +24,14 @@ ActiveRecord::Schema.define(:version => 20130313204304) do
     t.string   "status"
     t.integer  "submitter_id"
     t.integer  "assignee_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.string   "code"
+    t.string   "organization_name"
+    t.string   "contact_person"
+    t.string   "contact_email"
+    t.string   "contact_phone"
+    t.text     "organization_address"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"

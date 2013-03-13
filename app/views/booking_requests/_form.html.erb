@@ -21,6 +21,17 @@
   <% end %>
 
   <fieldset>
+    <div class="field">
+      <%= check_box_tag :copy_personal_info %>
+      <%= label_tag :copy_personal_info %>
+    </div>
+    <%= f.text_field :organization_name %>
+    <%= f.text_field :contact_person %>
+    <%= f.email_field :contact_email %>
+    <%= f.text_field :contact_phone, :type => "tel" %>
+    <%= f.text_area :organization_address %>
+  </fieldset>
+  <fieldset>
 
     <%= f.datetime_select :start_time %>
 

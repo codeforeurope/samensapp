@@ -11,6 +11,7 @@ class Ability
     else
       if user.has_role? :booking
         can :manage, BookingRequest
+        can :create_on_behalf, BookingRequest
       else
         can [:create], BookingRequest
         can [:update, :cancel, :read], BookingRequest do |request|
