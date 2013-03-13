@@ -1,10 +1,11 @@
 class BookingRequestsController < ApplicationController
-
-  load_and_authorize_resource :except => [:create]
+  before_filter :authenticate_user!, :except => [:new, :create, :show]
+  load_and_authorize_resource :except => [:create, :index]
 
   # GET /booking_requests
   # GET /booking_requests.json
   def index
+    @booking_requests = !current_user.nil? ? current_user.booking_requests : []
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @booking_requests }

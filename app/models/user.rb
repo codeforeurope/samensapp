@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :phone, :mobile_phone, :address
   # attr_accessible :title, :body
   has_many :roles
+  has_many :booking_requests, :foreign_key => :submitter_id
   validates_presence_of :name
 
   def has_role? (role)
