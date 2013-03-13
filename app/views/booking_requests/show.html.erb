@@ -1,0 +1,42 @@
+
+
+<p>
+  <b>Start time:</b>
+  <%= @booking_request.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @booking_request.end_time %>
+</p>
+
+<p>
+  <b>People:</b>
+  <%= @booking_request.people %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @booking_request.description %>
+</p>
+
+<p>
+  <b>Catering needs:</b>
+  <%= @booking_request.catering_needs %>
+</p>
+
+<p>
+  <b>Equipment needs:</b>
+  <%= @booking_request.equipment_needs %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @booking_request.notes %>
+</p>
+
+
+
+
+<%= link_to 'Edit', edit_booking_request_path(@booking_request) %> |
+<%= link_to 'Back', booking_requests_path %>

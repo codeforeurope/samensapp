@@ -1,0 +1,43 @@
+<%= labeled_form_for(@booking_request) do |f| %>
+  <% if @booking_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking_request.errors.count, "error") %> prohibited this <%= t :booking_request  %> from being
+        saved:</h2>
+
+      <ul>
+        <% @booking_request.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if !signed_in? %>
+    <%= f.fields_for :submitter, @booking_request.submitter do |b| %>
+      <%= render 'submitter_fields', f: b %>
+    <% end %>
+  <% else %>
+    <%= render 'submitter_info', f: b %>
+  <% end %>
+
+  <fieldset>
+
+    <%= f.datetime_select :start_time %>
+
+    <%= f.datetime_select :end_time %>
+
+    <%= f.number_field :people %>
+
+    <%= f.text_area :description %>
+
+    <%= f.text_area :catering_needs %>
+
+    <%= f.text_area :equipment_needs %>
+
+    <%= f.text_area :notes %>
+
+  </fieldset>
+
+  <%= f.submit %>
+
+<% end %>

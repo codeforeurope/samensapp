@@ -3,3 +3,27 @@
 
 en:
   hello: "Hello world"
+  booking_request: "Booking Request"
+
+  activerecord:
+    errors:
+      template:
+        header:
+          other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
+    models:
+      booking_request: "Booking Request"
+    attributes:
+      booking_request:  &booking_request
+        people:  "Number of People"
+  activemodel:
+    models:
+      booking_request: "Booking Request"
+    errors:
+      template:
+        header:
+          other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
+  helpers:
+      label:
+        booking_request:
+          << *booking_request
+

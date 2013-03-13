@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_time: 2013-03-12 17:50:01
+  end_time: 2013-03-12 17:50:01
+  people: 1
+  description: MyText
+  catering_needs: MyText
+  equipment_needs: MyText
+  notes: MyText
+  status: MyString
+
+two:
+  start_time: 2013-03-12 17:50:01
+  end_time: 2013-03-12 17:50:01
+  people: 1
+  description: MyText
+  catering_needs: MyText
+  equipment_needs: MyText
+  notes: MyText
+  status: MyString
