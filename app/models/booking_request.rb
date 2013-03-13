@@ -1,7 +1,7 @@
 class BookingRequest < ActiveRecord::Base
   attr_accessible :catering_needs, :description, :end_time, :equipment_needs, :notes, :people, :start_time, :submitter_id
 
-  before_create :save_submitter
+  before_create :create_code
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
   belongs_to :booking_agent, :class_name => 'User', :foreign_key => :assignee_id
   #has_many :events
@@ -12,7 +12,7 @@ class BookingRequest < ActiveRecord::Base
 
   private
 
-  def save_submitter
-    submitter.save(:validate => false) # this is very hacky, but will do for now
+  def create_code
+    self.code = Devise.friendly_token
   end
 end

@@ -23,7 +23,7 @@ en:
         header:
           other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
   helpers:
-      label:
-        booking_request:
-          << *booking_request
+    label:
+      booking_request:
+        << *booking_request
 

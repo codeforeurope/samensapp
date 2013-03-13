@@ -1,6 +1,6 @@
 class BookingRequestsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:new, :create, :show]
-  load_and_authorize_resource :except => [:create, :index]
+  before_filter :authenticate_user!, :except => [:new, :create, :by_code]
+  load_and_authorize_resource :except => [:create, :index, :by_code]
 
   # GET /booking_requests
   # GET /booking_requests.json
@@ -21,10 +21,26 @@ class BookingRequestsController < ApplicationController
     end
   end
 
+  def by_code
+    @booking_request = BookingRequest.find_all_by_code(params[:code]).first
+    respond_to do |format|
+      format.html # by_code.html.erb
+      format.json { render json: @booking_request }
+    end
+  end
+
   # GET /booking_requests/new
   # GET /booking_requests/new.json
   def new
-    @booking_request.submitter = User.new()
+
+    # we will default to current user for logged in people
+    if !current_user.nil?
+      @booking_request.submitter = current_user
+    else
+      @booking_request.submitter = User.new()
+    end
+
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @booking_request }
@@ -38,15 +54,39 @@ class BookingRequestsController < ApplicationController
   # POST /booking_requests
   # POST /booking_requests.json
   def create
-    submitter_hash =params[:booking_request].delete :submitter
-    submitter = User.find_all_by_email(submitter_hash[:email]).first || User.new(submitter_hash)
+    submitter_attributes = params[:booking_request].delete :submitter_attributes
+
+    # if user can create requests on behalf of others
+    # then there are 2 cases - existing user, new user
+
+    submitter = User.find_all_by_email(submitter_attributes[:email]).first
+
+    if !current_user.nil?
+      if cannot? :create_on_behalf, BookingRequest
+        # force to current user for people who can submit on behalf
+        submitter = current_user
+      end
+    else
+      if submitter.nil?
+        submitter = User.new(submitter_attributes)
+        submitter.make_silent
+
+      end
+    end
 
     @booking_request = BookingRequest.new(params[:booking_request])
     @booking_request.submitter = submitter
 
     respond_to do |format|
       if @booking_request.save
-        format.html { redirect_to @booking_request, notice: 'Booking request was successfully created.' }
+        format.html {
+          if !current_user.nil?
+            redirect_url = booking_request_url @booking_request
+          else
+            redirect_url = '/view_request/' + @booking_request.code
+          end
+          redirect_to redirect_url, notice: 'Booking request was successfully created.'
+        }
         format.json { render json: @booking_request, status: :created, location: @booking_request }
       else
         format.html { render action: "new" }

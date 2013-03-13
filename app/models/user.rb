@@ -12,9 +12,18 @@ class User < ActiveRecord::Base
   has_many :booking_requests, :foreign_key => :submitter_id
   belongs_to :organization
 
-  validates_presence_of :name
+  validates_presence_of :name, :phone, :address
 
   def has_role? (role)
     !roles.where(name: role).first.nil?
+  end
+
+  def make_silent
+    @silent = true
+  end
+
+  protected
+  def password_required?
+    super()  && !@silent
   end
 end
