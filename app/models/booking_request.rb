@@ -1,5 +1,6 @@
 class BookingRequest < ActiveRecord::Base
-  attr_accessible :catering_needs, :description, :end_time, :equipment_needs, :notes, :people, :start_time, :submitter_id
+  attr_accessible :catering_needs, :description, :end_time, :equipment_needs, :notes, :people, :start_time, :submitter_id,
+                  :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address
 
   before_create :create_code
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
@@ -10,9 +11,14 @@ class BookingRequest < ActiveRecord::Base
 
   validates_presence_of :submitter, :catering_needs, :description, :end_time, :equipment_needs, :people, :start_time
   validates_presence_of :contact_email,:contact_person,:contact_phone,:organization_address
+  validates_associated :submitter
+  #validate :validate_submitter
   private
 
   def create_code
     self.code = Devise.friendly_token
   end
+
+
+
 end

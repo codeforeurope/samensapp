@@ -7,9 +7,15 @@ en:
 
   activerecord:
     errors:
+      models:
+        user:
+          attributes:
+            email:
+              account_exists: " - account already exists. If it belongs to you please enter the password or log in before requesting the room"
       template:
         header:
           other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
+
     models:
       booking_request: "Booking Request"
     attributes:
@@ -22,6 +28,8 @@ en:
       template:
         header:
           other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
+      submitter:
+        account_exists: "account exists"
   helpers:
     label:
       booking_request:

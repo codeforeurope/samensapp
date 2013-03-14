@@ -34,7 +34,7 @@ class BookingRequestsController < ApplicationController
   def new
 
     # we will default to current user for logged in people
-    if !current_user.nil?
+    if signed_in?
       @booking_request.submitter = current_user
     else
       @booking_request.submitter = User.new()
@@ -54,40 +54,52 @@ class BookingRequestsController < ApplicationController
   # POST /booking_requests
   # POST /booking_requests.json
   def create
+    #first, let's get the submitter hash out so that there can't be any overwriting
     submitter_attributes = params[:booking_request].delete :submitter_attributes
 
-    # if user can create requests on behalf of others
-    # then there are 2 cases - existing user, new user
+    #create a booking request with everything but the user hash
+      @booking_request = BookingRequest.new(params[:booking_request])
 
-    submitter = User.find_all_by_email(submitter_attributes[:email]).first
 
-    if !current_user.nil?
+    #lookup the submitter by email or create one with hash provided
+    submitter = User.find_all_by_email(submitter_attributes[:email]).first || User.new(submitter_attributes)
+    #and make the submitter the submitter
+    @booking_request.submitter = submitter
+
+    if signed_in?
+      # if signed in and not able to submit request on others behalf, then we restrict to the current user
       if cannot? :create_on_behalf, BookingRequest
         # force to current user for people who can submit on behalf
-        submitter = current_user
-      end
-    else
-      if submitter.nil?
-        submitter = User.new(submitter_attributes)
-
-        submitter.make_silent  if (submitter_attributes[:password].nil? || submitter_attributes[:password_confirmation].nil? )
-
+        @booking_request.submitter = current_user
       end
     end
 
-    @booking_request = BookingRequest.new(params[:booking_request])
-    @booking_request.submitter = submitter
+    #if submitted is persisted, we need to see if it's activated. If so they must log in first.
+    submitter.submitter_hash = submitter_attributes
+    submitter.valid?
+
+    if submitter.persisted?
+      if !submitter.confirmed?
+        submitter.address = submitter_attributes[:address] if submitter.address.nil?
+        submitter.phone = submitter_attributes[:phone] if submitter.phone.nil?
+        submitter.mobile_phone = submitter_attributes[:mobile_phone] if submitter.mobile_phone.nil?
+      end
+    else
+      if submitter_attributes[:password].nil? && submitter_attributes[:password_confirmation].nil?
+        submitter.make_silent
+      end
+    end
+
+    #blahblah
+
 
     respond_to do |format|
       if @booking_request.save
-        format.html {
-          if !current_user.nil?
-            redirect_url = booking_request_url @booking_request
-          else
-            redirect_url = '/view_request/' + @booking_request.code
-          end
-          redirect_to redirect_url, notice: 'Booking request was successfully created.'
-        }
+        redirect_url = booking_request_url @booking_request
+        if !signed_in?
+          redirect_url = '/view_request/' + @booking_request.code
+        end
+        format.html { redirect_to redirect_url, notice: 'Booking request was successfully created.' }
         format.json { render json: @booking_request, status: :created, location: @booking_request }
       else
         format.html { render action: "new" }

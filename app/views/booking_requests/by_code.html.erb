@@ -1,2 +1,9 @@
 <%= render 'display' %>
 
+<% if @booking_request.submitter.valid_for_authentication? %>
+  <% if !@booking_request.submitter.confirmed? %>
+    <%= t :please_check_email_and_confirm %>
+  <% end %>
+<% else %>
+  <%= t :please_check_email_and_create_password %>
+<% end %>
