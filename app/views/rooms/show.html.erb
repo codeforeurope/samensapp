@@ -26,5 +26,18 @@
 </p>
 
 
+<p>
+  <% for picture in @room.pictures %>
+    <div>
+      <%= image_tag picture.image_url(:thumb) if picture.image? %>
+      <div><%= picture.description %></div>
+      <div>
+        <%= link_to "remove", picture, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+    </div>
+  <% end %>
+</p>
+
+
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
