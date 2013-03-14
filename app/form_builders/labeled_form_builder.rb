@@ -3,7 +3,9 @@ class LabeledFormBuilder < ActionView::Helpers::FormBuilder
 
   %w[subregion_select country_select email_field number_field text_field text_area password_field collection_select datetime_select].each do |method_name|
     define_method(method_name) do |name, *args|
-      content_tag :div, class: "field" do
+      options = args.extract_options!
+      class_names = "field" +(!options[:wrapper_class].nil? ? " "+ options[:wrapper_class] :"")
+      content_tag :div, class: class_names do
         field_label(name, *args) + super(name, *args)
       end
     end

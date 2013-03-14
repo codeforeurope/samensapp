@@ -69,7 +69,8 @@ class BookingRequestsController < ApplicationController
     else
       if submitter.nil?
         submitter = User.new(submitter_attributes)
-        submitter.make_silent
+
+        submitter.make_silent  if (submitter_attributes[:password].nil? || submitter_attributes[:password_confirmation].nil? )
 
       end
     end

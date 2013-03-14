@@ -24,6 +24,6 @@ class User < ActiveRecord::Base
 
   protected
   def password_required?
-    super()  && !@silent
+    super() && !@silent
   end
 end

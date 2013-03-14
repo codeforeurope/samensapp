@@ -4,4 +4,10 @@
   <%= f.text_field :phone, :type => "tel" %>
   <%= f.text_field :mobile_phone, :type => "tel" %>
   <%= f.text_area :address %>
+  <div class="field">
+    <%= check_box_tag :create_account %>
+    <%= label_tag :create_account %>
+  </div>
+  <%= f.password_field :password, :wrapper_class => "hidden" %>
+  <%= f.password_field :password_confirmation, :wrapper_class => "hidden" %>
 </fieldset>

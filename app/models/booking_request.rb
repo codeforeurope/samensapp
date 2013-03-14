@@ -9,7 +9,7 @@ class BookingRequest < ActiveRecord::Base
   accepts_nested_attributes_for :submitter
 
   validates_presence_of :submitter, :catering_needs, :description, :end_time, :equipment_needs, :people, :start_time
-
+  validates_presence_of :contact_email,:contact_person,:contact_phone,:organization_address
   private
 
   def create_code
