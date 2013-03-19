@@ -27,15 +27,17 @@
 
 
 <p>
+<div id="pictures">
   <% for picture in @room.pictures %>
-    <div>
+    <div class="picture">
       <%= image_tag picture.image_url(:thumb) if picture.image? %>
-      <div><%= picture.description %></div>
-      <div>
+      <div class="description"><%= picture.description %></div>
+      <div class="action">
         <%= link_to "remove", picture, :confirm => 'Are you sure?', :method => :delete %>
       </div>
     </div>
   <% end %>
+  </div>
 </p>
 
 

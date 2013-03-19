@@ -1,4 +1,4 @@
-<%= form_for(@room) do |f| %>
+<%= form_for(@room, :html=>{:multipart => true }) do |f| %>
   <% if @room.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
@@ -31,6 +31,25 @@
     <%= f.label :capacity %><br />
     <%= f.number_field :capacity %>
   </div>
+
+
+  <%= f.fields_for :picture do |attachment_form|  %>
+    <p>
+      <%= image_tag(attachment_form.object.image.url) if attachment_form.object.image? %>
+    </p>
+    <p>
+      <%= attachment_form.label :description %><br />
+      <%= attachment_form.text_field :description %>
+    </p>
+    <p>
+      <%= attachment_form.label :image %><br />
+      <%= attachment_form.file_field :image %>
+    </p>
+    <%= attachment_form.link_to_remove "Remove this attachment" %>
+  <% end %>
+  <%= f.link_to_add "Add attachment", :pictures %>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
