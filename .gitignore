@@ -17,3 +17,6 @@
 # Ignore intellij cruft
 .idea/*
 .env
+
+# Ignore Mac OS X files
+.DS_Store
