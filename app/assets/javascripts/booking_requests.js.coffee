@@ -10,8 +10,14 @@ jQuery ->
       $("#booking_request_contact_phone").val $("#booking_request_submitter_attributes_phone").val()
       $("#booking_request_organization_address").val $("#booking_request_submitter_attributes_address").val()
   $("#booking_request_submitter_attributes_create_account").change( (e)->
+    console.log($(this))
     if $(this).prop('checked') == true
-      $(this).parent().parent().find("input[type=password]").parent().show()
+      $(this).parent().parent().parent().find("input[type=password]").parent().parent().show()
     else
-      $(this).parent().parent().find("input[type=password]").parent().hide()
+      $(this).parent().parent().parent().find("input[type=password]").parent().parent().hide()
   ).change()
+  $('.select_submitter').click (e)->
+    e.preventDefault();
+
+  $('.new_submitter').click (e)->
+    e.preventDefault();

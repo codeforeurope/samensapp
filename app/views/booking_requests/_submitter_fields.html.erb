@@ -1,11 +1,12 @@
 <fieldset>
-  <%= f.text_field :name %>
-  <%= f.email_field :email %>
-  <%= f.text_field :phone, :type => "tel" %>
-  <%= f.text_field :mobile_phone, :type => "tel" %>
-  <%= f.text_area :address %>
-  <%= f.check_box :create_account %>
+  <legend><%= t :my_info %></legend>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :phone, :type => "tel" %>
+  <%= f.input :mobile_phone, :type => "tel" %>
+  <%= f.input :address, :input_html => {:rows => 5, :cols => 60} %>
+  <%= f.input :create_account, :as => :boolean %>
 
-  <%= f.password_field :password, :wrapper_class => "hidden" %>
-  <%= f.password_field :password_confirmation, :wrapper_class => "hidden" %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
 </fieldset>

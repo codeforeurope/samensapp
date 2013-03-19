@@ -1,46 +1,52 @@
-<%= labeled_form_for(@booking_request) do |f| %>
-  <% if @booking_request.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@booking_request.errors.count, "error") %> prohibited this <%= t :booking_request  %> from being
-        saved:</h2>
+<div class="row">
+  <div class="span6">
 
-      <ul>
-        <% @booking_request.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+
+    <%= simple_form_for(@booking_request, :html => {class: 'form-horizontal'}) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.simple_fields_for :submitter, @booking_request.submitter do |b| %>
+          <% if !signed_in? %>
+            <%= render 'submitter_fields', f: b %>
+          <% else %>
+            <%= render 'submitter_info', f: b %>
+          <% end %>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <fieldset>
+          <legend><%= t :organization_info %></legend>
+          <div class="control-group">
+            <div class="controls copy">
+              <%= label_tag :copy_personal_info, :copy_personal_info, :class => "checkbox" do %>
+                <%= check_box_tag :copy_personal_info %> <%= t :copy_personal_info %>
+              <% end %>
+            </div>
 
-  <% if !signed_in? %>
-    <%= f.fields_for :submitter, @booking_request.submitter do |b| %>
-      <%= render 'submitter_fields', f: b %>
+          </div>
+
+          <%= f.input :organization_name %>
+          <%= f.input :contact_person %>
+          <%= f.input :contact_email %>
+          <%= f.input :contact_phone, :type => "tel" %>
+          <%= f.input :organization_address, :input_html => {:rows => 5, :cols => 60} %>
+        </fieldset>
+        <fieldset>
+          <legend><%= t :event_details %></legend>
+          <%= f.input :start_time, :as => :string, :class => "datepicker" %>
+          <%= f.input :end_time, :as => :string, :class => "datepicker" %>
+          <%= f.input :people %>
+          <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
+          <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
+          <%= f.input :equipment_needs, :input_html => {:rows => 5, :cols => 60} %>
+          <%= f.input :notes, :input_html => {:rows => 5, :cols => 60} %>
+        </fieldset>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, :class => 'btn-primary' %>
+        <%= link_to 'Back', root_path, :class => 'btn' %>
+      </div>
+
     <% end %>
-  <% else %>
-    <%= render 'submitter_info', f: b %>
-  <% end %>
-
-  <fieldset>
-    <div class="field">
-      <%= check_box_tag :copy_personal_info %>
-      <%= label_tag :copy_personal_info %>
-    </div>
-    <%= f.text_field :organization_name %>
-    <%= f.text_field :contact_person %>
-    <%= f.email_field :contact_email %>
-    <%= f.text_field :contact_phone, :type => "tel" %>
-    <%= f.text_area :organization_address %>
-  </fieldset>
-  <fieldset>
-    <%= f.datetime_select :start_time %>
-    <%= f.datetime_select :end_time %>
-    <%= f.number_field :people %>
-    <%= f.text_area :description %>
-    <%= f.text_area :catering_needs %>
-    <%= f.text_area :equipment_needs %>
-    <%= f.text_area :notes %>
-  </fieldset>
-
-  <%= f.submit %>
-
-<% end %>
+  </div>
+</div>
