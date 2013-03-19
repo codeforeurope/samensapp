@@ -1,15 +1,5 @@
 Samensapp::Application.routes.draw do
 
-  get "pictures/index"
-
-  get "pictures/new"
-
-  get "pictures/show"
-
-  get "pictures/update"
-
-  get "pictures/destroy"
-
   resources :buildings
   resources :organizations
   resources :booking_requests
