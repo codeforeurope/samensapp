@@ -20,3 +20,5 @@
 
 # emacs auto-save files
 *~
+
+public/uploads/*
