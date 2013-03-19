@@ -4,7 +4,12 @@
 en:
   hello: "Hello world"
   booking_request: "Booking Request"
-
+  my_info: "Your Information"
+  navbar:
+    company_name: "De Meevaart"
+    submit_request: "Request a Room"
+    profile: "Profile"
+    logged_in_as: ""
   activerecord:
     errors:
       models:
@@ -21,6 +26,7 @@ en:
     attributes:
       booking_request:  &booking_request
         people:  "Number of People"
+
   activemodel:
     models:
       booking_request: "Booking Request"
