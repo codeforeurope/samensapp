@@ -17,3 +17,6 @@
 # Ignore intellij cruft
 .idea/*
 .env
+
+# emacs auto-save files
+*~

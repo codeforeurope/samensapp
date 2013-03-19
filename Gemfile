@@ -24,6 +24,8 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+	#jquery file upload
+	gem "jquery-fileupload-rails", '~> 0.4.1'
 end
 
 gem 'jquery-rails'
@@ -42,3 +44,4 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+

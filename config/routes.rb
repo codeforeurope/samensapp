@@ -1,5 +1,8 @@
 Samensapp::Application.routes.draw do
 
+  resources :paintings
+
+
   get "pictures/index"
 
   get "pictures/new"

@@ -1,0 +1,28 @@
+<h1><%= @painting.name %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Room:</b>
+  <%= @painting.room_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @painting.name %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= @painting.image %>
+</p>
+
+<p><%= image_tag @painting.image_url %></p>
+
+
+<p>
+  <%= link_to "Edit", edit_painting_path(@painting) %> |
+  <%= link_to "Destroy", @painting, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Back to Paintings", paintings_path %>
+</p>
+
