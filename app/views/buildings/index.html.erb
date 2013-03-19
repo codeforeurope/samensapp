@@ -1,31 +1,40 @@
-<h1>Listing buildings</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Adress</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-  <% @buildings.each do |building| %>
+<%- model_class = Building -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:organization_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @buildings.each do |building| %>
       <tr>
+        <td><%= link_to building.id, building_path(building) %></td>
         <td><%= building.name %></td>
         <td><%= building.address %></td>
-        <td><%= link_to 'Show', building %></td>
-        <% if can? :update, building %>
-            <td><%= link_to 'Edit', edit_building_path(building) %></td>
-        <% end %>
-        <% if can? :delete, building %>
-            <td><%= link_to 'Destroy', building, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-        <% end %>
+        <td><%= building.organization_id %></td>
+        <td><%=l building.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_building_path(building), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      building_path(building),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
       </tr>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>
 
-<br/>
-
-<% if can? :create, Building %>
-    <%= link_to 'New Building', new_building_path %>
-<% end %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_building_path,
+            :class => 'btn btn-primary' %>
