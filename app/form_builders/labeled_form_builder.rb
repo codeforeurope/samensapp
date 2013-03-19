@@ -4,10 +4,14 @@ class LabeledFormBuilder < ActionView::Helpers::FormBuilder
   %w[subregion_select country_select email_field number_field text_field text_area password_field collection_select datetime_select].each do |method_name|
     define_method(method_name) do |name, *args|
       options = args.extract_options!
-      class_names = "field" +(!options[:wrapper_class].nil? ? " "+ options[:wrapper_class] :"")
+      class_names = "control-group" +(!options[:wrapper_class].nil? ? " "+ options[:wrapper_class] : "")
       content_tag :div, class: class_names do
-        field_label(name, *args) + super(name, *args)
+        wrap = content_tag :div, class: 'controls' do
+          super(name, *args)
+        end
+        field_label(name, *args) + wrap
       end
+
     end
   end
 
@@ -22,7 +26,7 @@ class LabeledFormBuilder < ActionView::Helpers::FormBuilder
       @template.hidden_field_tag("#{object_name}[#{attribute}][]") +
           records.map do |record|
             element_id = "#{object_name}_#{attribute}_#{record.send(record_id)}"
-            checkbox = @template.check_box_tag("#{object_name}[#{attribute}][]", record.send(record_id),  object.send(attribute).include?(record.send(record_id)), id: element_id)
+            checkbox = @template.check_box_tag("#{object_name}[#{attribute}][]", record.send(record_id), object.send(attribute).include?(record.send(record_id)), id: element_id)
             checkbox + " " + @template.label_tag(element_id, record.send(record_name))
           end.join(tag(:br)).html_safe
     end
@@ -52,7 +56,9 @@ class LabeledFormBuilder < ActionView::Helpers::FormBuilder
   def field_label(name, *args)
     options = args.extract_options!
     required = object.class.validators_on(name).any? { |v| v.kind_of? ActiveModel::Validations::PresenceValidator }
-    label(name, options[:label], class: ("required" if required))
+    class_names = "control-label"
+    class_names.concat(" required") if required
+    label(name, options[:label], class: class_names)
   end
 
   def objectify_options(options)
