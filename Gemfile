@@ -11,8 +11,10 @@ gem 'cancan'
 gem 'redis'
 gem 'simple_form'
 #Image upload and resize
+gem 'fog'
 gem "mini_magick"
 gem "carrierwave"
+
 
 
 # Gems used only for assets and not required
