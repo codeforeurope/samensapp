@@ -25,21 +25,15 @@
   <%= @room.capacity %>
 </p>
 
-
 <p>
-<div id="pictures">
-  <% for picture in @room.pictures %>
-    <div class="picture">
-      <%= image_tag picture.image_url(:thumb) if picture.image? %>
-      <div class="description"><%= picture.description %></div>
-      <div class="action">
-        <%= link_to "remove", picture, :confirm => 'Are you sure?', :method => :delete %>
-      </div>
-    </div>
-  <% end %>
-  </div>
+  <%= render "pictures/pictures" %>
 </p>
 
+<% if can? :create, @room.pictures %>
+  <p>
+    <%= render "pictures/form" %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>

@@ -1,0 +1,23 @@
+<%= form_for([@attachable_picture, @picture], :html=>{:multipart => true }) do |f| %>
+  <% if @picture.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+        <% @picture.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.file_field :image %>
+  </p>
+
+  <p><%= f.submit %></p>
+  </div>
+<% end %>
