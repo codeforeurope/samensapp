@@ -1,12 +1,26 @@
-<fieldset>
+<fieldset class="su">
   <legend><%= t :my_info %></legend>
-  <%= f.input :name %>
-  <%= f.input :email %>
-  <%= f.input :phone, :type => "tel" %>
-  <%= f.input :mobile_phone, :type => "tel" %>
-  <%= f.input :address, :input_html => {:rows => 5, :cols => 60} %>
-  <%= f.input :create_account, :as => :boolean %>
-
-  <%= f.input :password %>
-  <%= f.input :password_confirmation %>
+  <div class="row">
+    <div class="span5">
+      <%= f.input :email %>
+      <%= f.input :name %>
+      <%= f.input :phone, :type => :tel %>
+      <%= f.input :mobile_phone, :type => :tel %>
+      <%= f.input :address, :input_html => {:rows => 5, :cols => 60} %>
+      <% if !signed_in? %>
+        <%= f.input :create_account, :as => :boolean %>
+        <%= f.input :password, :type => :password %>
+        <%= f.input :password_confirmation, :type => :password %>
+      <% end %>
+    </div>
+    <div class="span2">
+      <% if signed_in? %>
+        <% if @booking_request.submitter.id == current_user.id %>
+          <%= link_to :edit_profile, false, :class => "btn edit-profile" %>
+        <% else %>
+          <%= link_to :lookup_user, false, :class => "btn lookup-user" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </fieldset>

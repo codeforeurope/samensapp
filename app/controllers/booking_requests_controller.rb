@@ -34,7 +34,7 @@ class BookingRequestsController < ApplicationController
   def new
 
     # we will default to current user for logged in people
-    if signed_in?
+    if signed_in? and cannot? :create_on_behalf, BookingRequest
       @booking_request.submitter = current_user
     else
       @booking_request.submitter = User.new()
