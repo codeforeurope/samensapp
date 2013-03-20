@@ -27,9 +27,16 @@
 
 <h1>Painting Gallery</h1>
 
-<div id="paintings">
-  <%= render @room.paintings %>
+<% @room.paintings.each do |painting| %>
+<div class="painting">
+  <%= link_to image_tag(painting.image_url(:thumb)), painting if painting.image? %>
+  <div class="name"><%= painting.name %></div>
+  <div class="actions">
+    <%= link_to "edit", edit_painting_path(painting) %> |
+    <%= link_to "remove", painting, :confirm => 'Are you sure?', :method => :delete %>
+  </div>
 </div>
+<% end %>
 <div class="clear"></div>
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
