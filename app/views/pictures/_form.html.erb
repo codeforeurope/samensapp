@@ -15,7 +15,7 @@
     <%= f.text_field :description %>
   </p>
   <p>
-    <%= f.file_field :image %>
+    <%= f.file_field :image, multiple: true, name: "picture[image]" %>
   </p>
 
   <p><%= f.submit %></p>

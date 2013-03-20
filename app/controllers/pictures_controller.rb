@@ -13,7 +13,7 @@ class PicturesController < ApplicationController
   def create
     @picture = @attachable_picture.pictures.new(params[:picture])
     if @picture.save
-      redirect_to @attachable_picture, notice: "Picture created."
+      #flash "Picture Created." # redirect_to @attachable_picture, notice: "Picture created."
     else
       render :new
     end

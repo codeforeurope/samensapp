@@ -15,4 +15,6 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require twitter/bootstrap_ujs
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree .
