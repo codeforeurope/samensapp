@@ -1,0 +1,9 @@
+<div class="picture">
+  <%= image_tag @picture.image_url(:thumb) if @picture.image? %>
+  <div class="description"><%= @picture.description %></div>
+  <% if can? :delete, @picture %>
+    <div class="actions">
+      <%= link_to 'remove', [@attachable_picture, @picture], :method => :delete, :data => {confirm: "Are you sure?"} %>
+    </div>
+  <% end %>
+</div>
