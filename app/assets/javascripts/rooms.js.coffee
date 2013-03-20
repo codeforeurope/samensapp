@@ -21,6 +21,3 @@ jQuery ->
       $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
         $('#pictureModal').modal 'hide'
     )
-
-
-#TODO: refresh the page or the div containing the updated description
