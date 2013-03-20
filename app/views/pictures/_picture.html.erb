@@ -1,9 +1,17 @@
 <div class="picture">
-  <%= image_tag @picture.image_url(:thumb) if @picture.image? %>
-  <div class="description"><%= @picture.description %></div>
-  <% if can? :delete, @picture %>
-    <div class="actions">
-      <%= link_to 'remove', [@attachable_picture, @picture], :method => :delete, :data => {confirm: "Are you sure?"} %>
-    </div>
-  <% end %>
+  <%= image_tag picture.image_url(:thumb) if picture.image? %>
+  <div class="description"><%= picture.description %></div>
+  <div class="actions">
+    <% if can? :manage, picture %>
+      <!-- Button to trigger modal -->
+      <a href="#" data-toggle="modal" class="edit-picture" data-picture-id="<%= picture.id %>">edit</a>
+    <% end %>
+    |
+    <% if can? :delete, picture %>
+      <%= link_to 'remove', [@attachable_picture, picture], :method => :delete, :data => {confirm: "Are you sure?"} %>
+    <% end %>
+  </div>
 </div>
+
+
+
