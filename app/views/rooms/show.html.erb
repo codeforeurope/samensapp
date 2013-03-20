@@ -3,10 +3,12 @@
   <h1><%= @room.name unless @room.name == nil?%></h1>
 </div>
 
-<fieldset>
+<fieldset class="">
   <legend>Pictures</legend>
   <div class="span9">
+    <div id="pictures">
     <%= render "pictures/pictures" %>
+    </div>
   </div>
   <div>
     <% if can? :create, @room.pictures %>

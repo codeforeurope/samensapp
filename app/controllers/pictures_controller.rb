@@ -4,6 +4,11 @@ class PicturesController < ApplicationController
 
   def index
     @pictures = @attachable_picture.pictures
+    respond_to do |format|
+      format.html {
+        render :partial => "pictures/pictures", :locals => {}
+      }
+    end
   end
 
   def new

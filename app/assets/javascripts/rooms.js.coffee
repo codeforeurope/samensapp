@@ -4,10 +4,16 @@
 jQuery ->
   $('#new_picture').fileupload
 
-  $('.edit-picture').on 'click', (e) ->
-    e.preventDefault()
-    $('#pictureModal').data("picture-id", $(this).data("picture-id"))
-    $('#pictureModal').modal "show"
+  onPictureEdit = ->
+    $('.edit-picture').on 'click', (e) ->
+      e.preventDefault()
+      $('#pictureModal').data("picture-id", $(this).data("picture-id"))
+      $('#pictureModal').modal "show"
+
+  onPictureEdit()
+
+  $('#pictureModal').on 'hide', (e) ->
+    $('#pictures').load(window.location.pathname + "/pictures", onPictureEdit)
 
   $('#pictureModal').on 'shown', (e) ->
     console.log($(this).data("picture-id"))
@@ -15,3 +21,6 @@ jQuery ->
       $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
         $('#pictureModal').modal 'hide'
     )
+
+
+#TODO: refresh the page or the div containing the updated description
