@@ -9,31 +9,37 @@
         </fieldset>
         <fieldset>
           <legend><%= t :organization_info %></legend>
+          <div class="row">
+            <div class="span5">
+              <div class="control-group">
+                <div class="controls copy">
+                  <%= label_tag :copy_personal_info, :copy_personal_info, :class => "checkbox" do %>
+                    <%= check_box_tag :copy_personal_info %> <%= t :copy_personal_info %>
+                  <% end %>
+                </div>
 
-          <div class="control-group">
-            <div class="controls copy">
-              <%= label_tag :copy_personal_info, :copy_personal_info, :class => "checkbox" do %>
-                <%= check_box_tag :copy_personal_info %> <%= t :copy_personal_info %>
-              <% end %>
+              </div>
+
+              <%= f.input :organization_name %>
+              <%= f.input :contact_person %>
+              <%= f.input :contact_email %>
+              <%= f.input :contact_phone, :type => "tel" %>
+              <%= f.input :organization_address, :input_html => {:rows => 5, :cols => 60} %>
             </div>
-
           </div>
-
-          <%= f.input :organization_name %>
-          <%= f.input :contact_person %>
-          <%= f.input :contact_email %>
-          <%= f.input :contact_phone, :type => "tel" %>
-          <%= f.input :organization_address, :input_html => {:rows => 5, :cols => 60} %>
         </fieldset>
         <fieldset>
           <legend><%= t :event_details %></legend>
-          <%= f.input :start_time, :as => :string, :input_html => {:class => "datepicker"} %>
-          <%= f.input :end_time, :as => :string, :input_html => {:class => "datepicker"} %>
-          <%= f.input :people %>
-          <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
-          <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
-          <%= f.input :equipment_needs, :input_html => {:rows => 5, :cols => 60} %>
-          <%= f.input :notes, :input_html => {:rows => 5, :cols => 60} %>
+          <div class="row">
+            <div class="span5">          <%= f.input :start_time, :as => :string, :input_html => {:class => "datepicker"} %>
+              <%= f.input :end_time, :as => :string, :input_html => {:class => "datepicker"} %>
+              <%= f.input :people %>
+              <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :equipment_needs, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :notes, :input_html => {:rows => 5, :cols => 60} %>
+            </div>
+          </div>
         </fieldset>
       </div>
       <%= render 'modals' %>
