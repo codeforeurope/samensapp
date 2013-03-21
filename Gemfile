@@ -7,6 +7,7 @@ gem 'rails', '3.2.12'
 
 gem 'pg'
 gem 'devise'
+gem 'devise-i18n-views'
 gem 'cancan'
 gem 'redis'
 gem 'simple_form'
