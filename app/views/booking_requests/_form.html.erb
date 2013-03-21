@@ -5,7 +5,7 @@
 
       <div class="form-inputs">
         <fieldset class="submitter">
-            <%= render 'submitter_fields', f: f %>
+          <%= render 'submitter_fields', f: f %>
         </fieldset>
         <fieldset>
           <legend><%= t :organization_info %></legend>
@@ -49,12 +49,14 @@
 
 
 <% content_for :scripts do %>
-  <% if signed_in? and cannot? :create_on_behalf, BookingRequest %>
-    <script>
-      $(document).ready(function () {
-        $("#new_booking_request").trigger("disable");
-      })
-    </script>
+  <% if signed_in?
+       if (cannot? :create_on_behalf, BookingRequest) || (can? :create_on_behalf, BookingRequest and !@booking_request.submitter.nil?) %>
+      <script>
+        $(document).ready(function () {
+          $("#new_booking_request").trigger("disable");
+        })
+      </script>
 
+    <% end %>
   <% end %>
 <% end %>
