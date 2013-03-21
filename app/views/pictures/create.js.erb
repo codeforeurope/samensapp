@@ -1,5 +1,6 @@
 <% if @picture.new_record? %>
 alert("Failed to upload picture: <%= j @picture.errors.full_messages.join(', ').html_safe %>");
 <% else %>
-$("#pictures").append("<%= j render(@picture) %>");
+$("picturesCarousel").load(window.location.pathname + "/pictures")
+//$("#pictures").append("<%= j render(@picture) %>");
 <% end %>

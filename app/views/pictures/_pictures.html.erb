@@ -1,11 +1,39 @@
-  <% @pictures.each do |picture| %>
-   <%= render picture %>
+<ol class="carousel-indicators">
+  <li data-target="#picturesCarousel" data-slide-to="0" class="active"></li>
+  <% for num in 1 ... @pictures.count %>
+    <li data-target="#picturesCarousel" data-slide-to="<%= num %>"></li>
   <% end %>
-  <div class="clear"></div>
+</ol>
+<!-- Carousel items -->
+<div class="carousel-inner" id="carouselInner">
+  <% @pictures.each_with_index do |picture, index| %>
+    <%
+       if @active_picture.id
+         is_active = (picture.id == @active_picture.id)
+       else
+         is_active = (index == 0)
+       end
+    %>
+    <div class="item <%= "active" if is_active %>">
+      <div class="carousel-caption">
+        <h4><%= picture.description %></h4>
 
-<script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
-    {%=o.name%}
-    <div class="progress"><div class="bar" style="width: 0%;"></div></div>
-  </div>
-</script>
+        <p>
+          <% if can? :manage, picture %>
+            <!-- Button to trigger modal -->
+            <a href="#" data-toggle="modal" class="edit-picture" data-picture-id="<%= picture.id %>">edit</a>
+          <% end %>
+          <% if can? :delete, picture %>
+            <%= link_to 'remove', [@attachable_picture, picture], :method => :delete, :data => {confirm: "Are you sure?"} %>
+          <% end %>
+        </p>
+      </div>
+      <%= image_tag picture.image_url(:large) if picture.image? %>
+    </div>
+  <% end %>
+</div>
+<!-- Carousel nav -->
+<% if @pictures.count > 1 %>
+  <a class="carousel-control left" href="#picturesCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#picturesCarousel" data-slide="next">&rsaquo;</a>
+<% end %>

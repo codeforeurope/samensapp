@@ -3,10 +3,16 @@ class PicturesController < ApplicationController
   before_filter :load_attachable_picture
 
   def index
-    @pictures = @attachable_picture.pictures
+    @pictures = @attachable_picture.pictures.order("created_at asc")
+    if params[:active_picture_id]
+      @active_picture = @attachable_picture.pictures.find(params[:active_picture_id])   #.where(:id => params[:active_picture_id])
+    else
+      @active_picture = @attachable_picture.pictures.first
+    end
+
     respond_to do |format|
       format.html {
-        render :partial => "pictures/pictures", :locals => {}
+        render :partial => "pictures/pictures", :locals => {:active_picture => @active_picture}
       }
     end
   end

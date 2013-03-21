@@ -13,3 +13,4 @@
  *= require jquery.fileupload-ui
  *= require_tree .
  */
+form { margin: 0 !important;}

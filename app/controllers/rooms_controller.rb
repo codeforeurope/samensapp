@@ -16,6 +16,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @attachable_picture = @room
     @pictures = @attachable_picture.pictures
+    @active_picture = @attachable_picture.pictures.first
     @picture = Picture.new
 
     respond_to do |format|

@@ -12,12 +12,17 @@ jQuery ->
 
   onPictureEdit()
 
+  afterEdit = ->
+    $('#pictureCarousel').slider()
+    onPictureEdit()
+
   $('#pictureModal').on 'hide', (e) ->
-    $('#pictures').load(window.location.pathname + "/pictures", onPictureEdit)
+    picture_id = $(this).data("picture-id")
+    $('#picturesCarousel').load(window.location.pathname + "/pictures?active_picture_id=" + picture_id, afterEdit)
 
   $('#pictureModal').on 'shown', (e) ->
     console.log($(this).data("picture-id"))
-    $(this).find('.modal-body').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
+    $('#pictureModal').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
       $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
         $('#pictureModal').modal 'hide'
     )
