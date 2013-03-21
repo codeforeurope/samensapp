@@ -1,0 +1,25 @@
+<div id="lookup_users_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="LookupUsers" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="lookup_users_label"><%= t :lookup_users %></h3>
+
+  </div>
+  <div class="search clearfix">
+
+    <label for="lookup_user_search" class="pull-right"><%= t :search %>
+      <input type="text" class="input-medium search-query" id="lookup_user_search">
+      <button type="submit" class="btn">Search</button>
+    </label>
+
+  </div>
+  <div class="modal-body">
+
+    <div class="results">
+      <p><%= t :loading %></p>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= t :close %></button>
+  </div>
+</div>

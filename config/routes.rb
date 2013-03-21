@@ -2,7 +2,11 @@ Samensapp::Application.routes.draw do
 
   resources :buildings
   resources :organizations
-  resources :booking_requests
+  resources :booking_requests do
+    collection do
+      get :find_user_by_email
+    end
+  end
   get '/view_request/:code', :to => "booking_requests#by_code"
 
   resources :rooms do

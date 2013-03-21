@@ -1,0 +1,22 @@
+<% if users.empty? %>
+  <p><%= t :cant_find_any_users %></p>
+<% else %>
+  <table class="table table-striped  table-hover">
+    <thead>
+    <tr>
+      <th><%= t(:name) %></th>
+      <th><%= t(:email) %></th>
+      <th><%= t(:phone) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <% users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= button_tag :select, {:type => :button, :class => "btn btn-primary", "data-submitter-id" => user.id} %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

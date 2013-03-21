@@ -1,16 +1,12 @@
 <div class="row">
   <div class="span7">
-
-
     <%= simple_form_for(@booking_request, :html => {class: 'form-horizontal'}) do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs">
-        <%= f.simple_fields_for :submitter, @booking_request.submitter do |b| %>
-
-          <%= render 'submitter_fields', f: b %>
-
-        <% end %>
+        <fieldset class="submitter">
+            <%= render 'submitter_fields', f: f %>
+        </fieldset>
         <fieldset>
           <legend><%= t :organization_info %></legend>
 
@@ -31,8 +27,8 @@
         </fieldset>
         <fieldset>
           <legend><%= t :event_details %></legend>
-          <%= f.input :start_time, :as => :string, :class => "datepicker" %>
-          <%= f.input :end_time, :as => :string, :class => "datepicker" %>
+          <%= f.input :start_time, :as => :string, :input_html => {:class => "datepicker"} %>
+          <%= f.input :end_time, :as => :string, :input_html => {:class => "datepicker"} %>
           <%= f.input :people %>
           <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
           <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
@@ -40,7 +36,7 @@
           <%= f.input :notes, :input_html => {:rows => 5, :cols => 60} %>
         </fieldset>
       </div>
-
+      <%= render 'modals' %>
       <div class="form-actions">
         <%= f.button :submit, :class => 'btn-primary' %>
         <%= link_to 'Back', root_path, :class => 'btn' %>
@@ -50,25 +46,13 @@
   </div>
 </div>
 
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
-</div>
+
 
 <% content_for :scripts do %>
   <% if signed_in? and cannot? :create_on_behalf, BookingRequest %>
     <script>
       $(document).ready(function () {
-          $("#new_booking_request").trigger("disable");
+        $("#new_booking_request").trigger("disable");
       })
     </script>
 

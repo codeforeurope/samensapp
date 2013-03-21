@@ -32,12 +32,18 @@ class BookingRequestsController < ApplicationController
   # GET /booking_requests/new
   # GET /booking_requests/new.json
   def new
+    @booking_request.submitter = User.new()
 
     # we will default to current user for logged in people
-    if signed_in? and cannot? :create_on_behalf, BookingRequest
-      @booking_request.submitter = current_user
-    else
-      @booking_request.submitter = User.new()
+    if signed_in?
+      if cannot? :create_on_behalf, BookingRequest
+        @booking_request.submitter = current_user
+      else
+        if params[:submitter_id]
+          @booking_request.submitter = User.find(params[:submitter_id])
+        end
+      end
+
     end
 
 
@@ -58,7 +64,7 @@ class BookingRequestsController < ApplicationController
     submitter_attributes = params[:booking_request].delete :submitter_attributes
 
     #create a booking request with everything but the user hash
-      @booking_request = BookingRequest.new(params[:booking_request])
+    @booking_request = BookingRequest.new(params[:booking_request])
 
 
     #lookup the submitter by email or create one with hash provided
@@ -133,5 +139,16 @@ class BookingRequestsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def find_user_by_email
+    @users = User.where(["email LIKE ?", "%#{params[:email]}%"])
+    respond_to do |format|
+      format.html {
+        render :partial => "user_list", :locals => {:users => @users}
+      }
+
+    end
+  end
+
 
 end
