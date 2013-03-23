@@ -2,7 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
   booking_request: "Booking Request"
   my_info: "Your Information"
   edit_profile: "Edit Profile"
@@ -17,7 +16,7 @@ en:
         user:
           attributes:
             email:
-              account_exists: " - account already exists. If it belongs to you please enter the password or log in before requesting the room"
+              account_exists: "account already exists. If it belongs to you please enter the password or log in before requesting the room"
       template:
         header:
           other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
