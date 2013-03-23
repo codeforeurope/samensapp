@@ -10,14 +10,12 @@ jQuery ->
   onPictureClick = ->
     $('.open-picture').on 'click', (e) ->
       e.preventDefault()
-      console.log($(this).data("picture-id"))
       $('#carouselModal').data("picture-id", $(this).data("picture-id"))
       $('#carouselModal').modal "show"
 
   onPictureClick()
 
   $('#carouselModal').on 'shown', (e) ->
-    console.log($(this).data("picture-id"))
     picture_id = $(this).data("picture-id")
     $('#carouselModal').load(window.location.pathname + "/pictures/"+ picture_id + "/carousel?active_picture_id=" + picture_id)
 

@@ -6,7 +6,7 @@
   <ol class="carousel-indicators">
     <% @pictures.each_with_index do |picture, index| %>
       <li data-target="#picturesCarousel" data-slide-to="<%= index %>" <%= 'class=active' if picture.id == @active_picture.id %>></li>
-  <% end %>
+    <% end %>
   </ol>
   <!-- Carousel items -->
   <div class="carousel-inner" id="carouselInner">
