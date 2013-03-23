@@ -11,18 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314133535) do
-
-  create_table "attachments", :force => true do |t|
-    t.string   "description"
-    t.string   "file"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
+ActiveRecord::Schema.define(:version => 20130322161224) do
 
   create_table "booking_requests", :force => true do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.integer  "people"
     t.text     "description"
     t.text     "catering_needs"
