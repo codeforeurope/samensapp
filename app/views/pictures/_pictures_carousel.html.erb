@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Pictures</h3>
+</div>
+<div id="picturesCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <% @pictures.each_with_index do |picture, index| %>
+      <li data-target="#picturesCarousel" data-slide-to="<%= index %>" <%= 'class=active' if picture.id == @active_picture.id %>></li>
+  <% end %>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner" id="carouselInner">
+    <% @pictures.each_with_index do |picture, index| %>
+      <div class="item <%= "active" if picture.id == @active_picture.id %>">
+        <div class="carousel-caption">
+          <h4><%= picture.description %></h4>
+        </div>
+        <%= image_tag picture.image_url(:large) if picture.image? %>
+      </div>
+    <% end %>
+  </div>
+  <!-- Carousel nav -->
+  <% if @pictures.count > 1 %>
+    <a class="carousel-control left" href="#picturesCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#picturesCarousel" data-slide="next">&rsaquo;</a>
+  <% end %>
+</div>

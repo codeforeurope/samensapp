@@ -10,7 +10,9 @@ Samensapp::Application.routes.draw do
   get '/view_request/:code', :to => "booking_requests#by_code"
 
   resources :rooms do
-    resources :pictures
+    resources :pictures do
+      match '/carousel', :to => "pictures#carousel"
+    end
   end
 
   devise_for :users

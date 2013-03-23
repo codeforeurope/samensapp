@@ -4,6 +4,27 @@
 jQuery ->
   $('#new_picture').fileupload
 
+  openPicture = ->
+    $('#pictureModal').modal "show"
+
+  onPictureClick = ->
+    $('.open-picture').on 'click', (e) ->
+      e.preventDefault()
+      console.log($(this).data("picture-id"))
+      $('#carouselModal').data("picture-id", $(this).data("picture-id"))
+      $('#carouselModal').modal "show"
+
+  onPictureClick()
+
+  $('#carouselModal').on 'shown', (e) ->
+    console.log($(this).data("picture-id"))
+    picture_id = $(this).data("picture-id")
+    $('#carouselModal').load(window.location.pathname + "/pictures/"+ picture_id + "/carousel?active_picture_id=" + picture_id)
+#    $('#carouselModal').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
+#      $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
+#        $('#pictureModal').modal 'hide'
+#    )
+
   onPictureEdit = ->
     $('.edit-picture').on 'click', (e) ->
       e.preventDefault()
@@ -17,7 +38,7 @@ jQuery ->
 
   $('#pictureModal').on 'shown', (e) ->
     console.log($(this).data("picture-id"))
-    $(this).find('.modal-body').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
+    $('#pictureModal').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
       $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
         $('#pictureModal').modal 'hide'
     )
