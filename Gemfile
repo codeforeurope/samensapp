@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -15,6 +15,11 @@ gem 'simple_form'
 gem 'fog'
 gem "mini_magick"
 gem "carrierwave"
+gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
+    :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
+    :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+
 
 
 
@@ -37,7 +42,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+#gem 'jquery-ui-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

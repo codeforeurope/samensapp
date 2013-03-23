@@ -16,8 +16,6 @@ class BookingRequest < ActiveRecord::Base
   validates_presence_of :contact_email, :contact_person, :contact_phone, :organization_address
   validates_associated :submitter
 
-  def create_code
-    self.code = Devise.friendly_token
 
   def start_time
     @start_time || time_attr_from_datetime(start_at)
@@ -75,6 +73,10 @@ class BookingRequest < ActiveRecord::Base
     if (datetime)
       "#{'%02d' % datetime.hour}:#{'%02d' % datetime.min}"
     end
+  end
+
+  def create_code
+    self.code = Devise.friendly_token
   end
 
 end

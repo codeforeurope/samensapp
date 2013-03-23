@@ -12,9 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
 //= require twitter/bootstrap
 //= require twitter/bootstrap_ujs
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require bootstrap-timepicker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.nl
 //= require_tree .

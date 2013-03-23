@@ -31,8 +31,10 @@
         <fieldset>
           <legend><%= t :event_details %></legend>
           <div class="row">
-            <div class="span5">          <%= f.input :start_time, :as => :string, :input_html => {:class => "datepicker"} %>
-              <%= f.input :end_time, :as => :string, :input_html => {:class => "datepicker"} %>
+            <div class="span5">
+              <%= f.input :event_date, :wrapper => :datepicker %>
+              <%= f.input :start_time, :wrapper => :timepicker %>
+              <%= f.input :end_time, :wrapper => :timepicker %>
               <%= f.input :people %>
               <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
               <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
