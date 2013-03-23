@@ -14,7 +14,7 @@ class PicturesController < ApplicationController
   def carousel
     @pictures = @attachable_picture.pictures.order("created_at asc")
     if params[:active_picture_id]
-      @active_picture = @attachable_picture.pictures.find(params[:active_picture_id])   #.where(:id => params[:active_picture_id])
+      @active_picture = @attachable_picture.pictures.find(params[:active_picture_id])
     else
       @active_picture = @attachable_picture.pictures.first
     end

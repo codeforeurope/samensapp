@@ -20,10 +20,6 @@ jQuery ->
     console.log($(this).data("picture-id"))
     picture_id = $(this).data("picture-id")
     $('#carouselModal').load(window.location.pathname + "/pictures/"+ picture_id + "/carousel?active_picture_id=" + picture_id)
-#    $('#carouselModal').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
-#      $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
-#        $('#pictureModal').modal 'hide'
-#    )
 
   onPictureEdit = ->
     $('.edit-picture').on 'click', (e) ->
