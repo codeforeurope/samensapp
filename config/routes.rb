@@ -14,6 +14,8 @@ Samensapp::Application.routes.draw do
   end
 
   devise_for :users
+  #resource to manage the user profile
+  resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile
 
   root :to => 'landing#index'
   # The priority is based upon order of creation:

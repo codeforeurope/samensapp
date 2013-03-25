@@ -14,8 +14,14 @@ class User < ActiveRecord::Base
   has_many :booking_requests, :foreign_key => :submitter_id
   belongs_to :organization
 
-  validates_presence_of :name, :phone, :address, :email
+  validates_presence_of :name, :email
+
+  validates_numericality_of [:phone, :mobile_phone], :allow_blank => true
+  validates_presence_of [:phone, :address], :if => :is_submitter
   validate :validate_as_submitter
+
+  attr_accessor :submitter_hash
+  attr_writer :is_submitter
 
   def has_role? (role)
     !roles.where(name: role).first.nil?
@@ -25,14 +31,9 @@ class User < ActiveRecord::Base
     @silent = true
   end
 
-  def submitter_hash
-    @temp_submitter_hash
+  def is_submitter
+    !submitter_hash.nil? || @is_submitter
   end
-
-  def submitter_hash=(hash)
-    @temp_submitter_hash = hash
-  end
-
 
   protected
   def password_required?
@@ -50,8 +51,8 @@ class User < ActiveRecord::Base
 
   def validate_as_submitter
     if persisted? && confirmed?
-      if @temp_submitter_hash && !@temp_submitter_hash[:password].nil? && !@temp_submitter_hash[:password_confirmation].nil?
-        if !valid_password?(@temp_submitter_hash[:password])
+      if submitter_hash && !submitter_hash[:password].nil? && !submitter_hash[:password_confirmation].nil?
+        if !valid_password?(submitter_hash[:password])
           errors.add(:email, :account_exists)
         end
       end

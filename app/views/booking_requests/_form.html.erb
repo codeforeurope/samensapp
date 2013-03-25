@@ -32,7 +32,11 @@
           <legend><%= t :event_details %></legend>
           <div class="row">
             <div class="span5">
-              <%= f.input :event_date, :wrapper => :datepicker %>
+              <%
+                 data = {}
+                 data[:start_date] = Time.zone.now().strftime("%d-%m-%Y") if @booking_request.new_record?
+              %>
+              <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => data} %>
               <%= f.input :start_time, :wrapper => :timepicker %>
               <%= f.input :end_time, :wrapper => :timepicker %>
               <%= f.input :people %>

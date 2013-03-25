@@ -27,7 +27,12 @@ jQuery ->
 
   ## Disable submitter fields on load
   $('#new_booking_request').bind 'disable', (e)->
-    $(this).find('fieldset.submitter').find('input, textarea').prop('readonly', true)
+    $(this).find('fieldset.submitter').find('input, textarea').each  (index,item)->
+
+      if $(item).val() and $(item).hasClass('lockable')
+        $(item).prop('readonly', true)
+      console.log(item, index)
+#
 
   ###
   # Modal dialog to lookup users
