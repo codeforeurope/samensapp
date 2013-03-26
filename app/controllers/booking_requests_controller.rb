@@ -45,7 +45,7 @@ class BookingRequestsController < ApplicationController
       end
 
     end
-
+    @booking_request.submitter.is_submitter = true
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,19 +80,27 @@ class BookingRequestsController < ApplicationController
       end
     end
 
-    #if submitted is persisted, we need to see if it's activated. If so they must log in first.
-    submitter.submitter_hash = submitter_attributes
-    submitter.valid?
 
-    if submitter.persisted?
-      if !submitter.confirmed?
-        submitter.address = submitter_attributes[:address] if submitter.address.nil?
-        submitter.phone = submitter_attributes[:phone] if submitter.phone.nil?
-        submitter.mobile_phone = submitter_attributes[:mobile_phone] if submitter.mobile_phone.nil?
+    @booking_request.submitter.submitter_hash = submitter_attributes
+    #submitter.valid?
+
+    #if submitted is persisted, we need to see if it's activated. If so they must log in first.
+    if @booking_request.submitter.persisted?
+      if !@booking_request.submitter.confirmed?
+        #update attributes if they are missing
+        @booking_request.submitter.address = submitter_attributes[:address] if @booking_request.submitter.address.blank?
+        @booking_request.submitter.phone = submitter_attributes[:phone] if @booking_request.submitter.phone.blank?
+        @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone] if @booking_request.submitter.mobile_phone.blank?
       end
+      if @booking_request.submitter.id == current_user.id || can?(:create_on_behalf, BookingRequest)
+        @booking_request.submitter.address = submitter_attributes[:address]
+        @booking_request.submitter.phone = submitter_attributes[:phone]
+        @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone]
+      end
+
     else
-      if submitter_attributes[:password].nil? && submitter_attributes[:password_confirmation].nil?
-        submitter.make_silent
+      if submitter_attributes[:password].blank? && submitter_attributes[:password_confirmation].blank?
+        @booking_request.submitter.make_silent
       end
     end
 

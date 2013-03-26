@@ -2,24 +2,24 @@
   <legend><%= t :my_info %></legend>
   <div class="row">
     <div class="span5">
-      <%= b.input :email %>
-      <%= b.input :name %>
-      <%= b.input :phone, :type => :tel %>
+      <%= b.input :email, :input_html => {:class => "lockable"} %>
+      <%= b.input :name, :input_html => {:class => "lockable"} %>
+      <%= b.input :phone, :type => :tel, :required => true %>
       <%= b.input :mobile_phone, :type => :tel %>
-      <%= b.input :address, :input_html => {:rows => 5, :cols => 60} %>
+      <%= b.input :address, :required => true, :input_html => {:rows => 5, :cols => 60} %>
       <% if !signed_in? %>
         <%= b.input :create_account, :as => :boolean %>
-        <%= b.input :password, :type => :password %>
-        <%= b.input :password_confirmation, :type => :password %>
+        <%= b.input :password, :required => true, :type => :password %>
+        <%= b.input :password_confirmation, :required => true, :type => :password %>
       <% end %>
     </div>
     <div class="span2">
-        <% if can? :create_on_behalf, BookingRequest %>
-          <%= link_to :lookup_user, "#lookup_users_modal", {:class => "btn lookup-user", 'data-toggle' => "modal", :role => "button"} %>
-        <% end %>
-        <% if signed_in? and @booking_request.submitter.id == current_user.id %>
-          <%= link_to :edit_profile, false, :class => "btn edit-profile" %>
-        <% end %>
+      <% if can? :create_on_behalf, BookingRequest %>
+        <%= link_to :lookup_user, "#lookup_users_modal", {:class => "btn lookup-user", 'data-toggle' => "modal", :role => "button"} %>
+      <% end %>
+      <% if signed_in? and @booking_request.submitter.id == current_user.id %>
+        <%= link_to :edit_profile, false, :class => "btn edit-profile" %>
+      <% end %>
     </div>
   </div>
 <% end %>
