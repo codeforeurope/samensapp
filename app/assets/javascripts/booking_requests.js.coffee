@@ -92,3 +92,4 @@ jQuery ->
       e.preventDefault()
       launchEmailLookup()
 
+  $("a[rel=tooltip]").tooltip()

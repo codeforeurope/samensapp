@@ -6,9 +6,10 @@ class BookingRequestsController < ApplicationController
   # GET /booking_requests.json
   def index
 
-    @unassigned_booking_requests = BookingRequest.where("assignee_id IS NULL")
-    @assigned_booking_requests = BookingRequest.where("assignee_id IS NOT NULL")
-    @assigned_to_me_booking_requests = BookingRequest.where("assignee_id = ? ", current_user.id)
+    #@unassigned_booking_requests = BookingRequest.where("assignee_id IS NULL").order("created_at desc")
+    #@assigned_booking_requests = BookingRequest.where("assignee_id IS NOT NULL").order("created_at desc")
+    @not_assigned_to_me_booking_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
+    @assigned_to_me_booking_requests = BookingRequest.where("assignee_id = ? ", current_user.id).order("created_at desc")
 
     @booking_requests = !current_user.nil? ? current_user.booking_requests : []
     respond_to do |format|
@@ -16,6 +17,23 @@ class BookingRequestsController < ApplicationController
       format.json { render json: @booking_requests }
     end
   end
+
+  def assign_to_user
+    logger.info(params[:assignee_id])
+    @booking_request = BookingRequest.find(params[:id])
+    @booking_request.assignee_id = params[:assignee_id]
+
+    respond_to do |format|
+      if @booking_request.save
+        format.html { redirect_to :action => :index, notice: 'Booking request was successfully assigned.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @booking_requests, notice: 'Booking request was not assigned.' }
+        format.json { render json: @booking_request.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # GET /booking_requests/1
   # GET /booking_requests/1.json

@@ -6,6 +6,9 @@ Samensapp::Application.routes.draw do
     collection do
       get :find_user_by_email
     end
+    member do
+      put :assign_to_user
+    end
   end
   get '/view_request/:code', :to => "booking_requests#by_code"
 
