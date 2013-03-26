@@ -9,6 +9,9 @@ class BookingRequest < ActiveRecord::Base
   before_create :create_code
   before_create :set_default_status
 
+  #TODO 2013-03-25
+  #before_update if assignee is set and it's submitted, then set to assigned
+
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
   belongs_to :booking_agent, :class_name => 'User', :foreign_key => :assignee_id
   #has_many :events

@@ -37,8 +37,8 @@
 
     <% @booking_requests.each do |booking_request| %>
       <tr>
-        <td><%= booking_request.start_time %></td>
-        <td><%= booking_request.end_time %></td>
+        <td><%= format_date(booking_request.start_at) %></td>
+        <td><%= format_date(booking_request.end_at) %></td>
         <td><%= booking_request.people %></td>
         <td><%= booking_request.description %></td>
         <td><%= booking_request.catering_needs %></td>
