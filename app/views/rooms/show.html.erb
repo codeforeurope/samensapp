@@ -31,21 +31,7 @@
     </div>
   </div>
   <div class="span4">
-    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.configuration' %> </legend>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>...</th>
-          <th>...</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>...</td>
-          <td>...</td>
-        </tr>
-      </tbody>
-    </table></fieldset>
+    <%= render "room_configurations/room_config_table" %>
     <div class="form-actions">
       <%= link_to :add_configuration,  new_room_room_configuration_path(@room), {:data=>{:toggle=>:modal, :target=>"#new_room_config"}, :class=>"btn btn-primary pull-right"} %>
     </div>
@@ -78,5 +64,18 @@
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     <button class="btn btn-primary"><%=t :add_configuration %></button>
+  </div>
+</div>
+
+<div id="edit_room_config" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"><%=t :edit_configuration %></h3>
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary"><%=t :save_configuration %></button>
   </div>
 </div>

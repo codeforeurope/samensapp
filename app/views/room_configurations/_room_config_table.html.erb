@@ -1,0 +1,21 @@
+<%- model_class = Room -%>
+    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.configuration' %> </legend>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%=t '.name' %></th>
+          <th><%=t '.configuration' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @room.room_configurations.each do |configuration| %>
+        <tr>
+          <td><%= configuration.id %></td>
+          <td><%= configuration.name %></td>
+          <td><%= configuration.capacity %></td>
+          <td>
+          <%= link_to :edit_configuration,  edit_room_room_configuration_path(@room,configuration), {:data=>{:toggle=>:modal, :target=>"#edit_room_config"}, :class=>"btn btn-primary pull-right"} %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table></fieldset>

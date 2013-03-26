@@ -3,10 +3,10 @@ class RoomConfigurationsController < ApplicationController
   # GET /room_configurations
   # GET /room_configurations.json
   def index
-    @room_configurations = RoomConfiguration.all
+    @room_configurations = @room.room_configurations
 
     respond_to do |format|
-      format.html # index.html.erb
+		  format.html { render layout: "ajax" }
       format.json { render json: @room_configurations }
     end
   end
@@ -35,7 +35,11 @@ class RoomConfigurationsController < ApplicationController
 
   # GET /room_configurations/1/edit
   def edit
-    @room_configuration = RoomConfiguration.find(params[:id])
+    @room_configuration = @room.room_configurations.find(params[:id])
+	  respond_to do |format|
+      format.html { render layout: "ajax" }
+      format.json { render json: @room_configuration }
+    end
   end
 
   # POST /room_configurations
