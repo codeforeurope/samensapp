@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319110031) do
+ActiveRecord::Schema.define(:version => 20130314133535) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_time"
@@ -36,13 +36,6 @@ ActiveRecord::Schema.define(:version => 20130319110031) do
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"
 
-  create_table "breweries", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "name"
-    t.string   "country"
-  end
-
   create_table "buildings", :force => true do |t|
     t.string   "name"
     t.text     "address"
@@ -51,35 +44,9 @@ ActiveRecord::Schema.define(:version => 20130319110031) do
     t.integer  "organization_id"
   end
 
-  create_table "containers", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "drinks", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "name"
-    t.boolean  "halal"
-    t.integer  "brewery_id"
-  end
-
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "address"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "paintings", :force => true do |t|
-    t.integer  "room_id"
-    t.string   "name"
-    t.string   "image"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "patrons", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -120,11 +87,6 @@ ActiveRecord::Schema.define(:version => 20130319110031) do
     t.datetime "updated_at",   :null => false
     t.decimal  "cleaning_fee"
     t.integer  "building_id"
-  end
-
-  create_table "tabs", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
