@@ -1,54 +1,66 @@
 <% if can? :manage, BookingRequest %>
-<div class="row">
-  <div class="span6">
-    <%= render 'table_assigned' %>
+  <div class="row-fluid">
+    <div class="span6">
+      <%= render 'table_unassigned' %>
+    </div>
+    <div class="span6">
+      <%= render 'table_assigned' %>
+    </div>
   </div>
-  <div class="span6">
-    <%= render 'table_unassigned' %>
-  </div>
-</div>
 <% end %>
 
 
+<h1>Here are your Booking Requests</h1>
+<% if @booking_requests.count == 0 %>
+  <div class="hero-unit">
+    <h2>Zero</h2>
 
+    <p>You did not enter any Booking Request.</p>
+  </div>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>People</th>
+      <th>Description</th>
+      <th>Catering needs</th>
+      <th>Equipment needs</th>
+      <th>Notes</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
 
+    <% @booking_requests.each do |booking_request| %>
+      <tr>
+        <td><%= booking_request.start_time %></td>
+        <td><%= booking_request.end_time %></td>
+        <td><%= booking_request.people %></td>
+        <td><%= booking_request.description %></td>
+        <td><%= booking_request.catering_needs %></td>
+        <td><%= booking_request.equipment_needs %></td>
+        <td><%= booking_request.notes %></td>
+        <td>
+          <a href="#" rel="tooltip" data-toggle="tooltip" data-placement="top" title="<%= format_status_tooltip(booking_request.status) %>" data-original-title="<%= format_status_tooltip(booking_request.status) %>"><%= booking_request.status.humanize %></a>
+        </td>
+        <td><%= link_to t('.show', :default => t("helpers.links.show")),
+                        booking_request, :class => 'btn btn-mini' %></td>
+        <!-- <td><%= link_to t('.edit', :default => t("helpers.links.edit")),
+                             edit_booking_request_path(booking_request), :class => 'btn btn-mini' %></td> -->
+        <td><%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                        "#",
+                        :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                        :class => 'btn btn-mini btn-danger' %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<h1>Listing user's booking_requests</h1>
-
-<table class="table table-striped">
-<thead>
-  <tr>
-    <th>Start time</th>
-    <th>End time</th>
-    <th>People</th>
-    <th>Description</th>
-    <th>Catering needs</th>
-    <th>Equipment needs</th>
-    <th>Notes</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-
-<% @booking_requests.each do |booking_request| %>
-  <tr>
-    <td><%= booking_request.start_time %></td>
-    <td><%= booking_request.end_time %></td>
-    <td><%= booking_request.people %></td>
-    <td><%= booking_request.description %></td>
-    <td><%= booking_request.catering_needs %></td>
-    <td><%= booking_request.equipment_needs %></td>
-    <td><%= booking_request.notes %></td>
-    <td><%= booking_request.status.humanize %></td>
-    <td><%= link_to 'Show', booking_request %></td>
-    <td><%= link_to 'Edit', edit_booking_request_path(booking_request) %></td>
-    <td><%= link_to 'Destroy', booking_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
 <% end %>
-</table>
+<br/>
 
-<br />
 
-<%= link_to 'New Booking request', new_booking_request_path %>
+<%= link_to 'New Booking Request', new_booking_request_path, :class => 'btn btn-primary' %>

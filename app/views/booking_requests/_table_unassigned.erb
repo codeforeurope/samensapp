@@ -1,39 +1,43 @@
-<h1>Listing UNASSIGNED booking_requests</h1>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Start time</th>
-    <th>End time</th>
-    <th>People</th>
-    <th>Description</th>
-    <th>Catering needs</th>
-    <th>Equipment needs</th>
-    <th>Notes</th>
-    <th>Status</th>
-    <th>Assigned to</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-
-  <% @unassigned_booking_requests.each do |booking_request| %>
-    <tr>
-      <td><%= booking_request.start_time %></td>
-      <td><%= booking_request.end_time %></td>
-      <td><%= booking_request.people %></td>
-      <td><%= booking_request.description %></td>
-      <td><%= booking_request.catering_needs %></td>
-      <td><%= booking_request.equipment_needs %></td>
-      <td><%= booking_request.notes %></td>
-      <td><%= booking_request.status.humanize %></td>
-      <td><%= booking_request.assignee_id unless booking_request.assignee_id.nil? %></td>
-      <td><%= link_to 'Show', booking_request %></td>
-      <td><%= link_to 'Edit', edit_booking_request_path(booking_request) %></td>
-      <td><%= link_to 'Destroy', booking_request, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-    </tr>
-  <% end %>
-</table>
-
+<h1><%= t("Outstanding Requests", :default => "Outstanding Requests") %></h1>
 <br/>
+<% if @not_assigned_to_me_booking_requests.count == 0 %>
+  <div class="hero-unit">
+    <h2>Awesome!</h2>
+
+    <p>All the requesteds are assigned to booking agents. Well done.</p>
+  </div>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Start time</th>
+      <th>People</th>
+      <th>Status</th>
+      <th>Requester</th>
+      <th>Assignee</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <% @not_assigned_to_me_booking_requests.each do |booking_request| %>
+      <tr>
+        <td><%= format_date(booking_request.start_at) %></td>
+        <td><%= booking_request.people %></td>
+        <td><%= booking_request.status.humanize %></td>
+        <td><%= booking_request.submitter.name %> </td>
+        <td><%= format_assignee(booking_request.assignee_id) %></td>
+        <td><%= link_to t('.show', :default => t("helpers.links.show")),
+                        booking_request,
+                        :class => 'btn btn-mini' %></td>
+        <td><%= link_to t('Process', :default => t("Process")),
+                        assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put,
+                        :class => 'btn btn-mini btn-primary' %></td>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <br/>
+
+<% end %>

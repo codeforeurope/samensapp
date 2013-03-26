@@ -1,36 +1,50 @@
+<%- model_class = BookingRequest -%>
+<div class="page-header">
+  <h1><%= @booking_request.description unless @booking_request.description == nil? %></h1>
+</div>
 
-
-<p>
-  <b>Start time:</b>
-  <%= @booking_request.start_time %>
-</p>
-
-<p>
-  <b>End time:</b>
-  <%= @booking_request.end_time %>
-</p>
-
-<p>
-  <b>People:</b>
-  <%= @booking_request.people %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @booking_request.description %>
-</p>
-
-<p>
-  <b>Catering needs:</b>
-  <%= @booking_request.catering_needs %>
-</p>
-
-<p>
-  <b>Equipment needs:</b>
-  <%= @booking_request.equipment_needs %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @booking_request.notes %>
-</p>
+<fieldset>
+  <legend>Request Details</legend>
+  <dl class="dl-horizontal">
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:start_at) %>:</strong></dt>
+      <dd><%= format_date_long(@booking_request.start_at) %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:end_at) %>:</strong></dt>
+      <dd><%= format_date_long(@booking_request.end_at) %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:people) %>:</strong></dt>
+      <dd><%= @booking_request.people %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+      <dd><%= @booking_request.description %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:catering_needs) %>:</strong></dt>
+      <dd><%= @booking_request.equipment_needs %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:equipment_needs) %>:</strong></dt>
+      <dd><%= @booking_request.catering_needs %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+      <dd><%= @booking_request.notes %></dd>
+    </div>
+    <div class="row">
+      <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+      <dd><%= @booking_request.status.humanize %></dd>
+    </div>
+    <% if can? :manage, @booking_request %>
+      <div class="row">
+        <dt><strong><%= model_class.human_attribute_name(:assignee_id) %>:</strong></dt>
+        <dd><%= format_assignee(@booking_request.assignee_id) %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:submitter) %>:</strong></dt>
+        <dd><%= link_to @booking_request.submitter.name, "#" %></dd>
+      </div>
+    <% end %>
+  </dl>
+</fieldset>

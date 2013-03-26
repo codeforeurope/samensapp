@@ -1,4 +1,9 @@
 <%=  render 'display'  %>
 
-<%= link_to 'Edit', edit_booking_request_path(@booking_request) %> |
-<%= link_to 'Back', booking_requests_path %>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              booking_requests_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_booking_request_path(@booking_request), :class => 'btn' %>
+</div>
