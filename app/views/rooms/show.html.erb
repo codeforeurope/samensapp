@@ -25,7 +25,10 @@
       <b>Capacity:</b>
       <%= @room.capacity %>
     </p>
-</fieldset>
+    </fieldset>
+    <div class="form-actions">
+      <%= link_to :edit, edit_room_path(@room) , :class=>"btn btn-primary pull-right" %>
+    </div>
   </div>
   <div class="span4">
     <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.configuration' %> </legend>
@@ -43,6 +46,9 @@
         </tr>
       </tbody>
     </table></fieldset>
+    <div class="form-actions">
+      <%= link_to :add_configuration, "#", :class=>"btn btn-primary pull-right" %>
+    </div>
   </div>
 </div>
 
@@ -60,5 +66,5 @@
     </fieldset>
   </div>
 </div>
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+
+
