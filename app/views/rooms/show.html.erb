@@ -1,39 +1,64 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Room -%>
+<div class="row">
+  <div class="span4">
+    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.details' %> </legend>
+      <p>
+      <b>Name:</b>
+      <%= @room.name %>
+    </p>
+    <p>
+      <b>Floor:</b>
+      <%= @room.floor %>
+    </p>
+    
+    <p>
+      <b>Base price:</b>
+      <%= @room.base_price %>
+    </p>
+    
+    <p>
+      <b>Blind price:</b>
+      <%= @room.blind_price %>
+    </p>
 
-<p>
-  <b>Name:</b>
-  <%= @room.name %>
-</p>
+    <p>
+      <b>Capacity:</b>
+      <%= @room.capacity %>
+    </p>
+</fieldset>
+  </div>
+  <div class="span4">
+    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.configuration' %> </legend>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>...</th>
+          <th>...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+      </tbody>
+    </table></fieldset>
+  </div>
+</div>
 
-<p>
-  <b>Floor:</b>
-  <%= @room.floor %>
-</p>
-
-<p>
-  <b>Base price:</b>
-  <%= @room.base_price %>
-</p>
-
-<p>
-  <b>Blind price:</b>
-  <%= @room.blind_price %>
-</p>
-
-<p>
-  <b>Capacity:</b>
-  <%= @room.capacity %>
-</p>
-
-<p>
-  <%= render "pictures/pictures" %>
-</p>
-
-<% if can? :create, @room.pictures %>
-  <p>
-    <%= render "pictures/form" %>
-  </p>
-<% end %>
-
+<div class="row">
+  <div class="span8">
+    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.pictures' %> </legend>
+      <p>
+        <%= render "pictures/pictures" %>
+      </p>
+      <% if can? :create, @room.pictures %>
+      <p>
+        <%= render "pictures/form" %>
+      </p>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
