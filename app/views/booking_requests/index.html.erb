@@ -10,12 +10,11 @@
 <% end %>
 
 
-<h1>Here are your Booking Requests</h1>
+<h1><%= t ("Here are your Booking Requests") %></h1>
 <% if @booking_requests.count == 0 %>
   <div class="hero-unit">
     <h2>Zero</h2>
-
-    <p>You did not enter any Booking Request.</p>
+    <p><%= t("You did not enter any Booking Request.") %></p>
   </div>
 <% else %>
   <table class="table table-striped">
@@ -63,4 +62,4 @@
 <br/>
 
 
-<%= link_to 'New Booking Request', new_booking_request_path, :class => 'btn btn-primary' %>
+<%= link_to t(:booking_request.new_booking_request), new_booking_request_path, :class => 'btn btn-primary' %>

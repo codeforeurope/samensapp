@@ -1,10 +1,11 @@
-<h1><%= t("Assigned Requests", :default => "Assigned Requests") %></h1>
+<h1><%= t(:booking_request.assigned_requests, :default => "Assigned Requests") %></h1>
 <br/>
 <% if @assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">
     <h2></h2>
 
-    <p>You have no Booking Requests to manage. <br/>Start working on one by clicking on the "Process" button.</p>
+    <p><%= t("You have no Booking Requests to manage.", :default => "You have no Booking Requests to manage.") %>
+      <br/><%= t("Start working on one by clicking on the \"Process\" button.") %></p>
   </div>
 <% else %>
   <table class="table table-striped">

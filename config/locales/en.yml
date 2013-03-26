@@ -3,8 +3,19 @@
 
 en:
   booking_request: "Booking Request"
+    details: "Details"
+    assigned_requests: "Assigned Requests"
+    outstanding_requests: "Outstanding Requests"
+    new_booking_request: "New Booking Request"
   my_info: "Your Information"
   edit_profile: "Edit Profile"
+  booking_request_helper:
+    tooltip_none: "None"
+    tooltip_request_submitted: "Request has been received, but not processed yet."
+    tooltip_request_assigned: "A Booking Agent is working on it, right now."
+    tooltip_request_completed: "An offer has been sent for this request."
+    tooltip_request_canceled: "The request has been canceled."
+    tooltip_request_working: "Working on it."
   navbar:
     company_name: "De Meevaart"
     submit_request: "Request a Room"
