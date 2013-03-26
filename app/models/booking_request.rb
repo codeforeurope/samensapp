@@ -1,5 +1,5 @@
 class BookingRequest < ActiveRecord::Base
-  STATUSES = %w"locked submitted accepted canceled awaiting_reply"
+  STATUSES = %w"submitted assigned canceled completed"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
                   :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address, :start_time, :end_time, :event_date, :assignee_id
 
@@ -11,6 +11,7 @@ class BookingRequest < ActiveRecord::Base
 
   #TODO 2013-03-25
   #before_update if assignee is set and it's submitted, then set to assigned
+  before_update :set_status
 
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
   belongs_to :booking_agent, :class_name => 'User', :foreign_key => :assignee_id
@@ -86,7 +87,13 @@ class BookingRequest < ActiveRecord::Base
   end
 
   def set_default_status
-    self.status = STATUSES[1]
+    self.status = STATUSES[0]
+  end
+
+  def set_status
+    if self.status == "submitted" and !self.assignee_id.nil?
+      self.status = STATUSES[1]
+    end
   end
 
 end

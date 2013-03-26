@@ -1,10 +1,10 @@
-<h1><%= t("Outstanding Requests", :default => "Outstanding Requests") %></h1>
+<h1><%= t(:booking_request.outstanding_requests, :default => "Outstanding Requests") %></h1>
 <br/>
 <% if @not_assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">
-    <h2>Awesome!</h2>
+    <h2><%= t("Awesome!") %></h2>
 
-    <p>All the requesteds are assigned to booking agents. Well done.</p>
+    <p><%= t("All the requests are assigned to booking agents. Well done.") %></p>
   </div>
 <% else %>
   <table class="table table-striped">
