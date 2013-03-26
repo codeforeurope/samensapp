@@ -4,15 +4,21 @@
 jQuery ->
   $('#new_picture').fileupload
     dataType: "script"
+
+#    start: (e, data) ->
+#      $('#progressModal').modal "show"
+
     add: (e, data) ->
       types = /(\.|\/)(gif|jpe?g|png)$/i
       file = data.files[0]
       data.context = (tmpl("template-upload", file))
       $('#new_picture').append(data.context)
       data.submit()
+
     progress: (e, data) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         $("div.upload").find('.bar').css('width', progress + '%')
     done: (e, data) ->
-        $("div.upload").hide()
+#      $('#progressModal').modal "hide"
+      $("div.upload").hide()

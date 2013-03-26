@@ -1,9 +1,11 @@
 <div class="picture">
-  <%= image_tag picture.image_url(:thumb) if picture.image? %>
+  <a href="#" class="open-picture" data-picture-id="<%= picture.id %>">
+    <%= image_tag picture.image_url(:thumb) if picture.image? %>
+  </a>
+
   <div class="description"><%= picture.description %></div>
   <div class="actions">
     <% if can? :manage, picture %>
-      <!-- Button to trigger modal -->
       <a href="#" data-toggle="modal" class="edit-picture" data-picture-id="<%= picture.id %>">edit</a>
     <% end %>
     |

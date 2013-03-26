@@ -1,81 +1,73 @@
 <%- model_class = Room -%>
 <div class="page-header">
-  <h1><%= @room.name unless @room.name == nil?%></h1>
+  <h1><%= @room.name unless @room.name == nil? %></h1>
 </div>
 
 <fieldset class="">
   <legend>Pictures</legend>
   <div class="span9">
     <div id="pictures">
-    <%= render "pictures/pictures" %>
+      <%= render "pictures/pictures" %>
     </div>
   </div>
   <div>
     <% if can? :create, @room.pictures %>
-    <%= render "pictures/form" %>
+      <%= render "pictures/form" %>
     <% end %>
   </div>
 </fieldset>
 
 <div id="pictureModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
+  <!-- content loaded from _form_description.html.erb -->
+</div>
 
-    BODY
-
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
+<div id="carouselModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <!--Content loaded from _pictures_carousel.html.erb-->
 </div>
 
 <fieldset>
   <legend>Room Configurations</legend>
   <div class="span2">
-    Work in progress
+    <!--Add partial for room configurations here-->
   </div>
 </fieldset>
 
 <fieldset>
   <legend>Room Details</legend>
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @room.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:floor) %>:</strong></dt>
-  <dd><%= @room.floor %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:base_price) %>:</strong></dt>
-  <dd><%= @room.base_price %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:blind_price) %>:</strong></dt>
-  <dd><%= @room.blind_price %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:capacity) %>:</strong></dt>
-  <dd><%= @room.capacity %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @room.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
-  <dd><%= @room.notes %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:cleaning_fee) %>:</strong></dt>
-  <dd><%= @room.cleaning_fee %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:building_id) %>:</strong></dt>
-  <dd><%= @room.building_id %></dd>
-</dl>
+  <dl class="dl-horizontal">
+    <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+    <dd><%= @room.name %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:floor) %>:</strong></dt>
+    <dd><%= @room.floor %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:base_price) %>:</strong></dt>
+    <dd><%= @room.base_price %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:blind_price) %>:</strong></dt>
+    <dd><%= @room.blind_price %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:capacity) %>:</strong></dt>
+    <dd><%= @room.capacity %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+    <dd><%= @room.description %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+    <dd><%= @room.notes %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:cleaning_fee) %>:</strong></dt>
+    <dd><%= @room.cleaning_fee %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:building_id) %>:</strong></dt>
+    <dd><%= @room.building_id %></dd>
+  </dl>
 </fieldset>
 
 <div class="form-actions">
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              rooms_path, :class => 'btn'  %>
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              rooms_path, :class => 'btn' %>
   <% if can? :manage, @room %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_room_path(@room), :class => 'btn' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_room_path(@room), :class => 'btn' %>
   <% end %>
   <% if can? :delete, @room %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              room_path(@room),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                room_path(@room),
+                :method => 'delete',
+                :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                :class => 'btn btn-danger' %>
   <% end %>
 </div>
