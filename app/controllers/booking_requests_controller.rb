@@ -5,6 +5,11 @@ class BookingRequestsController < ApplicationController
   # GET /booking_requests
   # GET /booking_requests.json
   def index
+
+    @unassigned_booking_requests = BookingRequest.where("assignee_id IS NULL")
+    @assigned_booking_requests = BookingRequest.where("assignee_id IS NOT NULL")
+    @assigned_to_me_booking_requests = BookingRequest.where("assignee_id = ? ", current_user.id)
+
     @booking_requests = !current_user.nil? ? current_user.booking_requests : []
     respond_to do |format|
       format.html # index.html.erb

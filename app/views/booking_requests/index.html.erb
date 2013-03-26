@@ -1,6 +1,22 @@
-<h1>Listing booking_requests</h1>
+<% if can? :manage, BookingRequest %>
+<div class="row">
+  <div class="span6">
+    <%= render 'table_assigned' %>
+  </div>
+  <div class="span6">
+    <%= render 'table_unassigned' %>
+  </div>
+</div>
+<% end %>
 
-<table>
+
+
+
+
+<h1>Listing user's booking_requests</h1>
+
+<table class="table table-striped">
+<thead>
   <tr>
     <th>Start time</th>
     <th>End time</th>
@@ -14,6 +30,7 @@
     <th></th>
     <th></th>
   </tr>
+</thead>
 
 <% @booking_requests.each do |booking_request| %>
   <tr>
@@ -24,7 +41,7 @@
     <td><%= booking_request.catering_needs %></td>
     <td><%= booking_request.equipment_needs %></td>
     <td><%= booking_request.notes %></td>
-    <td><%= booking_request.status %></td>
+    <td><%= booking_request.status.humanize %></td>
     <td><%= link_to 'Show', booking_request %></td>
     <td><%= link_to 'Edit', edit_booking_request_path(booking_request) %></td>
     <td><%= link_to 'Destroy', booking_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>

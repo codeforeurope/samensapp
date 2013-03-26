@@ -1,4 +1,5 @@
 class BookingRequest < ActiveRecord::Base
+  STATUSES = %w"locked submitted accepted canceled awaiting_reply"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
                   :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address, :start_time, :end_time, :event_date
 
@@ -6,8 +7,11 @@ class BookingRequest < ActiveRecord::Base
   #attr_writer :event_date
 
   before_create :create_code
+  before_create :set_default_status
+
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
   belongs_to :booking_agent, :class_name => 'User', :foreign_key => :assignee_id
+  has_one :booking_status
   #has_many :events
 
   accepts_nested_attributes_for :submitter
@@ -15,6 +19,10 @@ class BookingRequest < ActiveRecord::Base
   validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people
   validates_presence_of :contact_email, :contact_person, :contact_phone, :organization_address
   validates_associated :submitter, :on => :create
+  validates_presence_of :status, :on => :create
+
+
+
 
 
   def start_time
@@ -77,6 +85,10 @@ class BookingRequest < ActiveRecord::Base
 
   def create_code
     self.code = Devise.friendly_token
+  end
+
+  def set_default_status
+    self.status = self::STATUSES[1]
   end
 
 end

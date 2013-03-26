@@ -1,0 +1,38 @@
+<h1>Listing assigned booking_requests</h1>
+
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>People</th>
+    <th>Description</th>
+    <th>Catering needs</th>
+    <th>Equipment needs</th>
+    <th>Notes</th>
+    <th>Status</th>
+    <th>Assigned to</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+  <% @assigned_booking_requests.each do |booking_request| %>
+    <tr>
+      <td><%= booking_request.start_time %></td>
+      <td><%= booking_request.end_time %></td>
+      <td><%= booking_request.people %></td>
+      <td><%= booking_request.description %></td>
+      <td><%= booking_request.catering_needs %></td>
+      <td><%= booking_request.equipment_needs %></td>
+      <td><%= booking_request.notes %></td>
+      <td><%= booking_request.status.humanize %></td>
+      <td><%= booking_request.assignee_id %></td>
+      <td><%= link_to 'Show', booking_request %></td>
+      <td><%= link_to 'Edit', edit_booking_request_path(booking_request) %></td>
+      <td><%= link_to 'Destroy', booking_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
