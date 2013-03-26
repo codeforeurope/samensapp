@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322161224) do
+ActiveRecord::Schema.define(:version => 20130326112541) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(:version => 20130322161224) do
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"
+
+  create_table "booking_statuses", :force => true do |t|
+    t.string   "description"
+    t.integer  "booking_request_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
