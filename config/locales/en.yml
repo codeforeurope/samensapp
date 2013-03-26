@@ -12,6 +12,7 @@ en:
   mailer:
     request_confirmation:
       subject: "Your booking request [#%{id}]"
+  bookingrequest:
     details: "Details"
     assigned_requests: "Assigned Requests"
     outstanding_requests: "Outstanding Requests"
