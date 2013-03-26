@@ -1,4 +1,6 @@
 <%= simple_form_for([@room,@room_configuration], :remote=>true) do |f| %>
+<%= f.error_notification %>
     <%= f.input :name %>
     <%= f.input :capacity %>
 <% end %>
+

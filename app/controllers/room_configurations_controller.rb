@@ -41,14 +41,14 @@ class RoomConfigurationsController < ApplicationController
   # POST /room_configurations
   # POST /room_configurations.json
   def create
-    @room_configuration = RoomConfiguration.new(params[:room_configuration])
+    @room_configuration = @room.room_configurations.new(params[:room_configuration])
 
     respond_to do |format|
       if @room_configuration.save
-        format.html { redirect_to @room_configuration, notice: 'Room configuration was successfully created.' }
+	      format.html { head :created}
         format.json { render json: @room_configuration, status: :created, location: @room_configuration }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new" , layout: "ajax", status: 400 }
         format.json { render json: @room_configuration.errors, status: :unprocessable_entity }
       end
     end
