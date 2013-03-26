@@ -3,6 +3,7 @@
 
 en:
   booking_request: "Booking Request"
+  bookingrequest:
     details: "Details"
     assigned_requests: "Assigned Requests"
     outstanding_requests: "Outstanding Requests"
