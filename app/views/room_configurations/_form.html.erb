@@ -1,29 +1,4 @@
-<%= form_for(@room_configuration) do |f| %>
-  <% if @room_configuration.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@room_configuration.errors.count, "error") %> prohibited this room_configuration from being saved:</h2>
-
-      <ul>
-      <% @room_configuration.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :room_id %><br />
-    <%= f.number_field :room_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :capacity %><br />
-    <%= f.number_field :capacity %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for([@room,@room_configuration], :remote=>true) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :capacity %>
 <% end %>

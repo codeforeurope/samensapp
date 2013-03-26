@@ -1,6 +1,6 @@
 Samensapp::Application.routes.draw do
 
-  resources :room_configurations
+
 
 
   resources :buildings
@@ -10,6 +10,7 @@ Samensapp::Application.routes.draw do
 
   resources :rooms do
     resources :pictures
+		resources :room_configurations
   end
 
   devise_for :users

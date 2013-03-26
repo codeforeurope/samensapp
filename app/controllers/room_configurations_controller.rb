@@ -1,4 +1,5 @@
 class RoomConfigurationsController < ApplicationController
+	before_filter :load_room
   # GET /room_configurations
   # GET /room_configurations.json
   def index
@@ -24,10 +25,10 @@ class RoomConfigurationsController < ApplicationController
   # GET /room_configurations/new
   # GET /room_configurations/new.json
   def new
-    @room_configuration = RoomConfiguration.new
+    @room_configuration = @room.room_configurations.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render layout: "ajax" }
       format.json { render json: @room_configuration }
     end
   end
@@ -79,5 +80,10 @@ class RoomConfigurationsController < ApplicationController
       format.html { redirect_to room_configurations_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+  def load_room
+	  @room = Room.find(params[:room_id])
   end
 end

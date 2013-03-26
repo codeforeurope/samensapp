@@ -47,7 +47,7 @@
       </tbody>
     </table></fieldset>
     <div class="form-actions">
-      <%= link_to :add_configuration, "#", :class=>"btn btn-primary pull-right" %>
+      <%= link_to :add_configuration,  new_room_room_configuration_path(@room), {:data=>{:toggle=>:modal, :target=>"#new_room_config"}, :class=>"btn btn-primary pull-right"} %>
     </div>
   </div>
 </div>
@@ -67,4 +67,16 @@
   </div>
 </div>
 
-
+<!-- Modal -->
+<div id="new_room_config" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"><%=t :add_configuration %></h3>
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary"><%=t :add_configuration %></button>
+  </div>
+</div>
