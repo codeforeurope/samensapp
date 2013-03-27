@@ -35,14 +35,5 @@ module BookingRequestsHelper
     end
   end
 
-  def requests_chart_data
-    requests_by_day = BookingRequest.grouped_by_day(2.weeks.ago)
-    (2.weeks.ago.to_date..Date.today).map do |date|
-      {
-          created_at: date,
-          number: requests_by_day[date].nil? ? 0 : requests_by_day[date]
-      }
-    end
-  end
 
 end
