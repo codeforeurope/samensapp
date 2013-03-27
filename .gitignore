@@ -21,3 +21,10 @@
 
 # Ignore Mac OS X files
 .DS_Store
+
+# for emacs 
+*~
+*#
+
+#image uploads
+public/uploads/

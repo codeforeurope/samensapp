@@ -2,7 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  $('#new_picture').fileupload
+
+  #Photo management
+  $('#new_picture').fileupload()
 
   openPicture = ->
     $('#pictureModal').modal "show"
@@ -12,8 +14,6 @@ jQuery ->
       e.preventDefault()
       $('#carouselModal').data("picture-id", $(this).data("picture-id"))
       $('#carouselModal').modal "show"
-
-  onPictureClick()
 
   $('#carouselModal').on 'shown', (e) ->
     picture_id = $(this).data("picture-id")
@@ -25,8 +25,6 @@ jQuery ->
       $('#pictureModal').data("picture-id", $(this).data("picture-id"))
       $('#pictureModal').modal "show"
 
-  onPictureEdit()
-
   $('#pictureModal').on 'hide', (e) ->
     $('#pictures').load(window.location.pathname + "/pictures", onPictureEdit)
 
@@ -36,3 +34,45 @@ jQuery ->
       $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
         $('#pictureModal').modal 'hide'
     )
+
+
+  # Configuration management
+  attachSuccessCallback = ($modal)->
+    $modal.find('form').on "ajax:success", (xhr, data, status)->
+      $modal.modal "hide"
+
+
+  attachErrorCallback = ($modal)->
+    $modal.find('form').on "ajax:error", (xhr, data, status)->
+      $modal.find('.modal-body').html data.responseText
+      attachSuccessCallback($modal)
+      attachErrorCallback($modal)
+
+  refreshConfigTable = () ->
+    $('#room_config_table').load($('#room_config_table', null, attachAfterDeleteCallback).data "configurations-url")
+
+  attachAfterDeleteCallback  = () ->
+    $('#room_config_table a[data-method=delete]').on 'ajax:success', (data, textStatus, jqXHR)->
+      refreshConfigTable()
+
+  $('#new_room_config, #edit_room_config').on "shown", (e)->
+    attachSuccessCallback($(this))
+    attachErrorCallback($(this))
+
+  $('#new_room_config .modal-footer .btn-primary').on "click", (e)->
+    $('#new_room_config .modal-body form').trigger "submit"
+
+  $('#edit_room_config .modal-footer .btn-primary').on "click", (e)->
+    console.log('I am here')
+    $('#edit_room_config .modal-body form').trigger "submit"
+
+  $('#new_room_config, #edit_room_config').on "hide", (e)->
+    $(this).removeData('modal')
+    refreshConfigTable()
+
+
+  #on Ready
+  onPictureEdit()
+  onPictureClick()
+  attachAfterDeleteCallback()
+

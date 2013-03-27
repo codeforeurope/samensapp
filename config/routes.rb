@@ -1,7 +1,7 @@
 Samensapp::Application.routes.draw do
 
   resources :buildings
-  resources :organizations
+  #resources :organizations
   resources :booking_requests do
     collection do
       get :find_user_by_email
@@ -13,6 +13,7 @@ Samensapp::Application.routes.draw do
     resources :pictures do
       match '/carousel', :to => "pictures#carousel"
     end
+		resources :room_configurations
   end
 
   devise_for :users

@@ -1,4 +1,6 @@
-<%= simple_form_for @room, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for(@room, :html => {:multipart => true}) do |f| %>
+
+  <%= f.association :building %>
   <%= f.input :name %>
   <%= f.input :floor %>
   <%= f.input :base_price %>
@@ -7,10 +9,10 @@
   <%= f.input :description, :input_html => {:rows => 5, :placeholder => "Enter a description."} %>
   <%= f.input :notes, :input_html => {:rows => 5, :placeholder => "Enter some notes."} %>
   <%= f.input :cleaning_fee %>
-  <%= f.input :building_id %>
+
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                rooms_path, :class => 'btn' %>
+                room_path(@room), :class => 'btn' %>
   </div>
 <% end %>
