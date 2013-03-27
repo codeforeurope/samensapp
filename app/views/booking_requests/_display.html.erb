@@ -1,36 +1,92 @@
+<%- model_class = BookingRequest -%>
+<%- submitter_class = User -%>
+<div class="page-header">
+  <h1><%= t '.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
+    #<%= @booking_request.id %></h1>
+</div>
+<div class="row">
+  <div class="span5">
+    <fieldset>
+      <legend><%= t :my_info %></legend>
 
+      <dl class="dl-horizontal">
+        <dt><strong><%= submitter_class.human_attribute_name(:name) %>:</strong></dt>
+        <dd><%= @booking_request.submitter.name %></dd>
+        <dt><strong><%= submitter_class.human_attribute_name(:email) %>:</strong></dt>
+        <dd><%= @booking_request.submitter.email %></dd>
+        <dt><strong><%= submitter_class.human_attribute_name(:phone) %>:</strong></dt>
+        <dd><%= @booking_request.submitter.phone %></dd>
+        <dt><strong><%= submitter_class.human_attribute_name(:mobile_phone) %>:</strong></dt>
+        <dd><%= @booking_request.submitter.mobile_phone %></dd>
+        <dt><strong><%= submitter_class.human_attribute_name(:address) %>:</strong></dt>
+        <dd>
+          <address><%= @booking_request.submitter.address %></address>
+        </dd>
+      </dl>
+    </fieldset>
+  </div>
+  <div class="span5">
 
-<p>
-  <b>Start time:</b>
-  <%= @booking_request.start_time %>
-</p>
+    <fieldset>
+      <legend><%= t :organization_info %></legend>
 
-<p>
-  <b>End time:</b>
-  <%= @booking_request.end_time %>
-</p>
+      <dl class="dl-horizontal">
+        <dt><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></dt>
+        <dd><%= @booking_request.organization_name %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:contact_person) %>:</strong></dt>
+        <dd><%= @booking_request.contact_person %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:contact_email) %>:</strong></dt>
+        <dd><%= @booking_request.contact_email %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:contact_phone) %>:</strong></dt>
+        <dd><%= @booking_request.contact_phone %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:organization_address) %>:</strong></dt>
+        <dd>
+          <address><%= @booking_request.organization_address %></address>
+        </dd>
+      </dl>
+    </fieldset>
+  </div>
+</div>
+<div class="row">
+  <div class="span10">
+    <fieldset>
+      <legend><%= t :event_details %></legend>
+      <div class="row">
+        <div class="span5">
+          <dl class="dl-horizontal">
+            <dt><strong><%= model_class.human_attribute_name(:event_date) %>:</strong></dt>
+            <dd><%= @booking_request.event_date %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:people) %>:</strong></dt>
+            <dd><%= @booking_request.people %></dd>
+          </dl>
+        </div>
+        <div class="span4">
+          <dl class="dl-horizontal">
+            <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
+            <dd><%= @booking_request.start_time %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:end_time) %>:</strong></dt>
+            <dd><%= @booking_request.end_time %></dd>
+          </dl>
+        </div>
 
-<p>
-  <b>People:</b>
-  <%= @booking_request.people %>
-</p>
+      </div>
 
-<p>
-  <b>Description:</b>
-  <%= @booking_request.description %>
-</p>
+      <div class="row">
+        <div class="span9 text-areas">
+          <dl>
+            <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+            <dd><%= @booking_request.description %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:catering_needs) %>:</strong></dt>
+            <dd><%= @booking_request.catering_needs %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:equipment_needs) %>:</strong></dt>
+            <dd><%= @booking_request.equipment_needs %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+            <dd><%= @booking_request.notes %></dd>
 
-<p>
-  <b>Catering needs:</b>
-  <%= @booking_request.catering_needs %>
-</p>
+          </dl>
 
-<p>
-  <b>Equipment needs:</b>
-  <%= @booking_request.equipment_needs %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @booking_request.notes %>
-</p>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
