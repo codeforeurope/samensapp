@@ -48,8 +48,7 @@
                 </li>
               </ul>
             </div>
-          <% end %>
-          <% if can? :assign_to_self, BookingRequest %>
+          <% elsif can? :assign_to_self, BookingRequest %>
             <%= link_to t('Process', :default => t("Process")),
                         assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put,
                         :class => 'btn btn-mini btn-primary' %>
