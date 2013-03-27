@@ -1,51 +1,43 @@
 <%- model_class = Room -%>
 <div class="row">
   <div class="span4">
-    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.details' %> </legend>
-      <p>
-      <b>Name:</b>
-      <%= @room.name %>
-    </p>
-    <p>
-      <b>Floor:</b>
-      <%= @room.floor %>
-    </p>
-    
-    <p>
-      <b>Base price:</b>
-      <%= @room.base_price %>
-    </p>
-    
-    <p>
-      <b>Blind price:</b>
-      <%= @room.blind_price %>
-    </p>
+    <fieldset>
+      <legend> <%= t '.title', :default => model_class.model_name.human %> <%= t '.details' %> </legend>
+      <dl class="dl-horizontal">
+        <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+        <dd><%= @room.name %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:floor) %>:</strong></dt>
+        <dd><%= @room.floor %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:base_price) %>:</strong></dt>
+        <dd><%= @room.base_price %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:blind_price) %>:</strong></dt>
+        <dd><%= @room.blind_price %></dd>
+      </dl>
 
-    <p>
-      <b>Capacity:</b>
-      <%= @room.capacity %>
-    </p>
+
+      <div class="form-actions">
+        <%= link_to :edit, edit_room_path(@room), :class => "btn btn-primary pull-right" %>
+      </div>
     </fieldset>
-    <div class="form-actions">
-      <%= link_to :edit, edit_room_path(@room) , :class=>"btn btn-primary pull-right" %>
-    </div>
+
   </div>
-  <div class="span4" id="room_config_table" data-configurations-url="<%=room_room_configurations_path(@room) %>">
+  <div class="span4" id="room_config_table" data-configurations-url="<%= room_room_configurations_path(@room) %>">
     <%= render "room_configurations/room_config_table" %>
-    
+
   </div>
 </div>
 
 <div class="row">
   <div class="span8">
-    <fieldset><legend> <%=t '.title', :default => model_class.model_name.human %> <%=t '.pictures' %> </legend>
+    <fieldset>
+      <legend> <%= t '.title', :default => model_class.model_name.human %> <%= t '.pictures' %> </legend>
       <p>
         <%= render "pictures/pictures" %>
       </p>
       <% if can? :create, @room.pictures %>
-      <p>
-        <%= render "pictures/form" %>
-      </p>
+        <p>
+          <%= render "pictures/form" %>
+        </p>
       <% end %>
     </fieldset>
   </div>
@@ -55,25 +47,25 @@
 <div id="new_room_config" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><%=t :add_configuration %></h3>
+    <h3 id="myModalLabel"><%= t :add_configuration %></h3>
   </div>
   <div class="modal-body">
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary"><%=t :add_configuration %></button>
+    <button class="btn btn-primary"><%= t :add_configuration %></button>
   </div>
 </div>
 
 <div id="edit_room_config" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><%=t :edit_configuration %></h3>
+    <h3 id="myModalLabel"><%= t :edit_configuration %></h3>
   </div>
   <div class="modal-body">
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary"><%=t :save_configuration %></button>
+    <button class="btn btn-primary"><%= t :save_configuration %></button>
   </div>
 </div>

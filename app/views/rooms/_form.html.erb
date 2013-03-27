@@ -1,39 +1,16 @@
-0<%= form_for(@room, :html=>{:multipart => true }) do |f| %>
-  <% if @room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
-
-      <ul>
-      <% @room.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :floor %><br />
-    <%= f.number_field :floor %>
-  </div>
-  <div class="field">
-    <%= f.label :base_price %><br />
-    <%= f.text_field :base_price %>
-  </div>
-  <div class="field">
-    <%= f.label :blind_price %><br />
-    <%= f.text_field :blind_price %>
-  </div>
-  <div class="field">
-    <%= f.label :capacity %><br />
-    <%= f.number_field :capacity %>
-  </div>
+<%= simple_form_for(@room, :html=>{:multipart => true }) do |f| %>
 
 
-  <div class="actions">
-    <%= f.submit %>
+    <%= f.association :building %>
+    <%= f.input :name %>
+    <%= f.input :floor %>
+    <%= f.input :base_price %>
+    <%= f.input :blind_price %>
+
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                room_path(@room), :class => 'btn' %>
   </div>
 <% end %>

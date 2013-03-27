@@ -80,7 +80,7 @@ class RoomConfigurationsController < ApplicationController
     @room_configuration.destroy
 
     respond_to do |format|
-      format.html { redirect_to room_configurations_url }
+      format.html { head :no_content }
       format.json { head :no_content }
     end
   end
