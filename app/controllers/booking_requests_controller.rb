@@ -11,6 +11,8 @@ class BookingRequestsController < ApplicationController
     @not_assigned_to_me_booking_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
     @assigned_to_me_booking_requests = BookingRequest.where("assignee_id = ? ", current_user.id).order("created_at desc")
 
+    @booking_agents = User.joins(:roles).where('roles.name' => 'booking')
+
     @booking_requests = !current_user.nil? ? current_user.booking_requests : []
     respond_to do |format|
       format.html # index.html.erb

@@ -43,8 +43,7 @@ class BookingRequest < ActiveRecord::Base
   end
 
   def event_date
-    @event_date
-    #|| start_at.to_date.to_s(:db)
+    @event_date || (start_at.to_date.to_s(:db) if start_at)
   end
 
   def event_date=(event_date_value)

@@ -3,8 +3,7 @@
 <% if @not_assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">
     <h2><%= t("Awesome!") %></h2>
-
-    <p><%= t("All the requests are assigned to booking agents. Well done.") %></p>
+    <p><%= t("All the requests are assigned to booking agents!")%><br /><%= t("Well done")%>.</p>
   </div>
 <% else %>
   <table class="table table-striped">
@@ -30,9 +29,31 @@
         <td><%= link_to t('.show', :default => t("helpers.links.show")),
                         booking_request,
                         :class => 'btn btn-mini' %></td>
-        <td><%= link_to t('Process', :default => t("Process")),
+
+        </td>
+        <td>
+          <% if can? :assign_to_other, BookingRequest %>
+            <div class="btn-group">
+              <button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><%= t("Assign to", :default => "Assign to") %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <% @booking_agents.each do |agent| %>
+                  <li><%= link_to agent.name,
+                                  assign_to_user_booking_request_path(booking_request, :assignee_id => agent.id), :method => :put %>
+                  </li>
+                <% end %>
+                <li class="divider"></li>
+                <li><%= link_to t('Myself', :default => t("Myself")),
+                                assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put%>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+          <% if can? :assign_to_self, BookingRequest %>
+            <%= link_to t('Process', :default => t("Process")),
                         assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put,
-                        :class => 'btn btn-mini btn-primary' %></td>
+                        :class => 'btn btn-mini btn-primary' %>
+          <% end %>
         </td>
       </tr>
     <% end %>

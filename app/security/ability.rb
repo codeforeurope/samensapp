@@ -12,6 +12,8 @@ class Ability
       if user.has_role? :booking
         can :manage, BookingRequest
         can :create_on_behalf, BookingRequest
+        cannot :assign_to_other, BookingRequest
+        can :assign_to_self, BookingRequest
       else
         can [:create], BookingRequest
         can [:update, :cancel, :read], BookingRequest do |request|
