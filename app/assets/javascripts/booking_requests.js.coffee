@@ -93,10 +93,3 @@ jQuery ->
       launchEmailLookup()
 
   $("a[rel=tooltip]").tooltip()
-
-  Morris.Line
-    element: 'requests_chart'
-    data: $('#requests_chart').data('requests')
-    xkey: 'created_at'
-    ykeys: ['number']
-    labels: ['Number of requests']

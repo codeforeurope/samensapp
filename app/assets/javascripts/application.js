@@ -19,6 +19,4 @@
 //= require bootstrap-timepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.nl
-//= require raphael
-//= require morris.min
 //= require_tree .
