@@ -3,7 +3,7 @@ class RoomConfigurationsController < ApplicationController
   # GET /room_configurations
   # GET /room_configurations.json
   def index
-    @room_configurations = @room.room_configurations
+    @room_configurations = @room.room_configurations.order("name asc")
 
     respond_to do |format|
 		  format.html { render layout: "ajax" }
@@ -61,14 +61,13 @@ class RoomConfigurationsController < ApplicationController
   # PUT /room_configurations/1
   # PUT /room_configurations/1.json
   def update
-    @room_configuration = RoomConfiguration.find(params[:id])
-
-    respond_to do |format|
+	  @room_configuration = @room.room_configurations.find(params[:id])
+	  respond_to do |format|
       if @room_configuration.update_attributes(params[:room_configuration])
-        format.html { redirect_to @room_configuration, notice: 'Room configuration was successfully updated.' }
-        format.json { head :no_content }
+	      format.html { head :ok}
+        format.json { render json: @room_configuration, status: :created, location: @room_configuration }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit" , layout: "ajax", status: 400 }
         format.json { render json: @room_configuration.errors, status: :unprocessable_entity }
       end
     end
@@ -77,7 +76,7 @@ class RoomConfigurationsController < ApplicationController
   # DELETE /room_configurations/1
   # DELETE /room_configurations/1.json
   def destroy
-    @room_configuration = RoomConfiguration.find(params[:id])
+    @room_configuration = @room.room_configurations.find(params[:id])
     @room_configuration.destroy
 
     respond_to do |format|

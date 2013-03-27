@@ -8,14 +8,24 @@
         </tr>
       </thead>
       <tbody>
-        <% @room.room_configurations.each do |configuration| %>
+        <% @room_configurations.each do |configuration| %>
         <tr>
-          <td><%= configuration.id %></td>
           <td><%= configuration.name %></td>
           <td><%= configuration.capacity %></td>
           <td>
-          <%= link_to :edit_configuration,  edit_room_room_configuration_path(@room,configuration), {:data=>{:toggle=>:modal, :target=>"#edit_room_config"}, :class=>"btn btn-primary pull-right"} %></td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),  edit_room_room_configuration_path(@room,configuration), {:data=>{:toggle=>:modal, :target=>"#edit_room_config"}, :class=>"btn btn-mini btn-primary pull-right"} %>
+          </td>
+          <td>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+            room_room_configuration_path(@room, configuration),
+            :method => :delete,
+            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+            :class => 'btn btn-mini btn-danger' , :remote => true %>
+          
         </tr>
         <% end %>
       </tbody>
     </table></fieldset>
+    <div class="form-actions">
+      <%= link_to :add_configuration,  new_room_room_configuration_path(@room), {:data=>{:toggle=>:modal, :target=>"#new_room_config"}, :class=>"btn btn-primary pull-right"} %>
+    </div>

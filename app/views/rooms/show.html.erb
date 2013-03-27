@@ -30,11 +30,9 @@
       <%= link_to :edit, edit_room_path(@room) , :class=>"btn btn-primary pull-right" %>
     </div>
   </div>
-  <div class="span4">
+  <div class="span4" id="room_config_table" data-configurations-url="<%=room_room_configurations_path(@room) %>">
     <%= render "room_configurations/room_config_table" %>
-    <div class="form-actions">
-      <%= link_to :add_configuration,  new_room_room_configuration_path(@room), {:data=>{:toggle=>:modal, :target=>"#new_room_config"}, :class=>"btn btn-primary pull-right"} %>
-    </div>
+    
   </div>
 </div>
 

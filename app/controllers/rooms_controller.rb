@@ -17,6 +17,8 @@ class RoomsController < ApplicationController
     @attachable_picture = @room
     @pictures = @attachable_picture.pictures
     @picture = Picture.new
+	  @room_configurations = @room.room_configurations.order("name asc")
+
 
     respond_to do |format|
       format.html # show.html.erb
