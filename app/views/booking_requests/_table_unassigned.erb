@@ -1,19 +1,22 @@
+<%- model_class = BookingRequest -%>
+
+<h1><%= t('.outstanding_requests') %></h1>
 <h2><%= t("bookingrequest.outstanding_requests", :default => "Outstanding Requests") %></h2>
 <br/>
 <% if @not_assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">
-    <h2><%= t("Awesome!") %></h2>
-    <p><%= t("All the requests are assigned to booking agents!")%><br /><%= t("Well done")%>.</p>
+    <h2><%= t('.awesome') %></h2>
+    <p><%= t('.hero_subtitle_1')%><br /><%= t(".hero_subtitle_2")%>.</p>
   </div>
 <% else %>
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Start time</th>
-      <th>People</th>
-      <th>Status</th>
-      <th>Requester</th>
-      <th>Assignee</th>
+      <th><%= model_class.human_attribute_name(:start_at) %></th>
+      <th><%= model_class.human_attribute_name(:people) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:requester) %></th>
+      <th><%= model_class.human_attribute_name(:assigned_to) %></th>
       <th></th>
       <th></th>
     </tr>
@@ -34,7 +37,7 @@
         <td>
           <% if can? :assign_to_other, BookingRequest %>
             <div class="btn-group">
-              <button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><%= t("Assign to", :default => "Assign to") %><span class="caret"></span>
+              <button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><%= t('.assign_to') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
                 <% @booking_agents.each do |agent| %>
@@ -43,13 +46,13 @@
                   </li>
                 <% end %>
                 <li class="divider"></li>
-                <li><%= link_to t('Myself', :default => t("Myself")),
+                <li><%= link_to t('.myself'),
                                 assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put%>
                 </li>
               </ul>
             </div>
           <% elsif can? :assign_to_self, BookingRequest %>
-            <%= link_to t('Process', :default => t("Process")),
+            <%= link_to t('.process'),
                         assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put,
                         :class => 'btn btn-mini btn-primary' %>
           <% end %>

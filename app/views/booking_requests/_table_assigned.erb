@@ -1,21 +1,22 @@
-<h2><%= t("booking_request.assigned_requests", :default => "Assigned Requests") %></h2>
+<%- model_class = BookingRequest -%>
+
+<h1><%= t('.title') %></h1>
 <br/>
 <% if @assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">
-    <h2></h2>
-
-    <p><%= t("You have no Booking Requests to manage.", :default => "You have no Booking Requests to manage.") %>
-      <br/><%= t("Start working on one by clicking on the \"Process\" button.") %></p>
+    <h2><%= t('.hero_title') %></h2>
+    <p><%= t('.hero_subtitle_1') %>
+      <br/><%= t('.hero_subtitle_2') %></p>
   </div>
 <% else %>
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Start time</th>
-      <th>People</th>
-      <th>Status</th>
-      <th>Requester</th>
-      <th>Assignee</th>
+      <th><%= model_class.human_attribute_name(:start_at) %></th>
+      <th><%= model_class.human_attribute_name(:people) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:requester) %></th>
+      <th><%= model_class.human_attribute_name(:assigned_to) %></th>
       <th></th>
       <th></th>
     </tr>
@@ -27,10 +28,10 @@
         <td><%= booking_request.status.humanize %></td>
         <td><%= booking_request.submitter.name %> </td>
         <td><%= format_assignee(booking_request.assignee_id) %></td>
-        <td><%= link_to t('.show', :default => t("helpers.titles.show")),
+        <td><%= link_to t('.show'),
                         booking_request,
                         :class => 'btn btn-mini' %></td>
-        <td><%= link_to t('.edit', :default => t("helpers.titles.edit")),
+        <td><%= link_to t('.edit'),
                         edit_booking_request_path(booking_request),
                         :class => 'btn btn-mini btn-primary' %></td>
       </tr>

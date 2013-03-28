@@ -15,59 +15,65 @@
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="/"><%= t('navbar.company_name') %></a>
+<div id="wrap">
 
-      <div class="container nav-collapse">
-        <ul class="nav">
-          <li><%= link_to t('navbar.submit_request'), new_booking_request_path, :class => current_page?(:controller => "/booking_requests") ? "active" : "" %></li>
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/"><%= t('navbar.company_name') %></a>
 
-        </ul>
-        <ul class="nav pull-right">
-          <% if user_signed_in? %>
-            <li><span class="user-email"><%= t('navbar.logged_in_as') + " " + current_user.email %></span></li>
+        <div class="container nav-collapse">
+          <ul class="nav">
+            <li><%= link_to t('navbar.submit_request'), new_booking_request_path, :class => current_page?(:controller => "/booking_requests") ? "active" : "" %></li>
 
-            <li><%= link_to t('navbar.profile'), "/profile" %></li>
-            <li class="divider"></li>
-            <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+          </ul>
+          <ul class="nav pull-right">
+            <% if user_signed_in? %>
+              <li><span class="user-email"><%= t('navbar.logged_in_as') + " " + current_user.email %></span></li>
 
-          <% else %>
-            <li><%= link_to "Log In", new_user_session_path %></li>
-            <li><%= link_to "Register", new_user_registration_path, :class => "last" %></li>
-          <% end %>
-        </ul>
+              <li><%= link_to t('navbar.profile'), "/profile" %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+
+            <% else %>
+              <li><%= link_to "Log In", new_user_session_path %></li>
+              <li><%= link_to "Register", new_user_registration_path, :class => "last" %></li>
+            <% end %>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
       </div>
-      <!--/.nav-collapse -->
     </div>
   </div>
+
+  <!-- Begin page content -->
+  <div class="container">
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+        <a class="close" data-dismiss="alert">×</a>
+        <%= msg %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </div>
+
+  <div id="push"></div>
 </div>
 
-
-<div class="container">
-  <% flash.each do |name, msg| %>
-    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= msg %>
-    </div>
-  <% end %>
-  <%= yield %>
-</div>
 <!-- /container -->
 
-<footer>
+<div id="footer">
   <div class="container">
-
-    <p>&copy; 2012 Rails Girls Global </p>
+    <p class="muted credit">&copy; <%= Time.now().strftime("%Y") %> Code for Europe. </p>
   </div>
-</footer>
+</div>
 
 <!-- Javascripts
 ================================================== -->

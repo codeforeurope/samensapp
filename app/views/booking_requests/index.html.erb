@@ -1,3 +1,5 @@
+<%- model_class = BookingRequest -%>
+
 <% if can? :manage, BookingRequest %>
   <div class="row-fluid">
     <div class="span6">
@@ -20,24 +22,25 @@
 <% end %>
 
 <h2><%= t ("Here are your Booking Requests") %></h2>
+<h1><%= t ('.your_booking_requests') %></h1>
 <% if @booking_requests.count == 0 %>
   <div class="hero-unit">
     <h2>Zero</h2>
 
     <p><%= t("You did not enter any Booking Request.") %></p>
+    <p><%= t('.no_booking_requests') %></p>
   </div>
 <% else %>
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Start time</th>
-      <th>End time</th>
-      <th>People</th>
-      <th>Description</th>
-      <th>Catering needs</th>
-      <th>Equipment needs</th>
-      <th>Notes</th>
-      <th>Status</th>
+      <th><%= model_class.human_attribute_name(:start_at) %></th>
+      <th><%= model_class.human_attribute_name(:end_at) %></th>
+      <th><%= model_class.human_attribute_name(:people) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:catering_needs) %></th>
+      <th><%= model_class.human_attribute_name(:equipment_needs) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
       <th></th>
       <th></th>
       <th></th>
@@ -52,11 +55,10 @@
         <td><%= booking_request.description %></td>
         <td><%= booking_request.catering_needs %></td>
         <td><%= booking_request.equipment_needs %></td>
-        <td><%= booking_request.notes %></td>
         <td>
           <a href="#" rel="tooltip" data-toggle="tooltip" data-placement="top" title="<%= format_status_tooltip(booking_request.status) %>" data-original-title="<%= format_status_tooltip(booking_request.status) %>"><%= booking_request.status.humanize %></a>
         </td>
-        <td><%= link_to t('.show', :default => t("helpers.links.show")),
+        <td><%= link_to t('.show', :default => t('.helpers.links.show')),
                         booking_request, :class => 'btn btn-mini' %></td>
         <!-- <td><%= link_to t('.edit', :default => t("helpers.links.edit")),
                              edit_booking_request_path(booking_request), :class => 'btn btn-mini' %></td> -->
@@ -72,4 +74,4 @@
 <br/>
 
 
-<%= link_to t("bookingrequest.new_booking_request"), new_booking_request_path, :class => 'btn btn-primary' %>
+<%= link_to t('.new_booking_request'), new_booking_request_path, :class => 'btn btn-primary' %>
