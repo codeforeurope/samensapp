@@ -8,11 +8,17 @@ en:
         subject: "Your booking request [#%{id}]"
 
   booking_requests:
-    display:
+    new:
+      title:  "New Booking Request"
+    display: &fieldset_labels
       my_info: "My Information"
       organization_info: "My Organization"
       event_details: "Event Details"
       view_request: "View this request online"
+    form:
+      my_info: "My Information"
+      organization_info: "My Organization"
+      event_details: "Event Details"
     index:
       new_booking_request: "New Booking Request"
       your_booking_requests: "Here are your Booking Requests"
