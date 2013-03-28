@@ -32,7 +32,10 @@
         <div class="container nav-collapse">
           <ul class="nav">
             <li><%= link_to t('navbar.submit_request'), new_booking_request_path, :class => current_page?(:controller => "/booking_requests") ? "active" : "" %></li>
-
+			<% if user_signed_in? %>
+			<li><%= link_to t('navbar.rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
+			<li><%= link_to t('navbar.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
+			<% end %>
           </ul>
           <ul class="nav pull-right">
             <% if user_signed_in? %>

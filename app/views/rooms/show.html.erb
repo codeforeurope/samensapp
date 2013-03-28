@@ -48,9 +48,11 @@
       </dl>
 
 
+  	<% if can? :manage, @room %>
       <div class="form-actions">
         <%= link_to :edit, edit_room_path(@room), :class => "btn btn-primary pull-right" %>
       </div>
+	<% end %>      
     </fieldset>
 
   </div>

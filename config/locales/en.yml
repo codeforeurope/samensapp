@@ -46,6 +46,8 @@ en:
   navbar:
     company_name: "De Meevaart"
     submit_request: "Request a Room"
+    rooms: "Rooms"
+    buildings: "Buildings"    
     profile: "Profile"
     logged_in_as: ""
   activerecord:

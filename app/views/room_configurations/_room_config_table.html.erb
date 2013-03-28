@@ -28,7 +28,9 @@
     </tbody>
   </table>
   <div class="form-actions">
-    <%= link_to t('.add'),  new_room_room_configuration_path(@room), {:data=>{:toggle=>:modal, :target=>"#new_room_config"}, :class=>"btn btn-primary pull-right"} %>
+	<% if can? :manage, RoomConfiguration %>
+    	<%= link_to t('.add'),  new_room_room_configuration_path(@room), {:data=>{:toggle=>:modal, :target=>"#new_room_config"}, :class=>"btn btn-primary pull-right"} %>
+    <% end %>
   </div>
 </fieldset>
 

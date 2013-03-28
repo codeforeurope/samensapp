@@ -8,7 +8,9 @@
     <% if can? :manage, picture %>
       <a href="#" data-toggle="modal" class="edit-picture" data-picture-id="<%= picture.id %>">edit</a>
     <% end %>
+    <% if can? :manage, picture and can? :delete, picture %>
     |
+    <% end %>
     <% if can? :delete, picture %>
       <%= link_to 'remove', [@attachable_picture, picture], :method => :delete, :data => {confirm: "Are you sure?"} %>
     <% end %>
