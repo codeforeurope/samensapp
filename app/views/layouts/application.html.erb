@@ -32,14 +32,19 @@
         <div class="container nav-collapse">
           <ul class="nav">
             <li><%= link_to t('navbar.submit_request'), new_booking_request_path, :class => current_page?(:controller => "/booking_requests") ? "active" : "" %></li>
-			<% if user_signed_in? %>
-			<li><%= link_to t('navbar.rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
-			<li><%= link_to t('navbar.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
-			<% end %>
+            <% if user_signed_in? %>
+              <% if cannot? :manage, Room %>
+                <li><%= link_to t('navbar.rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
+              <% else %>
+                <li><%= link_to t('navbar.manage_rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
+              <% end %>
+              <li><%= link_to t('navbar.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
+            <% end %>
           </ul>
           <ul class="nav pull-right">
             <% if user_signed_in? %>
               <li><span class="user-email"><%= t('navbar.logged_in_as') + " " + current_user.email %></span></li>
+
 
               <li><%= link_to t('navbar.profile'), "/profile" %></li>
               <li class="divider"></li>

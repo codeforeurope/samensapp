@@ -50,6 +50,8 @@ en:
     buildings: "Buildings"    
     profile: "Profile"
     logged_in_as: ""
+    rooms: "Rooms"
+    manage_rooms: "Manage Rooms"
   activerecord:
     errors:
       models:
