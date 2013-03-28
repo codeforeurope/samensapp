@@ -3,20 +3,40 @@
 
 en:
   booking_request: "Booking Request"
-  bookingrequest:
+  booking_request:
     details: "Details"
     assigned_requests: "Assigned Requests"
-    outstanding_requests: "Outstanding Requests"
     new_booking_request: "New Booking Request"
+  booking_requests:
+    index:
+      new_booking_request: "New Booking Request"
+      your_booking_requests: "Here are your Booking Requests"
+      no_booking_requests: "You did not enter any Booking Request yet."
+    table_unassigned:
+      awesome: "Awesome!"
+      hero_subtitle_1: "All the requests are assigned to booking agents!"
+      hero_subtitle_2: "Well done"
+      process: "Process"
+      outstanding_requests: "Outstanding Requests"
+      assign_to: "Assign to"
+      myself: "Myself"
+    table_assigned:
+      title: "Assigned Requests"
+      hero_title: ""
+      hero_subtitle_1: "You have no Booking Requests to manage."
+      hero_subtitle_2: "Start working on one by clicking on the \"Process\" button."
+    helper:
+      tooltip_none: "None"
+      tooltip_request_submitted: "Request has been received, but not processed yet."
+      tooltip_request_assigned: "A Booking Agent is working on it, right now."
+      tooltip_request_completed: "An offer has been sent for this request."
+      tooltip_request_canceled: "The request has been canceled."
+      tooltip_request_working: "Working on it."
+
+
   my_info: "Your Information"
   edit_profile: "Edit Profile"
-  booking_request_helper:
-    tooltip_none: "None"
-    tooltip_request_submitted: "Request has been received, but not processed yet."
-    tooltip_request_assigned: "A Booking Agent is working on it, right now."
-    tooltip_request_completed: "An offer has been sent for this request."
-    tooltip_request_canceled: "The request has been canceled."
-    tooltip_request_working: "Working on it."
+
   navbar:
     company_name: "De Meevaart"
     submit_request: "Request a Room"
@@ -38,6 +58,15 @@ en:
     attributes:
       booking_request:  &booking_request
         people:  "Number of People"
+        start_at: "Start time"
+        end_at: "End time"
+        description: "Description"
+        catering_needs: "Catering Needs"
+        equipment_needs: "Equipment Needs"
+        notes: "Notes"
+        status: "Status"
+        requester: "Requester"
+        assigned_to: "Assignee"
 
   activemodel:
     models:
@@ -49,6 +78,10 @@ en:
       submitter:
         account_exists: "account exists"
   helpers:
+    links:
+      show: "Show"
+      process: "Process"
+      confirm: "Are you sure?"
     label:
       booking_request:
         << *booking_request
