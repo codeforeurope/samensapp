@@ -41,7 +41,7 @@ fieldset {
   @include border-radius(5px);
   border: 1px solid #dddddd !important;
   background-color: #efefef;
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 
   .span5 & {
     min-height: 180px;
