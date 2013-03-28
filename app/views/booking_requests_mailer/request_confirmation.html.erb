@@ -1,0 +1,151 @@
+<%- model_class = BookingRequest -%>
+<%- submitter_class = User -%>
+
+<h1><%= t '.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
+  #<%= @booking_request.id %></h1>
+<p>
+  <%= link_to t(:'booking_requests.display.view_request'), @target_url %></p>
+<table>
+  <thead>
+  <tr>
+    <th><%= t :'booking_requests.display.my_info' %></th>
+    <th><%= t :'booking_requests.display.organization_info' %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td style="width:40%">
+      <table>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:name) %>:</strong></td>
+          <td><%= @booking_request.submitter.name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:email) %>:</strong></td>
+          <td><%= @booking_request.submitter.email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:phone) %>:</strong></td>
+          <td><%= @booking_request.submitter.phone %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:mobile_phone) %>:</strong></td>
+          <td><%= @booking_request.submitter.mobile_phone %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:address) %>:</strong></td>
+          <td><%= @booking_request.submitter.address %></td>
+        </tr>
+
+      </table>
+    </td>
+    <td style="width:40%">
+      <table>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:organization_name) %>:</strong></td>
+          <td><%= @booking_request.organization_name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:contact_person) %>:</strong></td>
+          <td><%= @booking_request.contact_person %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:contact_email) %>:</strong></td>
+          <td><%= @booking_request.contact_email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:contact_phone) %>:</strong></td>
+          <td><%= @booking_request.contact_phone %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:organization_address) %>:</strong></td>
+          <td><%= @booking_request.organization_address %></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<table style="width:80%">
+  <thead>
+  <tr>
+    <th><%= t :'booking_requests.display.event_details' %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <table style="width:100%">
+        <thead>
+        <tr>
+          <th><%= t :'booking_requests.display.my_info' %></th>
+          <th><%= t :'booking_requests.display.organization_info' %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td style="width:40%">
+            <table style="width:100%">
+              <tr>
+                <td><strong><%= submitter_class.human_attribute_name(:event_date) %>:</strong></td>
+                <td><%= @booking_request.event_date %></td>
+              </tr>
+              <tr>
+                <td><strong><%= submitter_class.human_attribute_name(:people) %>:</strong></td>
+                <td><%= @booking_request.people %></td>
+              </tr>
+
+            </table>
+          </td>
+          <td style="width:40%">
+            <table style="width:100%">
+              <tr>
+                <td><strong><%= submitter_class.human_attribute_name(:start_time) %>:</strong></td>
+                <td><%= @booking_request.start_time %></td>
+              </tr>
+              <tr>
+                <td><strong><%= submitter_class.human_attribute_name(:end_time) %>:</strong></td>
+                <td><%= @booking_request.end_time %></td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <table style="width:100%">
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:description) %>:</strong></td>
+        </tr>
+        <tr>
+          <td><%= @booking_request.description %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:catering_needs) %>:</strong></td>
+        </tr>
+        <tr>
+          <td><%= @booking_request.catering_needs %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:equipment_needs) %>:</strong></td>
+        </tr>
+        <tr>
+          <td><%= @booking_request.equipment_needs %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:notes) %>:</strong></td>
+        </tr>
+        <tr>
+          <td><%= @booking_request.notes %></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  </tbody>
+
+</table>

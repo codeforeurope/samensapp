@@ -3,7 +3,15 @@
 
 en:
   booking_request: "Booking Request"
-  my_info: "Your Information"
+  booking_requests:
+    display:
+      my_info: "My Information"
+      organization_info: "My Organization"
+      event_details: "Event Details"
+      view_request: "View this request online"
+  mailer:
+    request_confirmation:
+      subject: "Your booking request [#%{id}]"
   edit_profile: "Edit Profile"
   navbar:
     company_name: "De Meevaart"

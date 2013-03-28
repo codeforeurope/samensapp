@@ -109,10 +109,12 @@ class BookingRequestsController < ApplicationController
 
     respond_to do |format|
       if @booking_request.save
+
         redirect_url = booking_request_url @booking_request
         if !signed_in?
           redirect_url = '/view_request/' + @booking_request.code
         end
+        BookingRequestsMailer.request_confirmation(@booking_request, redirect_url).deliver()
         format.html { redirect_to redirect_url, notice: 'Booking request was successfully created.' }
         format.json { render json: @booking_request, status: :created, location: @booking_request }
       else

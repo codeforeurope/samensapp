@@ -1,13 +1,13 @@
 <%- model_class = BookingRequest -%>
 <%- submitter_class = User -%>
 <div class="page-header">
-  <h1><%= t '.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
+  <h1><%= t :'.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
     #<%= @booking_request.id %></h1>
 </div>
 <div class="row">
   <div class="span5">
     <fieldset>
-      <legend><%= t :my_info %></legend>
+      <legend><%= t :'.my_info' %></legend>
 
       <dl class="dl-horizontal">
         <dt><strong><%= submitter_class.human_attribute_name(:name) %>:</strong></dt>
@@ -28,7 +28,7 @@
   <div class="span5">
 
     <fieldset>
-      <legend><%= t :organization_info %></legend>
+      <legend><%= t :'.organization_info' %></legend>
 
       <dl class="dl-horizontal">
         <dt><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></dt>
@@ -50,7 +50,7 @@
 <div class="row">
   <div class="span10">
     <fieldset>
-      <legend><%= t :event_details %></legend>
+      <legend><%= t :'.event_details' %></legend>
       <div class="row">
         <div class="span5">
           <dl class="dl-horizontal">
