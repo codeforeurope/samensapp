@@ -1,7 +1,6 @@
 <%- model_class = BookingRequest -%>
 
-<h1><%= t('.outstanding_requests') %></h1>
-<h2><%= t("bookingrequest.outstanding_requests", :default => "Outstanding Requests") %></h2>
+<h2><%= t('.outstanding_requests') %></h2>
 <br/>
 <% if @not_assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">

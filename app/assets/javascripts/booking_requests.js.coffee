@@ -94,9 +94,10 @@ jQuery ->
 
   $("a[rel=tooltip]").tooltip()
 
-  Morris.Line
-    element: 'requests_chart'
-    data: $('#requests_chart').data('requests')
-    xkey: 'created_at'
-    ykeys: ['number']
-    labels: ['Number of requests']
+  if $('#requests_chart').length
+    Morris.Line
+      element: 'requests_chart'
+      data: $('#requests_chart').data('requests')
+      xkey: 'created_at'
+      ykeys: ['number']
+      labels: ['Number of requests']

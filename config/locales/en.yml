@@ -3,25 +3,21 @@
 
 en:
   booking_request: "Booking Request"
+  mailer:
+      request_confirmation:
+        subject: "Your booking request [#%{id}]"
+
   booking_requests:
     display:
       my_info: "My Information"
       organization_info: "My Organization"
       event_details: "Event Details"
       view_request: "View this request online"
-  mailer:
-    request_confirmation:
-      subject: "Your booking request [#%{id}]"
-  bookingrequest:
-  booking_request:
-    details: "Details"
-    assigned_requests: "Assigned Requests"
-    new_booking_request: "New Booking Request"
-  booking_requests:
     index:
       new_booking_request: "New Booking Request"
       your_booking_requests: "Here are your Booking Requests"
       no_booking_requests: "You did not enter any Booking Request yet."
+      chart_title: "Requests received in the last two weeks"
     table_unassigned:
       awesome: "Awesome!"
       hero_subtitle_1: "All the requests are assigned to booking agents!"

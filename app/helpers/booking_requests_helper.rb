@@ -2,7 +2,7 @@ module BookingRequestsHelper
 
   def format_assignee(assignee_id)
     if assignee_id.nil?
-      t('.tooltip_none')
+      t('booking_requests.helper.tooltip_none')
     else
       User.find(assignee_id).name
     end

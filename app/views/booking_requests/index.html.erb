@@ -15,19 +15,16 @@
 <% if can? :manage, BookingRequest %>
   <div class="row-fluid">
     <fieldset>
-      <legend><h2>Requests received in the last two weeks</h2></legend>
+      <legend><h2><%= t('.chart_title') %></h2></legend>
       <%= render 'chart' %>
     </fieldset>
   </div>
 <% end %>
 
-<h2><%= t ("Here are your Booking Requests") %></h2>
-<h1><%= t ('.your_booking_requests') %></h1>
+<h2><%= t ('.your_booking_requests') %></h2>
 <% if @booking_requests.count == 0 %>
   <div class="hero-unit">
     <h2>Zero</h2>
-
-    <p><%= t("You did not enter any Booking Request.") %></p>
     <p><%= t('.no_booking_requests') %></p>
   </div>
 <% else %>

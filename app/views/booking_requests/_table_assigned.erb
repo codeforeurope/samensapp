@@ -1,12 +1,12 @@
 <%- model_class = BookingRequest -%>
 
-<h1><%= t('.title') %></h1>
+<h2><%= t('.title') %></h2>
 <br/>
 <% if @assigned_to_me_booking_requests.count == 0 %>
   <div class="hero-unit">
     <h2><%= t('.hero_title') %></h2>
     <p><%= t('.hero_subtitle_1') %>
-      <br/><%= t('.hero_subtitle_2') %></p>
+    <br/><%= t('.hero_subtitle_2') %></p>
   </div>
 <% else %>
   <table class="table table-striped">
