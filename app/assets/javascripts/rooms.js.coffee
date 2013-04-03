@@ -49,7 +49,7 @@ jQuery ->
       attachErrorCallback($modal)
 
   refreshConfigTable = () ->
-    $('#room_config_table').load($('#room_config_table', null, attachAfterDeleteCallback).data "configurations-url")
+    $('#room_config_table').load($('#room_config_table').data("configurations-url"), null, attachAfterDeleteCallback)
 
   attachAfterDeleteCallback  = () ->
     $('#room_config_table a[data-method=delete]').on 'ajax:success', (data, textStatus, jqXHR)->
@@ -63,7 +63,6 @@ jQuery ->
     $('#new_room_config .modal-body form').trigger "submit"
 
   $('#edit_room_config .modal-footer .btn-primary').on "click", (e)->
-    console.log('I am here')
     $('#edit_room_config .modal-body form').trigger "submit"
 
   $('#new_room_config, #edit_room_config').on "hide", (e)->

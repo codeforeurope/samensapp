@@ -21,7 +21,6 @@ class BookingRequestsController < ApplicationController
   end
 
   def assign_to_user
-    logger.info(params[:assignee_id])
     @booking_request = BookingRequest.find(params[:id])
     @booking_request.assignee_id = params[:assignee_id]
 
@@ -117,7 +116,7 @@ class BookingRequestsController < ApplicationController
         @booking_request.submitter.phone = submitter_attributes[:phone] if @booking_request.submitter.phone.blank?
         @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone] if @booking_request.submitter.mobile_phone.blank?
       end
-      if @booking_request.submitter.id == current_user.id || can?(:create_on_behalf, BookingRequest)
+      if signed_in? && (@booking_request.submitter.id == current_user.id || can?(:create_on_behalf, BookingRequest) )
         @booking_request.submitter.address = submitter_attributes[:address]
         @booking_request.submitter.phone = submitter_attributes[:phone]
         @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone]

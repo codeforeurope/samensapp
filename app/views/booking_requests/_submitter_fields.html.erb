@@ -15,10 +15,10 @@
     </div>
     <div class="span2">
       <% if can? :create_on_behalf, BookingRequest %>
-        <%= link_to :lookup_user, "#lookup_users_modal", {:class => "btn lookup-user", 'data-toggle' => "modal", :role => "button"} %>
+        <%= link_to t(:'.lookup_user'), "#lookup_users_modal", {:class => "btn lookup-user", 'data-toggle' => "modal", :role => "button"} %>
       <% end %>
       <% if signed_in? and @booking_request.submitter.id == current_user.id %>
-        <%= link_to :edit_profile, false, :class => "btn edit-profile" %>
+        <%= link_to t(:'.edit_profile'), false, :class => "btn edit-profile" %>
       <% end %>
     </div>
   </div>
