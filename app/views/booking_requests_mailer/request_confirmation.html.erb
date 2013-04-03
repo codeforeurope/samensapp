@@ -4,7 +4,7 @@
 <h1><%= t '.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
   #<%= @booking_request.id %></h1>
 <p>
-  <%= link_to t(:'booking_requests.display.view_request'), @target_url %></p>
+  <%= link_to t(:'booking_requests.display.view_request'), @target_url.to_s %></p>
 <table>
   <thead>
   <tr>
