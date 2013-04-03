@@ -9,7 +9,9 @@ en:
 
   booking_requests:
     new:
-      title:  "New Booking Request"
+      title: "New Booking Request"
+    edit:
+      title: "Edit Booking Request"
     display: &fieldset_labels
       my_info: "My Information"
       organization_info: "My Organization"
@@ -44,6 +46,9 @@ en:
       tooltip_request_completed: "An offer has been sent for this request."
       tooltip_request_canceled: "The request has been canceled."
       tooltip_request_working: "Working on it."
+    submitter_fields:
+      lookup_user: "Lookup User"
+      edit_profile: "Edit Profile"
 
 
   my_info: "Your Information"

@@ -22,6 +22,8 @@ class BookingRequest < ActiveRecord::Base
   validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people
   validates_presence_of :contact_email, :contact_person, :contact_phone, :organization_address
   validates_associated :submitter, :on => :create
+  validates :people, :numericality => { :greater_than_or_equal_to => 0 }
+
 
 
   def start_time
