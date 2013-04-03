@@ -29,7 +29,6 @@ jQuery ->
     $('#pictures').load(window.location.pathname + "/pictures", onPictureEdit)
 
   $('#pictureModal').on 'shown', (e) ->
-    console.log($(this).data("picture-id"))
     $('#pictureModal').load(window.location.pathname + "/pictures/" + $(this).data("picture-id") + "/edit", (data, status, xhr) ->
       $('#pictureModal form').on 'ajax:success', (data, status, xhr) ->
         $('#pictureModal').modal 'hide'

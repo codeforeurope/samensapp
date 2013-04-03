@@ -22,3 +22,7 @@ jQuery ->
     done: (e, data) ->
 #      $('#progressModal').modal "hide"
       $("div.upload").hide()
+      $('.edit-picture').on 'click', (e) ->
+        e.preventDefault()
+        $('#pictureModal').data("picture-id", $(this).data("picture-id"))
+        $('#pictureModal').modal "show"
