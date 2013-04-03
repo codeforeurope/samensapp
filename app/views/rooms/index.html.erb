@@ -46,7 +46,8 @@
     <% end %>
   </tbody>
 </table>
-
+<% if can? :create, Room %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_room_path,
             :class => 'btn btn-primary' %>
+<% end %>
