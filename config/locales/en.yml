@@ -7,6 +7,11 @@ en:
       request_confirmation:
         subject: "Your booking request [#%{id}]"
 
+  rooms:
+    new:
+      title: 'New %{model}'
+    edit:
+      title: 'Edit %{model}: %{name}'
   booking_requests:
     new:
       title: "New Booking Request"
@@ -108,6 +113,10 @@ en:
     label:
       booking_request:
         << *booking_request
+    placeholder:
+      room:
+        description: "Enter a description."
+        notes: "Enter some notes."
   flash:
     booking_request:
       created: "Booking request was successfully created."

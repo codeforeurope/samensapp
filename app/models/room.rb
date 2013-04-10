@@ -4,4 +4,9 @@ class Room < ActiveRecord::Base
 	has_many :pictures, as: :attachable_picture, :dependent => :destroy
 	#accepts_nested_attributes_for :pictures
 	has_many :room_configurations
+  validates_presence_of :name, :floor, :base_price, :blind_price, :cleaning_fee, :description
+
+  def max_capacity
+    self.room_configurations.maximum(:capacity)
+  end
 end
