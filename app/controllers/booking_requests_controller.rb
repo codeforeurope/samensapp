@@ -84,64 +84,48 @@ class BookingRequestsController < ApplicationController
   # POST /booking_requests
   # POST /booking_requests.json
   def create
+    @booking_request = BookingRequest.new
     #first, let's get the submitter hash out so that there can't be any overwriting
-    submitter_attributes = params[:booking_request].delete :submitter_attributes
-
-    #create a booking request with everything but the user hash
-    @booking_request = BookingRequest.new(params[:booking_request])
-
-
-    #lookup the submitter by email or create one with hash provided
-    submitter = User.find_all_by_email(submitter_attributes[:email]).first || User.new(submitter_attributes)
-    #and make the submitter the submitter
-    @booking_request.submitter = submitter
-
-    if signed_in?
-      # if signed in and not able to submit request on others behalf, then we restrict to the current user
-      if cannot? :create_on_behalf, BookingRequest
-        # force to current user for people who can submit on behalf
-        @booking_request.submitter = current_user
-      end
-    end
-
-
-    @booking_request.submitter.submitter_hash = submitter_attributes
-    #submitter.valid?
-
-    #if submitted is persisted, we need to see if it's activated. If so they must log in first.
-    if @booking_request.submitter.persisted?
-      if !@booking_request.submitter.confirmed?
-        #update attributes if they are missing
-        @booking_request.submitter.address = submitter_attributes[:address] if @booking_request.submitter.address.blank?
-        @booking_request.submitter.phone = submitter_attributes[:phone] if @booking_request.submitter.phone.blank?
-        @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone] if @booking_request.submitter.mobile_phone.blank?
-      end
+    if params[:booking_request][:submitter_attributes][:id]
+      submitter_attributes = params[:booking_request].delete :submitter_attributes
+      @booking_request.submitter_id = submitter_attributes[:id]
       if signed_in? && (@booking_request.submitter.id == current_user.id || can?(:create_on_behalf, BookingRequest) )
         @booking_request.submitter.address = submitter_attributes[:address]
         @booking_request.submitter.phone = submitter_attributes[:phone]
         @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone]
       end
+    end
+    #create a booking request with everything but the user hash
+    @booking_request.attributes = params[:booking_request]
 
-    else
-      if submitter_attributes[:password].blank? && submitter_attributes[:password_confirmation].blank?
-        @booking_request.submitter.make_silent
+    if signed_in?
+      # if signed in and not able to submit request on others behalf, then we restrict to the current user
+      if cannot? :create_on_behalf, BookingRequest
+        # force to current user for people who can submit on behalf
+        @booking_request.submitter_id = current_user.id
       end
     end
 
-    #blahblah
+    @booking_request.submitter.is_submitter = true
+
+
+
+
+
 
 
     respond_to do |format|
       if @booking_request.save
 
         redirect_url = booking_request_url @booking_request
-        if !signed_in?
+        if !@booking_request.submitter.confirmed?
           redirect_url = '/view_request/' + @booking_request.code
         end
         BookingRequestsMailer.request_confirmation(@booking_request, redirect_url).deliver()
-        format.html { redirect_to redirect_url, notice: 'Booking request was successfully created.' }
+        format.html { redirect_to redirect_url, notice: t(:'flash.booking_request.created') }
         format.json { render json: @booking_request, status: :created, location: @booking_request }
       else
+
         format.html { render action: "new" }
         format.json { render json: @booking_request.errors, status: :unprocessable_entity }
       end
@@ -154,7 +138,7 @@ class BookingRequestsController < ApplicationController
 
     respond_to do |format|
       if @booking_request.update_attributes(params[:booking_request])
-        format.html { redirect_to @booking_request, notice: 'Booking request was successfully updated.' }
+        format.html { redirect_to @booking_request, notice: t(:'flash.booking_request.updated')  }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
