@@ -19,9 +19,14 @@ class Ability
         can :assign_to_self, BookingRequest
       else
         can [:create], BookingRequest
-        can [:update, :cancel, :read], BookingRequest do |request|
-          user.id = request.submitter_id
+        can [:cancel, :read], BookingRequest do |request|
+          user.id == request.submitter_id
         end
+        can [:update], BookingRequest do |request|
+          user.id == request.submitter_id && request.status == "submitted"
+        end
+
+
 
       end
       #can :read, :all
