@@ -53,6 +53,8 @@ en:
 
   my_info: "Your Information"
   edit_profile: "Edit Profile"
+  yes: "Yes"
+  no: "No"
 
   navbar:
     company_name: "De Meevaart"
