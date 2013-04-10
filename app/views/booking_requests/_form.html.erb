@@ -39,7 +39,7 @@
               <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => data} %>
               <%= f.input :start_time, :wrapper => :timepicker %>
               <%= f.input :end_time, :wrapper => :timepicker %>
-              <%= f.input :people %>
+              <%= f.input :people, :input_html => { :min => 0 }  %>
               <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
               <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
               <%= f.input :equipment_needs, :input_html => {:rows => 5, :cols => 60} %>
