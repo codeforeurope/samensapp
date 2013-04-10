@@ -71,7 +71,7 @@ en:
         user:
           attributes:
             email:
-              account_exists: "account already exists. If it belongs to you please enter the password or log in before requesting the room"
+              taken: "account already exists. If it belongs to you please enter the password or log in before requesting the room"
       template:
         header:
           other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
@@ -108,4 +108,7 @@ en:
     label:
       booking_request:
         << *booking_request
-
+  flash:
+    booking_request:
+      created: "Booking request was successfully created."
+      updated: "Booking request was successfully updated."

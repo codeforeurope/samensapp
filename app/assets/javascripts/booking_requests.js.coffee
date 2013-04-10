@@ -37,7 +37,7 @@ jQuery ->
   ###
   # Modal dialog to lookup users
   ###
-  $email_field = $('#booking_request_submitter_attributes_email')
+  #$email_field = $('#booking_request_submitter_attributes_email')
   $lookup_modal = $("#lookup_users_modal")
   $email_field_in_modal = $("#lookup_users_modal .search input")
   $search_button_in_modal = $("#lookup_users_modal .search button")
@@ -68,12 +68,7 @@ jQuery ->
     $('#new_booking_request').trigger 'disable'
 
 
-  ## triggers for showing modal dialog
-  ## from the main form
-  $email_field.keydown (e)->
-    if e.keyCode == 13
-      e.preventDefault()
-      showEmailLookup($(this).val())
+
   ## other trigger from the button is connected via bootstrap url setup
 
 

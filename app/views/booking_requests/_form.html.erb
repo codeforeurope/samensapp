@@ -61,11 +61,20 @@
 
 
 <% content_for :scripts do %>
-  <% if signed_in?
-       if (cannot? :create_on_behalf, BookingRequest) || (can? :create_on_behalf, BookingRequest and !@booking_request.submitter.nil?) %>
+  <% if signed_in? %>
+
+    <% if (cannot? :create_on_behalf, BookingRequest) || (can? :create_on_behalf, BookingRequest and !@booking_request.submitter.nil?) %>
       <script>
         $(document).ready(function () {
           $("#new_booking_request").trigger("disable");
+          $email_field = $('#booking_request_submitter_attributes_email')
+
+          $email_field.keydown(function (e) {
+            if (e.keyCode == 13) {
+              e.preventDefault();
+              showEmailLookup($(this).val())
+            }
+          });
         })
       </script>
 

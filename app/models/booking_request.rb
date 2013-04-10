@@ -1,7 +1,8 @@
 class BookingRequest < ActiveRecord::Base
   STATUSES = %w"submitted assigned canceled completed"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
-                  :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address, :start_time, :end_time, :event_date, :assignee_id
+                  :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address,
+                  :start_time, :end_time, :event_date, :submitter_attributes
 
   #attr_accessor :start_time, :end_time, :event_date
   #attr_writer :event_date
