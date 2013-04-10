@@ -119,7 +119,7 @@ class BookingRequestsController < ApplicationController
 
         redirect_url = booking_request_url @booking_request
         if !@booking_request.submitter.confirmed?
-          redirect_url = '/view_request/' + @booking_request.code
+          redirect_url = request.protocol + request.host_with_port + '/view_request/' + @booking_request.code
         end
         BookingRequestsMailer.request_confirmation(@booking_request, redirect_url).deliver()
         format.html { redirect_to redirect_url, notice: t(:'flash.booking_request.created') }
