@@ -2,7 +2,16 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+
+    @buildings = Building.all
+
+    if params[:building_id].present?
+      @rooms = Room.where('building_id = ?', params[:building_id]).order("floor desc")
+      @floors= Room.where('building_id = ?', params[:building_id]).select('distinct floor').order("floor desc").group('floor').pluck(:floor)
+    else
+      @rooms = Room
+      @floors = Room.select('distinct floor').order('floor desc').group('floor').pluck(:floor)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

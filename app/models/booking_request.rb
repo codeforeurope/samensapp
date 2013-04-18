@@ -105,11 +105,6 @@ class BookingRequest < ActiveRecord::Base
     booking_requests = booking_requests.select('date(created_at) as created_at, count(*) as count')
     booking_requests.each_with_object({}) do |request, counts|
       counts[request.created_at.to_date] = request.count
-    #booking_requests  = group("date(created_at)").select("created_at, count(created_at) as count_requests")
-    #booking_requests = where(created_at: start.beginning_of_day..Time.zone.now)
-    #booking_requests = booking_requests.group("date(created_at)")
-    #booking_requests = booking_requests.select("created_at, count(created_at) as count_requests")
-    #booking_requests.group_by { |o| o.created_at.to_date }
     end
   end
 
