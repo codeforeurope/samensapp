@@ -4,6 +4,8 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               booking_requests_path, :class => 'btn'  %>
+  <% if can? :update, @booking_request %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_booking_request_path(@booking_request), :class => 'btn' %>
+    <% end %>
 </div>

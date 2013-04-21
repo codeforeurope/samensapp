@@ -2,6 +2,42 @@
 <div class="page-header">
   <h1><%= @room.name unless @room.name == nil? %></h1>
 </div>
+
+<div class="row">
+  <div class="span5">
+    <fieldset>
+      <legend> <%= t '.title', :default => model_class.model_name.human %> <%= t '.details' %> </legend>
+      <dl class="dl-horizontal">
+        <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+        <dd><%= @room.name %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:floor) %>:</strong></dt>
+        <dd><%= @room.floor %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:base_price) %>:</strong></dt>
+        <dd>&#8364;<%= @room.base_price %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:blind_price) %>:</strong></dt>
+        <dd>&#8364;<%= @room.blind_price %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:cleaning_fee) %>:</strong></dt>
+        <dd>&#8364;<%= @room.cleaning_fee %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:max_capacity) %>:</strong></dt>
+        <dd><%= @room.max_capacity %></dd>
+      </dl>
+
+
+      <% if can? :manage, @room %>
+        <div class="form-actions">
+          <%= link_to :edit, edit_room_path(@room), :class => "btn btn-primary pull-right" %>
+        </div>
+      <% end %>
+    </fieldset>
+
+  </div>
+  <div class="span5" id="room_config_table" data-configurations-url="<%= room_room_configurations_path(@room) %>">
+    <%= render "room_configurations/room_config_table" %>
+
+  </div>
+</div>
+
+
 <div class="row room-pictures">
   <div class="span10">
     <fieldset class="">
@@ -26,38 +62,6 @@
       <!--Content loaded from _pictures_carousel.html.erb-->
     </div>
 
-
-
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="span5">
-    <fieldset>
-      <legend> <%= t '.title', :default => model_class.model_name.human %> <%= t '.details' %> </legend>
-      <dl class="dl-horizontal">
-        <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-        <dd><%= @room.name %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:floor) %>:</strong></dt>
-        <dd><%= @room.floor %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:base_price) %>:</strong></dt>
-        <dd><%= @room.base_price %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:blind_price) %>:</strong></dt>
-        <dd><%= @room.blind_price %></dd>
-      </dl>
-
-
-  	<% if can? :manage, @room %>
-      <div class="form-actions">
-        <%= link_to :edit, edit_room_path(@room), :class => "btn btn-primary pull-right" %>
-      </div>
-	<% end %>      
-    </fieldset>
-
-  </div>
-  <div class="span5" id="room_config_table" data-configurations-url="<%= room_room_configurations_path(@room) %>">
-    <%= render "room_configurations/room_config_table" %>
 
   </div>
 </div>
