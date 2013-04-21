@@ -20,6 +20,9 @@ gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
 gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
     :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
+#Map
+gem 'geocoder'
+gem 'gmaps4rails'
 
 
 
