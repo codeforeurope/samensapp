@@ -1,5 +1,5 @@
 <%= form_tag rooms_path, method: 'get', :class => 'form-horizontal' do %>
-      <%= t('Select a building:') %>
+
       <%= select_tag 'building_id', options_for_select(@buildings.collect { |p| [p.name, p.id] },
                                                          :selected => params[:building_id]),
                        :prompt => 'Select Building',
