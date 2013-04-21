@@ -16,7 +16,7 @@ class BookingRequest < ActiveRecord::Base
 
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
   belongs_to :booking_agent, :class_name => 'User', :foreign_key => :assignee_id
-  #has_many :events
+  has_many :events
 
   accepts_nested_attributes_for :submitter
 

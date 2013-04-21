@@ -17,3 +17,22 @@
     }
   }
 }
+
+table {
+  padding-top: 5px;
+}
+td {
+  padding-left: 5px;
+  vertical-align: top;
+}
+
+.nav.nav-tabs {
+  margin-bottom: 0 ;
+}
+.tab-content {
+  border: 1px solid #ddd;
+  border-top: 0;
+  border-radius: 0 0 4px 4px ;
+  min-height: 130px;
+  padding: 5px;
+}

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  start_at: MyString
+  end_at: MyString
+  booking_request: 
+
+two:
+  name: MyString
+  start_at: MyString
+  end_at: MyString
+  booking_request: 

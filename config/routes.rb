@@ -1,13 +1,16 @@
 Samensapp::Application.routes.draw do
 
+  resources :events
+
   resources :buildings
-  #resources :organizations
+
   resources :booking_requests do
     collection do
       get :find_user_by_email
     end
     member do
       put :assign_to_user
+      get :offer
     end
   end
   get '/view_request/:code', :to => "booking_requests#by_code"
@@ -18,12 +21,15 @@ Samensapp::Application.routes.draw do
     end
 		resources :room_configurations
   end
+  get '/rooms_in_building', :to =>'rooms#in_building'
 
   devise_for :users
   #resource to manage the user profile
   resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile
 
   root :to => 'booking_requests#index' #'landing#index'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
