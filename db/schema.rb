@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410092103) do
+ActiveRecord::Schema.define(:version => 20130418145321) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20130410092103) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "organization_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "organizations", :force => true do |t|

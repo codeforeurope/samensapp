@@ -1,0 +1,9 @@
+<%= form_tag rooms_path, method: 'get', :class => 'form-horizontal' do %>
+
+      <%= select_tag 'building_id', options_for_select(@buildings.collect { |p| [p.name, p.id] },
+                                                         :selected => params[:building_id]),
+                       :prompt => 'Select Building',
+                       :id => 'filter_building' %>
+      <%= submit_tag 'Filter', :class => 'btn' %>
+<% end %>
+
