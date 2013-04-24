@@ -12,8 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
-//= require twitter/bootstrap_ujs
+//= require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-timepicker
