@@ -12,6 +12,12 @@ en:
       title: 'New %{model}'
     edit:
       title: 'Edit %{model}: %{name}'
+    index:
+      hero_title: "No rooms"
+      hero_subtitle: "This building has no rooms available for viewing, sorry."
+    buildings_form:
+      choose: "Choose"
+      select_building: "Select a Building"
   booking_requests:
     new:
       title: "New Booking Request"

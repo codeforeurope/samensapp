@@ -8,69 +8,83 @@
 
 <div class="span12">
 
-<% @floors.each_with_index do |fl| %>
-  <fieldset>
-    <% floor_rooms = @rooms.where('floor = ?', fl) %>
-    <div class="header">
-      <% if fl != 0 %>
-        <h2><%= fl.ordinalize %> <%= t('Floor') %></h2>
-      <% else %>
-        <h2><%= t('Ground') %> <%= t('Floor') %></h2>
-      <% end %>
+  <% if @rooms.count > 0 %>
+
+    <% @floors.each_with_index do |fl| %>
+      <fieldset class="padded">
+        <% floor_rooms = @rooms.where('floor = ?', fl) %>
+        <div class="header">
+          <% if fl != 0 %>
+            <h2><%= fl.ordinalize %> <%= t('Floor') %></h2>
+          <% else %>
+            <h2><%= t('Ground') %> <%= t('Floor') %></h2>
+          <% end %>
+        </div>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= model_class.human_attribute_name(:name) %></th>
+            <th><%= model_class.human_attribute_name(:base_price) %></th>
+            <th><%= model_class.human_attribute_name(:blind_price) %></th>
+            <th><%= model_class.human_attribute_name(:capacity) %></th>
+            <th><%= model_class.human_attribute_name(:description) %></th>
+            <th><%= model_class.human_attribute_name(:notes) %></th>
+            <th><%= model_class.human_attribute_name(:cleaning_fee) %></th>
+            <th><%= model_class.human_attribute_name(:rentable) %></th>
+            <% if can? [:manage], Room or can? [:delete], Room %>
+              <th><%= t '.actions', :default => t("helpers.actions") %></th>
+            <% end %>
+          </tr>
+          </thead>
+          <tbody>
+          <% floor_rooms.each do |room| %>
+            <tr>
+              <td><%= link_to room.name, room_path(room) %></td>
+              <td><%= room.base_price %></td>
+              <td><%= room.blind_price %></td>
+              <td><%= room.capacity %></td>
+              <td><%= room.description %></td>
+              <td><%= room.notes %></td>
+              <td><%= room.cleaning_fee %></td>
+              <td><%= room.rentable ? t('yes') : t('no') %></td>
+
+              <td>
+                <% if can? :manage, room %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                              edit_room_path(room), :class => 'btn btn-mini' %>
+                <% end %>
+                <% if can? :delete, room %>
+                  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                              room_path(room),
+                              :method => :delete,
+                              :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                              :class => 'btn btn-mini btn-danger' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      </fieldset>
+    <% end %>
+
+
+  <% else %>
+    <div class="hero-unit">
+      <h2><%= t('.hero_title') %></h2>
+
+      <p><%= t('.hero_subtitle') %></p>
     </div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th><%= model_class.human_attribute_name(:name) %></th>
-        <th><%= model_class.human_attribute_name(:base_price) %></th>
-        <th><%= model_class.human_attribute_name(:blind_price) %></th>
-        <th><%= model_class.human_attribute_name(:capacity) %></th>
-        <th><%= model_class.human_attribute_name(:description) %></th>
-        <th><%= model_class.human_attribute_name(:notes) %></th>
-        <th><%= model_class.human_attribute_name(:cleaning_fee) %></th>
-        <th><%= model_class.human_attribute_name(:rentable) %></th>
-        <% if can? [:manage], Room or can? [:delete], Room %>
-          <th><%= t '.actions', :default => t("helpers.actions") %></th>
-        <% end %>
-      </tr>
-      </thead>
-      <tbody>
-      <% floor_rooms.each do |room| %>
-        <tr>
-          <td><%= link_to room.name, room_path(room) %></td>
-          <td><%= room.base_price %></td>
-          <td><%= room.blind_price %></td>
-          <td><%= room.capacity %></td>
-          <td><%= room.description %></td>
-          <td><%= room.notes %></td>
-          <td><%= room.cleaning_fee %></td>
-          <td><%= room.rentable ? t('yes') : t('no') %></td>
 
-          <td>
-            <% if can? :manage, room %>
-              <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_room_path(room), :class => 'btn btn-mini' %>
-            <% end %>
-            <% if can? :delete, room %>
-              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                          room_path(room),
-                          :method => :delete,
-                          :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-                          :class => 'btn btn-mini btn-danger' %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
 
-  </fieldset>
-<% end %>
+  <% end %>
 
-<% if can? :create, Room %>
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_room_path,
-              :class => 'btn btn-primary' %>
-<% end %>
+
+  <% if can? :create, Room %>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_room_path,
+                :class => 'btn btn-primary' %>
+  <% end %>
 
 </div>
