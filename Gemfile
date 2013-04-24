@@ -36,6 +36,7 @@ group :assets do
   gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
       :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
+  gem 'fullcalendar-rails', github: 'tkrotoff/fullcalendar-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby

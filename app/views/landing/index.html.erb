@@ -1,4 +1,46 @@
-<h1>Welcome!</h1>
-<p>Booking system coming soon :)</p>
+<div class="row">
+  <div class="span3">
+    <div class="affix-top" data-spy="affix">
 
+      menu
+    </div>
+
+  </div>
+  <div class="span9">
+    <section class="days-events">
+      <div class="days-events-header">
+      </div>
+
+      <section class="event">
+        <div class="event-name">
+          Repair Cafe
+        </div>
+        <div class="clearfix">
+          <div class="event-time pull-left">
+            <span class="icon-time"></span>
+            <span><%= l Time.now, :format => :event %></span>
+          </div>
+          <div class="event-location pull-right">
+            <span class="icon-map-marker"></span>
+            <span><%= link_to "De Meevaart", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Balistraat 48" %></span>
+          </div>
+        </div>
+        <div class="event-description">
+          The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+          along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+          dragged to the Repair Cafe.
+
+          An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+          jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+          repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+          repaired. Come along! We are open every week. Look right of this page for opening hours.
+        </div>
+        <div class="event-bottom">
+          <%= link_to t('.learn_more'), event_path(1) %>
+        </div>
+      </section>
+    </section>
+
+  </div>
+</div>
 

@@ -12,6 +12,12 @@ GIT
     bootstrap-timepicker-rails (0.1.3)
       railties (>= 3.0)
 
+GIT
+  remote: git://github.com/tkrotoff/fullcalendar-rails.git
+  revision: 4dd34194793e2125c8cbf92ba14d904b352b8ce6
+  specs:
+    fullcalendar-rails (1.6.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -195,6 +201,7 @@ DEPENDENCIES
   devise
   devise-i18n-views
   fog
+  fullcalendar-rails!
   geocoder
   gmaps4rails
   jquery-fileupload-rails (~> 0.4.1)

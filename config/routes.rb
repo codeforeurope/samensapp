@@ -27,7 +27,7 @@ Samensapp::Application.routes.draw do
   #resource to manage the user profile
   resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile
 
-  root :to => 'booking_requests#index' #'landing#index'
+  root :to => 'landing#index'
 
 
   # The priority is based upon order of creation:
