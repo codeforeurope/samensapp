@@ -1,24 +1,33 @@
+<header class="hero-unit">
+  <h1><%=t :'.what_is_happening' %></h1>
+  <p><%=t :'.what_is_happening_tag_line' %></p>
+
+</header>
+
 <div class="row">
+
+
   <div class="span3">
-    <div class="affix-top" data-spy="affix">
-
-      menu
-    </div>
-
+    <ul class="nav nav-list events-sidenav affix-top" data-spy="affix" data-offset-top="260">
+      <li><a href="#today"><i class="icon-chevron-right"></i> Today</a></li>
+      <li><a href="#tomorrow"><i class="icon-chevron-right"></i> Tomorrow</a></li>
+      <li><a href="#later"><i class="icon-chevron-right"></i> Later</a></li>
+    </ul>
   </div>
-  <div class="span9">
-    <section class="days-events">
+  <div class="span9 events-container">
+    <section class="days-events" id="today">
       <div class="days-events-header">
+        <h4>Today</h4>
       </div>
 
       <section class="event">
         <div class="event-name">
-          Repair Cafe
+          <%= link_to "Repair Cafe", event_path(1) %>
         </div>
-        <div class="clearfix">
+        <div class="clearfix event-data">
           <div class="event-time pull-left">
             <span class="icon-time"></span>
-            <span><%= l Time.now, :format => :event %></span>
+            <span><%= l (Time.now + 45.minutes), :format => :event %></span>
           </div>
           <div class="event-location pull-right">
             <span class="icon-map-marker"></span>
@@ -35,12 +44,168 @@
           repairers is every time a challenge. And often a success, because so far, more than half of the stuff
           repaired. Come along! We are open every week. Look right of this page for opening hours.
         </div>
-        <div class="event-bottom">
-          <%= link_to t('.learn_more'), event_path(1) %>
+        <div class="event-bottom clearfix">
+          <%= link_to t('.learn_more'), event_path(1), :class => "pull-right btn btn-mini btn-primary" %>
+        </div>
+      </section>
+
+      <section class="event">
+        <div class="event-name">
+          <%= link_to "Yoga Class", event_path(2) %>
+        </div>
+        <div class="clearfix event-data">
+          <div class="event-time pull-left">
+            <span class="icon-time"></span>
+            <span><%= l (Time.now + 145.minutes), :format => :event %></span>
+          </div>
+          <div class="event-location pull-right">
+            <span class="icon-map-marker"></span>
+            <span><%= link_to "De Evenaar", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Anbonplein 59" %></span>
+          </div>
+        </div>
+        <div class="event-description">
+          The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+          along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+          dragged to the Repair Cafe.
+
+          An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+          jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+          repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+          repaired. Come along! We are open every week. Look right of this page for opening hours.
+        </div>
+        <div class="event-bottom clearfix">
+          <%= link_to t('.learn_more'), event_path(1), :class => "pull-right btn btn-mini btn-primary" %>
+        </div>
+      </section>
+    </section>
+    <section class="days-events" id="tomorrow">
+    <div class="days-events-header">
+      <h4>Tomorrow</h4>
+    </div>
+
+    <section class="event">
+      <div class="event-name">
+        <%= link_to "Repair Cafe", event_path(1) %>
+      </div>
+      <div class="clearfix event-data">
+        <div class="event-time pull-left">
+          <span class="icon-time"></span>
+          <span><%= l (Time.now + 1.day + 45.minutes), :format => :event %></span>
+        </div>
+        <div class="event-location pull-right">
+          <span class="icon-map-marker"></span>
+          <span><%= link_to "De Meevaart", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Balistraat 48" %></span>
+        </div>
+      </div>
+      <div class="event-description">
+        The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+        along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+        dragged to the Repair Cafe.
+
+        An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+        jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+        repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+        repaired. Come along! We are open every week. Look right of this page for opening hours.
+      </div>
+      <div class="event-bottom clearfix">
+        <%= link_to t('.learn_more'), event_path(1), :class => "pull-right btn btn-mini btn-primary" %>
+      </div>
+    </section>
+
+    <section class="event">
+      <div class="event-name">
+        <%= link_to "Yoga Class", event_path(2) %>
+      </div>
+      <div class="clearfix event-data">
+        <div class="event-time pull-left">
+          <span class="icon-time"></span>
+          <span><%= l (Time.now + 1.day + 145.minutes), :format => :event %></span>
+        </div>
+        <div class="event-location pull-right">
+          <span class="icon-map-marker"></span>
+          <span><%= link_to "De Evenaar", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Anbonplein 59" %></span>
+        </div>
+      </div>
+      <div class="event-description">
+        The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+        along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+        dragged to the Repair Cafe.
+
+        An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+        jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+        repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+        repaired. Come along! We are open every week. Look right of this page for opening hours.
+      </div>
+      <div class="event-bottom clearfix">
+        <%= link_to t('.learn_more'), event_path(1), :class => "pull-right btn btn-mini btn-primary" %>
+      </div>
+    </section>
+  </section>
+    <section class="days-events" id="later">
+      <div class="days-events-header">
+        <h4><%= l (Time.now + 2.days + 145.minutes), :format => :long %></h4>
+      </div>
+
+      <section class="event">
+        <div class="event-name">
+          <%= link_to "Repair Cafe", event_path(1) %>
+        </div>
+        <div class="clearfix event-data">
+          <div class="event-time pull-left">
+            <span class="icon-time"></span>
+            <span><%= l (Time.now + 2.days + 45.minutes), :format => :event %></span>
+          </div>
+          <div class="event-location pull-right">
+            <span class="icon-map-marker"></span>
+            <span><%= link_to "De Meevaart", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Balistraat 48" %></span>
+          </div>
+        </div>
+        <div class="event-description">
+          The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+          along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+          dragged to the Repair Cafe.
+
+          An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+          jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+          repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+          repaired. Come along! We are open every week. Look right of this page for opening hours.
+        </div>
+        <div class="event-bottom clearfix">
+          <%= link_to t('.learn_more'), event_path(1), :class => "pull-right btn btn-mini btn-primary" %>
+        </div>
+      </section>
+
+      <section class="event">
+        <div class="event-name">
+          <%= link_to "Yoga Class", event_path(2) %>
+        </div>
+        <div class="clearfix event-data">
+          <div class="event-time pull-left">
+            <span class="icon-time"></span>
+            <span><%= l (Time.now + 2.day + 145.minutes), :format => :event %></span>
+          </div>
+          <div class="event-location pull-right">
+            <span class="icon-map-marker"></span>
+            <span><%= link_to "De Evenaar", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Anbonplein 59" %></span>
+          </div>
+        </div>
+        <div class="event-description">
+          The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+          along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+          dragged to the Repair Cafe.
+
+          An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+          jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+          repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+          repaired. Come along! We are open every week. Look right of this page for opening hours.
+        </div>
+        <div class="event-bottom clearfix">
+          <%= link_to t('.learn_more'), event_path(1), :class => "pull-right btn btn-mini btn-primary" %>
         </div>
       </section>
     </section>
 
   </div>
+
 </div>
 

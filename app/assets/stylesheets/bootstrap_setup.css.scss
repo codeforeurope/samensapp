@@ -1,6 +1,26 @@
 // Core variables and mixins
-@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
-@import "bootstrap/mixins";
+
+// Grays
+// -------------------------
+$black:                 #000 !default;
+$grayDarker:            #222 !default;
+$grayDark:              #333 !default;
+$gray:                  #555 !default;
+$grayLight:             #999 !default;
+$grayLighter:           #eee !default;
+$white:                 #fff !default;
+
+
+// Accent colors
+// -------------------------
+$blue:                  #049cdb !default;
+$blueDark:              #0064cd !default;
+$green:                 #46a546 !default;
+$red:                   #9d261d !default;
+$yellow:                #ffc40d !default;
+$orange:                #f89406 !default;
+$pink:                  #c3325f !default;
+$purple:                #7a43b6 !default;
 
 // Navbar
 // -------------------------
@@ -12,10 +32,10 @@ $navbarBackgroundHighlight:       $grayDark !default;
 $navbarBackground:                $grayDarker !default;
 $navbarBorder:                    darken($navbarBackground, 12%) !default;
 
-$navbarText:                      #777 !default;
-$navbarLinkColor:                 #777 !default;
-$navbarLinkColorHover:            $grayDark !default;
-$navbarLinkColorActive:           $gray !default;
+$navbarText:                      #eee !default;
+$navbarLinkColor:                 #eee !default;
+$navbarLinkColorHover:            $grayLighter !default;
+$navbarLinkColorActive:           $grayLight !default;
 $navbarLinkBackgroundHover:       transparent !default;
 $navbarLinkBackgroundActive:      darken($navbarBackground, 5%) !default;
 
@@ -41,8 +61,14 @@ $navbarInverseSearchPlaceholderColor:    #ccc !default;
 $navbarInverseBrandColor:                $navbarInverseLinkColor !default;
 
 
+@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
 
 
+
+
+
+
+@import "bootstrap/mixins";
 // CSS Reset
 @import "bootstrap/reset";
 
