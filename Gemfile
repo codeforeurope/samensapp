@@ -32,10 +32,11 @@ group :assets do
 
   gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
-      :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git'
+      :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git' #, :ref => "ca57848827f8837148ebc05edcc44669dfb5fc71"
   gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
       :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
+  gem 'fullcalendar-rails', github: 'tkrotoff/fullcalendar-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
@@ -50,7 +51,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-#gem 'jquery-ui-rails'
+gem 'jquery-ui-rails'
 
 
 # To use ActiveModel has_secure_password

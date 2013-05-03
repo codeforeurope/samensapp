@@ -1,3 +1,103 @@
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "compass/css3/border-radius";
+@import "bootstrap_setup";
+
+.events-container {
+  margin-top: -60px;
+}
+
+.events-sidenav {
+  width: 150px;
+  border: 1px solid #dedede;
+  background-color: #fff;
+  top: 60px;
+  @include border-radius(6px);
+  > li:first-child > a {
+    @include border-top-radius(6px);
+  }
+  > li:last-child > a {
+    @include border-bottom-radius(6px);
+  }
+  .icon-chevron-right {
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px
+  }
+}
+
+.days-events {
+  padding-top: 50px;
+  .days-events-header {
+    border-bottom: 1px solid #cecece;
+  }
+}
+
+.event {
+  margin-top: 20px;
+  border: 1px solid #dedede;
+  @include border-radius(6px);
+  //min-height: 300px;
+  a.thumbnail {
+    width: 100px;
+    height: 100px;
+    background-image: image-url("default-avatar.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  .event-name {
+    background-color: $infoBackground;
+    padding: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    border-bottom: 1px solid #dedede;
+    @include border-top-radius(6px);
+    h5 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  .event-data {
+    background-color: $grayLighter;
+    padding: 8px;
+    border-bottom: 1px solid #dedede;
+  }
+
+  .event-description {
+    padding: 8px;
+    min-height: 150px;
+  }
+  .event-bottom {
+    border-top: 1px solid #dedede;
+    padding: 8px;
+    background-color: $grayLighter;
+    @include border-bottom-radius(6px);
+  }
+  .event-map {
+    height: 226px;
+    width: auto;
+    .gmaps4rails_map {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .event-organizer {
+    height: 226px;
+    width: auto;
+    .profile-pic {
+      margin-left: auto;
+      margin-right: auto;
+      width: 200px;
+      height: 200px;
+      background-image: image-url("default-avatar.png");
+      background-size: contain;
+    }
+
+    .profile-name {
+      text-align: center;
+    }
+
+  }
+}

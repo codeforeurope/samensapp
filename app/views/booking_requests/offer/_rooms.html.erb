@@ -1,0 +1,5 @@
+<% if @rooms %>
+  <%= select_tag :room, options_from_collection_for_select(@rooms, "id", "name"), :prompt => t(:'.select_room') %>
+<% else %>
+  <%= select_tag :room, nil, {:disabled =>true, :prompt => t(:'.select_room') } %>
+<% end %>

@@ -53,6 +53,21 @@ ActiveRecord::Schema.define(:version => 20130418145321) do
     t.float    "longitude"
   end
 
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.string   "start_at"
+    t.string   "end_at"
+    t.integer  "booking_request_id"
+    t.integer  "room_id"
+    t.integer  "room_configuration_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "events", ["booking_request_id"], :name => "index_events_on_booking_request_id"
+  add_index "events", ["room_configuration_id"], :name => "index_events_on_room_configuration_id"
+  add_index "events", ["room_id"], :name => "index_events_on_room_id"
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "address"

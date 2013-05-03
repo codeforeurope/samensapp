@@ -45,7 +45,7 @@ SimpleForm.setup do |config|
       input.wrapper :tag => 'div', :class => 'input-append bootstrap-timepicker-component' do |append|
         append.use :input
         append.wrapper :tag => 'div', :class => 'add-on' do |addon|
-          addon.wrapper :tag => 'span', :class => 'icon-time' do |icon|
+          addon.wrapper :tag => 'i', :class => 'icon-time' do |icon|
 
           end
         end
@@ -63,7 +63,7 @@ SimpleForm.setup do |config|
       input.wrapper :tag => 'div', :class => 'input-append bootstrap-datepicker-component date' do |append|
         append.use :input
         append.wrapper :tag => 'div', :class => 'add-on' do |addon|
-          addon.wrapper :tag => 'span', :class => 'icon-calendar' do |icon|
+          addon.wrapper :tag => 'i', :class => 'icon-calendar' do |icon|
 
           end
         end

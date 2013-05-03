@@ -17,6 +17,12 @@ class Ability
         can :create_on_behalf, BookingRequest
         cannot :assign_to_other, BookingRequest
         can :assign_to_self, BookingRequest
+
+
+        cannot :make_offer, BookingRequest
+        can :make_offer, BookingRequest do |request|
+          request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id)
+        end
       else
         can [:create], BookingRequest
         can [:cancel, :read], BookingRequest do |request|

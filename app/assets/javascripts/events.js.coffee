@@ -3,3 +3,5 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 
+#$(document).on 'map:ready', ->
+#  console.log arguments
