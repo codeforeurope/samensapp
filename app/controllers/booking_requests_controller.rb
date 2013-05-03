@@ -2,6 +2,18 @@ class BookingRequestsController < ApplicationController
   before_filter :authenticate_user!, :except => [:new, :create, :by_code]
   load_and_authorize_resource :except => [:create, :index, :by_code]
 
+
+  def offer
+    @buildings = Building.all
+
+    @event = @booking_request.events.build
+
+    respond_to do |format|
+      format.html # offer.html.erb
+      format.json { render json: @booking_requests }
+    end
+  end
+
   # GET /booking_requests
   # GET /booking_requests.json
   def index

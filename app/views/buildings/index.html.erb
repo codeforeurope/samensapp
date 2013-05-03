@@ -34,6 +34,8 @@
       <td><%= link_to building.name, building_path(building) %></td>
       <td><%= building.address %></td>
       <td>
+        <%= link_to t('visit'),
+                    rooms_path(:building_id => building.id),  :class => 'btn btn-mini' %>
         <% if can? :manage, building %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_building_path(building), :class => 'btn btn-mini' %>

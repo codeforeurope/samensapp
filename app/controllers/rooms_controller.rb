@@ -94,4 +94,10 @@ class RoomsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def in_building
+    @rooms = Room.where :building_id => params[:building_id].to_i
+
+    render :partial => 'booking_requests/offer/rooms'
+  end
 end

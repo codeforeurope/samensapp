@@ -1,49 +1,77 @@
 <%- model_class = BookingRequest -%>
 <%- submitter_class = User -%>
 <div class="page-header">
+  <% if can? :make_offer, @booking_request %>
+    <%=  link_to t('.make_offer'), offer_booking_request_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+  <% end %>
   <h1><%= t :'.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
     #<%= @booking_request.id %></h1>
+
 </div>
 <div class="row">
   <div class="span5">
     <fieldset>
       <legend><%= t :'.my_info' %></legend>
+      <table>
+        <tbody>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:name) %>:</strong></td>
+          <td><%= @booking_request.submitter.name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:email) %>:</strong></td>
+          <td><%= @booking_request.submitter.email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:phone) %>:</strong></td>
+          <td><%= @booking_request.submitter.phone %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:mobile_phone) %>:</strong></td>
+          <td><%= @booking_request.submitter.mobile_phone %></td>
+        </tr>
+        <tr>
+          <td><strong><%= submitter_class.human_attribute_name(:address) %>:</strong></td>
+          <td>
+            <address><%= @booking_request.submitter.address %></address>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
-      <dl class="dl-horizontal">
-        <dt><strong><%= submitter_class.human_attribute_name(:name) %>:</strong></dt>
-        <dd><%= @booking_request.submitter.name %></dd>
-        <dt><strong><%= submitter_class.human_attribute_name(:email) %>:</strong></dt>
-        <dd><%= @booking_request.submitter.email %></dd>
-        <dt><strong><%= submitter_class.human_attribute_name(:phone) %>:</strong></dt>
-        <dd><%= @booking_request.submitter.phone %></dd>
-        <dt><strong><%= submitter_class.human_attribute_name(:mobile_phone) %>:</strong></dt>
-        <dd><%= @booking_request.submitter.mobile_phone %></dd>
-        <dt><strong><%= submitter_class.human_attribute_name(:address) %>:</strong></dt>
-        <dd>
-          <address><%= @booking_request.submitter.address %></address>
-        </dd>
-      </dl>
     </fieldset>
   </div>
   <div class="span5">
 
     <fieldset>
       <legend><%= t :'.organization_info' %></legend>
+      <table>
+        <tbody>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></td>
+          <td><%= @booking_request.organization_name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></td>
+          <td><%= @booking_request.organization_name %></td>
+        </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:contact_email) %>:</strong></td>
+          <td><%= @booking_request.contact_email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:contact_phone) %>:</strong></td>
+          <td><%= @booking_request.contact_phone %></td>
+        </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:organization_address) %>:</strong></td>
+          <td>
+            <address><%= @booking_request.organization_address %></address>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
-      <dl class="dl-horizontal">
-        <dt><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></dt>
-        <dd><%= @booking_request.organization_name %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:contact_person) %>:</strong></dt>
-        <dd><%= @booking_request.contact_person %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:contact_email) %>:</strong></dt>
-        <dd><%= @booking_request.contact_email %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:contact_phone) %>:</strong></dt>
-        <dd><%= @booking_request.contact_phone %></dd>
-        <dt><strong><%= model_class.human_attribute_name(:organization_address) %>:</strong></dt>
-        <dd>
-          <address><%= @booking_request.organization_address %></address>
-        </dd>
-      </dl>
     </fieldset>
   </div>
 </div>

@@ -15,10 +15,6 @@ gem 'simple_form'
 gem 'fog'
 gem "mini_magick"
 gem "carrierwave"
-gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
-    :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git'
-gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
-    :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
 #Map
 gem 'geocoder'
@@ -30,8 +26,17 @@ gem 'gmaps4rails'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
+
+  gem 'bootstrap-sass', '~> 2.3.1.0'
+  gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
+      :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git' #, :ref => "ca57848827f8837148ebc05edcc44669dfb5fc71"
+  gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
+      :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
+
+  gem 'fullcalendar-rails', github: 'tkrotoff/fullcalendar-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
@@ -41,12 +46,12 @@ group :assets do
   gem "jquery-fileupload-rails", '~> 0.4.1'
 
   gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-  gem "twitter-bootstrap-rails"
+  #gem "twitter-bootstrap-rails"
 
 end
 
 gem 'jquery-rails'
-#gem 'jquery-ui-rails'
+gem 'jquery-ui-rails'
 
 
 # To use ActiveModel has_secure_password

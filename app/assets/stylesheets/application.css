@@ -10,8 +10,10 @@
  *
  *= require_self
  *= require jquery.fileupload-ui
+ *= require bootstrap_setup
  *= require bootstrap-timepicker
  *= require bootstrap-datepicker
+ *= require fullcalendar
  *= require_tree .
  */
 
