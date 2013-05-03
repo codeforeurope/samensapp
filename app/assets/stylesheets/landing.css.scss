@@ -38,6 +38,14 @@
   margin-top: 20px;
   border: 1px solid #dedede;
   @include border-radius(6px);
+  //min-height: 300px;
+  a.thumbnail {
+    width: 100px;
+    height: 100px;
+    background-image: image-url("default-avatar.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
   .event-name {
     background-color: $infoBackground;
     padding: 8px;
@@ -45,6 +53,10 @@
     font-weight: bold;
     border-bottom: 1px solid #dedede;
     @include border-top-radius(6px);
+    h5 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
   .event-data {
     background-color: $grayLighter;
@@ -54,11 +66,38 @@
 
   .event-description {
     padding: 8px;
-    border-bottom: 1px solid #dedede;
+    min-height: 150px;
   }
   .event-bottom {
+    border-top: 1px solid #dedede;
     padding: 8px;
     background-color: $grayLighter;
     @include border-bottom-radius(6px);
+  }
+  .event-map {
+    height: 226px;
+    width: auto;
+    .gmaps4rails_map {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .event-organizer {
+    height: 226px;
+    width: auto;
+    .profile-pic {
+      margin-left: auto;
+      margin-right: auto;
+      width: 200px;
+      height: 200px;
+      background-image: image-url("default-avatar.png");
+      background-size: contain;
+    }
+
+    .profile-name {
+      text-align: center;
+    }
+
   }
 }

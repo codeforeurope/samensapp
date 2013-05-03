@@ -32,7 +32,7 @@ group :assets do
 
   gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
-      :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git'
+      :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git' #, :ref => "ca57848827f8837148ebc05edcc44669dfb5fc71"
   gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
       :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 

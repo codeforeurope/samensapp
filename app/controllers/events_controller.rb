@@ -14,8 +14,19 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @event = Event.find(params[:id])
-
+    #@event = Event.find(params[:id])
+    @event_id =  params[:id]
+    @json = Building.first.to_gmaps4rails do |building, marker|
+      #marker.infowindow render_to_string(:partial => "/users/my_template", :locals => { :object => user})
+      #marker.picture({
+      #                   :picture => "http://www.blankdots.com/img/github-32x32.png",
+      #                   :width   => 32,
+      #                   :height  => 32
+      #               })
+      #marker.title   "i'm the title"
+      #marker.sidebar "i'm the sidebar"
+      marker.json({ :id => building.id, :title => building.name })
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @event }

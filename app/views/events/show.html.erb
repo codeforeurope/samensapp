@@ -1,25 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
-
-<p>
-  <b>Start at:</b>
-  <%= @event.start_at %>
-</p>
-
-<p>
-  <b>End at:</b>
-  <%= @event.end_at %>
-</p>
-
-<p>
-  <b>Booking request:</b>
-  <%= @event.booking_request %>
-</p>
-
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<% if @event_id == "1" %>
+  <%= render 'events/mock/event1' %>
+<% else %>
+  <%= render 'events/mock/event2' %>
+<% end %>

@@ -1,0 +1,127 @@
+<br>
+<ul class="breadcrumb">
+  <li><a href="#">Home</a> <span class="divider">/</span></li>
+  <li><a href="#">Events</a> <span class="divider">/</span></li>
+  <li class="active">Repair Cafe</li>
+</ul>
+
+<div class="span8">
+  <section class="event">
+    <div class="event-name">
+      <h5>Repair Cafe</h5>
+    </div>
+    <div class="clearfix event-data">
+      <div class="event-time pull-left">
+        <span class="icon-time"></span>
+        <span><%= l (Time.now + 45.minutes), :format => :event %></span>
+      </div>
+      <div class="event-location pull-right">
+        <span class="icon-briefcase"></span>
+        <span><%= link_to "Theaterzaal", "#", :class => "", :data => {:toggle => "tooltip"}, :title => "Begane Grond" %></span>
+
+      </div>
+    </div>
+    <div class="event-description">
+      The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+      along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+      dragged to the Repair Cafe.
+
+      An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+      jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+      repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+      repaired. Come along! We are open every week. Look right of this page for opening hours.
+    </div>
+
+  </section>
+  <section class="event">
+    <div class="event-name">
+      <h5>Who is attending</h5>
+    </div>
+
+    <div class="event-description">
+      <ul class="thumbnails">
+        <li class="thumbnail-wrap">
+          <a href="#" class="thumbnail">
+
+          </a>
+        </li>
+        <li class="thumbnail-wrap">
+          <a href="#" class="thumbnail">
+
+          </a>
+        </li>
+        <li class="thumbnail-wrap">
+          <a href="#" class="thumbnail">
+
+          </a>
+        </li>
+        <li class="thumbnail-wrap">
+          <a href="#" class="thumbnail">
+
+          </a>
+        </li>
+        <li class="thumbnail-wrap">
+          <a href="#" class="thumbnail">
+
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="event-bottom clearfix">
+      <%= link_to t('.join'), "#", :class => "pull-right btn btn-mini btn-primary" %>
+    </div>
+
+  </section>
+
+  <section class="event">
+    <div class="event-name">
+      <h5>About Repair Cafe</h5>
+    </div>
+
+    <div class="event-description">
+      The meetings in the Meevaart are a great success. Wednesdays are especially crowded. Neighborhood Enjoyed come
+      along with a wide variety of stuff. Many vacuum cleaners and audio devices, but also very special objects are
+      dragged to the Repair Cafe.
+
+      An ancient art fireplace, a vacuum cleaner with a (black) in the hose sock, a roller case, an ionizer,
+      jewelry, drills, toys ... a wide variety of broken things pass in review in the near center Meevaart. For
+      repairers is every time a challenge. And often a success, because so far, more than half of the stuff
+      repaired. Come along! We are open every week. Look right of this page for opening hours.
+    </div>
+
+  </section>
+</div>
+<div class="span3">
+  <section class="event">
+    <div class="event-name">
+      <h5><span class="icon-map-marker"></span> De Meevaart</h5>
+    </div>
+    <%= gmaps(:map_options => {:container_class => "event-map", :zoom => 4, :raw => '{ disableDefaultUI: true, scrollwheel: false }'}, "markers" => {"data" => @json, "options" => {"do_clustering" => true}}) %>
+    <div class="event-bottom clearfix">
+      Balistraat 48
+    </div>
+  </section>
+
+  <section class="event">
+    <div class="event-name">
+      <h5><span class="icon-user"></span>Organizer</h5>
+    </div>
+    <div class="event-organizer">
+      <div class="profile-pic">
+
+      </div>
+      <div class="profile-name clearfix">
+        John Smith
+      </div>
+    </div>
+    <div class="event-bottom clearfix">
+
+      <%= link_to "#", :class => "pull-right btn btn-mini btn-primary" do %>
+        <span class="icon-envelope icon-white"></span> <%= t('.contact_organizer') %>
+      <% end %>
+    </div>
+  </section>
+</div>
+
+<br>
+<br>
