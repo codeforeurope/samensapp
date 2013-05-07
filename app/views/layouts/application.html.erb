@@ -41,6 +41,8 @@
               <li><%= link_to t('navbar.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
               <% if can? :manage, BookingRequest %>
                 <li><%= link_to t('navbar.manage_bookings'), booking_requests_path, :class => current_page?(:controller => "/booking_requests") ? "active" : ""  %></li>
+                <% else %>
+                <li><%= link_to t('navbar.view_bookings'), booking_requests_path, :class => current_page?(:controller => "/booking_requests") ? "active" : ""  %></li>
               <% end %>
             <% end %>
           </ul>
@@ -48,7 +50,7 @@
             <% if user_signed_in? %>
               <li><span class="user-email"><%= t('navbar.logged_in_as') + " " + current_user.email %></span></li>
 
-              <li><%= link_to t('navbar.profile'), "/users/view" %></li>
+              <li><%= link_to t('navbar.profile'), "/users/profile" %></li>
               <li class="divider"></li>
               <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
 
