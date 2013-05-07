@@ -31,8 +31,8 @@ jQuery ->
 
       if $(item).val() and $(item).hasClass('lockable')
         $(item).prop('readonly', true)
-      console.log(item, index)
-  #
+#      console.log(item, index)
+
 
   ###
   # Modal dialog to lookup users

@@ -1,0 +1,21 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%= t('Your Profile') %></h1>
+</div>
+
+<div class="row">
+  <fieldset>
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+      <dd><%= @user.name %></dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+      <dd><%= @user.email %></dd>
+    </dl>
+
+  </fieldset>
+</div>
+
+<%= link_to "Edit", :back, :class => 'btn btn-primary' %>
+<%= link_to "Back", :back, :class => 'btn' %>
