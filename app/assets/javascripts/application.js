@@ -24,4 +24,6 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.nl
 //= require raphael-min
 //= require morris.min
+//= require gmaps4rails/gmaps4rails.base
+//= require gmaps4rails/gmaps4rails.googlemaps
 //= require_tree .

@@ -26,6 +26,7 @@ Samensapp::Application.routes.draw do
   devise_for :users
   #resource to manage the user profile
   resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile
+  match 'users/profile' => 'users#profile'
 
   root :to => 'landing#index'
 

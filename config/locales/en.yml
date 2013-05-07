@@ -76,6 +76,7 @@ en:
     logged_in_as: ""
     rooms: "Rooms"
     manage_rooms: "Manage Rooms"
+    manage_bookings: "Manage Bookings"
   activerecord:
     errors:
       models:
