@@ -6,7 +6,7 @@
 <div class="row">
   <div class="span5">
     <fieldset>
-      <legend> <%= t '.title', :default => model_class.model_name.human %> <%= t '.details' %> </legend>
+      <legend> <%=t '.details', :model => model_class.model_name.human %></legend>
       <dl class="dl-horizontal">
         <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
         <dd><%= @room.name %></dd>
@@ -40,8 +40,8 @@
 
 <div class="row room-pictures">
   <div class="span10">
-    <fieldset class="">
-      <legend>Pictures</legend>
+    <fieldset class="padded">
+      <legend><%= t ('.pictures') %></legend>
       <div class="span9">
         <div id="pictures">
           <%= render "pictures/pictures" %>
@@ -63,6 +63,14 @@
     </div>
 
 
+  </div>
+  <div class="span10">
+    <fieldset class="padded">
+      <legend> <%= model_class.human_attribute_name(:description) %> </legend>
+      <dl class="dl-horizontal">
+        <%= @room.description %>
+      </dl>
+    </fieldset>
   </div>
 </div>
 

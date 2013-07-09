@@ -37,7 +37,8 @@
                  data[:start_date] = Time.zone.now().strftime("%d-%m-%Y") if @booking_request.new_record?
               %>
               <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => data} %>
-              <%= f.input :start_time, :wrapper => :timepicker %>
+              <%= f.input :start_time, :wrapper => :timepicker, :hint => t('.start_time_help') %>
+
               <%= f.input :end_time, :wrapper => :timepicker %>
               <%= f.input :people, :input_html => { :min => 0 }  %>
               <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>

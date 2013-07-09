@@ -18,6 +18,10 @@ en:
     buildings_form:
       choose: "Choose"
       select_building: "Select a Building"
+    show:
+      details: '%{model} Details'
+      pictures: "Pictures"
+
   booking_requests:
     new:
       title: "New Booking Request"
@@ -32,6 +36,7 @@ en:
       my_info: "My Information"
       organization_info: "My Organization"
       event_details: "Event Details"
+      start_time_help: "Please include also the pre-event time. <br> For example, if the event starts at 20 and you need 15 minutes for preparation, please write 19:45."
     index:
       new_booking_request: "New Booking Request"
       your_booking_requests: "Here are your Booking Requests"
