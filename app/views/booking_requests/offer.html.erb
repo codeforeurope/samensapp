@@ -1,14 +1,18 @@
-<div class="page-header">
-  <h1><%= t '.offer' %></h1>
-</div>
+<!--<div class="page-header">-->
+<!--<h1><%= t '.offer' %></h1>-->
+<!--</div>-->
 <%- model_class = BookingRequest -%>
 <%- submitter_class = User -%>
+<div class="affix affix-top" data-offset-top="0" style=" z-index: 10001;">
 
+  <ul class="breadcrumb">
+    <li><%= link_to t(:requests), booking_requests_path %> <span class="divider">/</span></li>
+    <li><%= link_to t(:request_50), booking_request_path(@booking_request) %> <span class="divider">/</span></li>
+    <li class="active"><%= t(:'make_offer') %></li>
+  </ul>
 
-<fieldset class="span10">
-  <legend><%= t :'.request_details' %></legend>
-  <div class="row">
-    <div class="span5">
+  <div class="request-header" data-offset-top="50">
+    <div class="span4">
       <table>
         <tbody>
         <tr>
@@ -23,12 +27,6 @@
           <td><strong><%= model_class.human_attribute_name(:people) %>:</strong></td>
           <td><%= @booking_request.people %></td>
         </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="span5">
-      <table>
-        <tbody>
         <tr>
           <td><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></td>
           <td><%= @booking_request.organization_name %></td>
@@ -50,10 +48,29 @@
         </tbody>
       </table>
     </div>
+
+
+    <div class="span8   tabbable tabs-right">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#description" data-toggle="tab"><%= model_class.human_attribute_name(:description) %></a></li>
+        <li><a href="#catering_needs" data-toggle="tab"><%= model_class.human_attribute_name(:catering_needs) %></a>
+        </li>
+        <li><a href="#equipment_needs" data-toggle="tab"><%= model_class.human_attribute_name(:equipment_needs) %></a>
+        </li>
+        <li><a href="#notes" data-toggle="tab"><%= model_class.human_attribute_name(:notes) %></a></li>
+      </ul>
+      <div class="tab-content booking-request-details">
+        <div class="tab-pane active" id="description"><%= @booking_request.description %></div>
+        <div class="tab-pane" id="catering_needs"><%= @booking_request.catering_needs %></div>
+        <div class="tab-pane" id="equipment_needs"><%= @booking_request.equipment_needs %></div>
+        <div class="tab-pane" id="notes"><%= @booking_request.notes %></div>
+      </div>
+    </div>
   </div>
 
-</fieldset>
-<div class="span5">
+</div>
+<div class="span5 select-room">
   <div class="pull-left">
     <%= select_tag :building, options_from_collection_for_select(@buildings, "id", "name"), :prompt => t(:'.select_building') %>
   </div>
@@ -62,20 +79,5 @@
   </div>
   <div class="full-calendar">
 
-  </div>
-</div>
-<div class="span5">
-  <ul class="nav nav-tabs">
-    <li class="active">
-      <a href="#description" data-toggle="tab"><%= model_class.human_attribute_name(:description) %></a></li>
-    <li><a href="#catering_needs" data-toggle="tab"><%= model_class.human_attribute_name(:catering_needs) %></a></li>
-    <li><a href="#equipment_needs" data-toggle="tab"><%= model_class.human_attribute_name(:equipment_needs) %></a></li>
-    <li><a href="#notes" data-toggle="tab"><%= model_class.human_attribute_name(:notes) %></a></li>
-  </ul>
-  <div class="tab-content booking-request-details">
-    <div class="tab-pane active" id="description"><%= @booking_request.description %></div>
-    <div class="tab-pane" id="catering_needs"><%= @booking_request.catering_needs %></div>
-    <div class="tab-pane" id="equipment_needs"><%= @booking_request.equipment_needs %></div>
-    <div class="tab-pane" id="notes"><%= @booking_request.notes %></div>
   </div>
 </div>
