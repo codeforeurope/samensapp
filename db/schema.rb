@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418145321) do
+ActiveRecord::Schema.define(:version => 20130710091602) do
 
   create_table "attachments", :force => true do |t|
     t.string   "description"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130418145321) do
     t.string   "contact_email"
     t.string   "contact_phone"
     t.text     "organization_address"
+    t.string   "website"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"

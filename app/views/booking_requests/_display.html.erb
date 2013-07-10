@@ -69,6 +69,10 @@
             <address><%= @booking_request.organization_address %></address>
           </td>
         </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:website) %>:</strong></td>
+          <td><%= @booking_request.website%></td>
+        </tr>
         </tbody>
       </table>
 
