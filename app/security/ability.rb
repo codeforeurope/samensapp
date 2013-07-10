@@ -5,39 +5,68 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     user ||= User.new # guest user (not logged in)
-    if user.has_role? :admin
-      #can :discount, :offer
+
+    if user.role? :global_admin.to_s
       can :manage, :all
     else
-      if user.has_role? :booking
-        can :manage, BookingRequest
-        can :manage, RoomConfiguration
-        can :manage, Building
-        can :manage, Room
-        can :create_on_behalf, BookingRequest
+      #cannot :make_offer, BookingRequest
+      if user.role? :booking
         cannot :assign_to_other, BookingRequest
-        can :assign_to_self, BookingRequest
-
-
-        cannot :make_offer, BookingRequest
-        can :make_offer, BookingRequest do |request|
-          request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id)
-        end
-      else
-        can [:create], BookingRequest
-        can [:cancel, :read], BookingRequest do |request|
-          user.id == request.submitter_id
-        end
-        can [:update], BookingRequest do |request|
-          user.id == request.submitter_id && request.status == "submitted"
-        end
-
-
-
       end
-      #can :read, :all
-      #cannot :index, BookingRequest
+
+
+      can :create_on_behalf, BookingRequest do |request|
+        if request.building.nil?
+          return true
+        else
+          organization = request.building.organization
+          return user.role? :booking, organization
+        end
+      end
+      can :assign_to_self, BookingRequest do |request|
+        # if the request is for one of the buildings I have booking privs to
+        organization = request.building.organization
+        user.role? :booking, organization
+      end
+      can :make_offer, BookingRequest do |request|
+        organization = request.building.organization
+        user.role? "admin", organization && ( request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
+      end
+
+
+      can :manage, RoomConfiguration do |configuration|
+        organization = configuration.room.building.organization
+        user.role? "admin", organization
+      end
+      can :manage, Room do |room|
+        organization = room.building.organization
+        user.role? "admin", organization
+      end
+      can :manage, Building do |building|
+        organization = building.organization
+        user.role? "admin", organization
+      end
+      can [:update, :destroy], Organization do |organization|
+        user.role? "admin", organization
+      end
+
+
+
+      can [:create], BookingRequest
+      can [:cancel, :read], BookingRequest do |request|
+        user.id == request.submitter_id
+      end
+      can [:update], BookingRequest do |request|
+        user.id == request.submitter_id && request.status == "submitted"
+      end
+
+
+
+      can :read, :all
     end
+
+
+
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
