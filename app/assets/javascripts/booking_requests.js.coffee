@@ -33,6 +33,9 @@ jQuery ->
         $(item).prop('readonly', true)
 #      console.log(item, index)
 
+  #when building is loaded, show the opening times
+  $('#booking_request_building_id').change (e) ->
+    $(this).parent().find(".help-block").load("/buildings/" + $("#booking_request_building_id").val() + "/openingtimes/")
 
   ###
   # Modal dialog to lookup users
@@ -89,6 +92,8 @@ jQuery ->
 
   $("a[rel=tooltip]").tooltip()
 
+
+  #Morris Chart in booking requests management
   if $('#requests_chart').length
     Morris.Line
       element: 'requests_chart'

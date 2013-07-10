@@ -20,11 +20,11 @@
 
               </div>
 
-              <%= f.input :organization_name %>
+              <%= f.input :company_name %>
               <%= f.input :contact_person %>
               <%= f.input :contact_email %>
               <%= f.input :contact_phone, :type => "tel" %>
-              <%= f.input :organization_address, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :company_address, :input_html => {:rows => 5, :cols => 60} %>
               <%= f.input :website %>
             </div>
           </div>
@@ -32,7 +32,8 @@
         <fieldset>
           <legend><%= t :'.event_details' %></legend>
           <div class="row">
-            <div class="span5">
+            <div class="span6">
+              <%= f.association :building, collection: @buildings, label_method: :name, value_method: :id, :hint => "" %>
               <%
                  data = {}
                  data[:start_date] = Time.zone.now().strftime("%d-%m-%Y") if @booking_request.new_record?

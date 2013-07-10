@@ -24,15 +24,16 @@ ActiveRecord::Schema.define(:version => 20130710100712) do
     t.string   "status"
     t.integer  "submitter_id"
     t.integer  "assignee_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "code"
-    t.string   "organization_name"
+    t.string   "company_name"
     t.string   "contact_person"
     t.string   "contact_email"
     t.string   "contact_phone"
-    t.text     "organization_address"
+    t.text     "company_address"
     t.string   "website"
+    t.integer  "building_id"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"
@@ -52,6 +53,8 @@ ActiveRecord::Schema.define(:version => 20130710100712) do
     t.integer  "organization_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.time     "open_from"
+    t.time     "open_to"
   end
 
   create_table "events", :force => true do |t|

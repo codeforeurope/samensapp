@@ -2,27 +2,24 @@ class BookingRequest < ActiveRecord::Base
   include ActiveModel::Validations
   STATUSES = %w"submitted assigned canceled completed"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
-                  :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address,
-                  :start_time, :end_time, :event_date, :submitter_attributes, :website
-
-  #attr_accessor :start_time, :end_time, :event_date
-  #attr_writer :event_date
+                  :company_name, :contact_person, :contact_email, :contact_phone, :company_address,
+                  :start_time, :end_time, :event_date, :submitter_attributes, :website, :building_id
 
   before_create :create_code
   before_create :set_default_status
 
-  #TODO 2013-03-25
-  #before_update if assignee is set and it's submitted, then set to assigned
   before_update :set_status
 
   belongs_to :submitter, :class_name => 'User', :foreign_key => :submitter_id
   belongs_to :booking_agent, :class_name => 'User', :foreign_key => :assignee_id
+  belongs_to :building
   has_many :events
+
 
   accepts_nested_attributes_for :submitter
 
-  validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people
-  validates_presence_of :contact_email, :contact_person, :contact_phone, :organization_address
+  validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people, :building_id
+  validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address
   validates_associated :submitter, :on => :create
   validates :people, :numericality => { :greater_than_or_equal_to => 0 }
   validates :website, :allow_blank => true, :url => true
@@ -90,12 +87,12 @@ class BookingRequest < ActiveRecord::Base
   end
 
   def set_default_status
-    self.status = STATUSES[0]
+    self.status = STATUSES[0] #submitted
   end
 
   def set_status
     if self.status == "submitted" and !self.assignee_id.nil?
-      self.status = STATUSES[1]
+      self.status = STATUSES[1] #assigned
     end
   end
 

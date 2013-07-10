@@ -69,6 +69,8 @@ class BookingRequestsController < ApplicationController
   # GET /booking_requests/new.json
   def new
     @booking_request.submitter = User.new()
+    @buildings = Building.all
+    #TODO:  if user can? create_onbehalf then filter buildings only based on the organization he/she belongs to
 
     # we will default to current user for logged in people
     if signed_in?
@@ -91,6 +93,7 @@ class BookingRequestsController < ApplicationController
 
   # GET /booking_requests/1/edit
   def edit
+    @buildings = Building.all
   end
 
   # POST /booking_requests
@@ -119,12 +122,6 @@ class BookingRequestsController < ApplicationController
     end
 
     @booking_request.submitter.is_submitter = true
-
-
-
-
-
-
 
     respond_to do |format|
       if @booking_request.save
