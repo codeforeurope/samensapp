@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710091602) do
+ActiveRecord::Schema.define(:version => 20130710132959) do
 
   create_table "attachments", :force => true do |t|
     t.string   "description"
@@ -31,15 +31,16 @@ ActiveRecord::Schema.define(:version => 20130710091602) do
     t.string   "status"
     t.integer  "submitter_id"
     t.integer  "assignee_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "code"
-    t.string   "organization_name"
+    t.string   "company_name"
     t.string   "contact_person"
     t.string   "contact_email"
     t.string   "contact_phone"
-    t.text     "organization_address"
+    t.text     "company_address"
     t.string   "website"
+    t.integer  "building_id"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"

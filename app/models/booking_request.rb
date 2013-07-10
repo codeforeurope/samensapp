@@ -2,7 +2,7 @@ class BookingRequest < ActiveRecord::Base
   include ActiveModel::Validations
   STATUSES = %w"submitted assigned canceled completed"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
-                  :organization_name, :contact_person, :contact_email, :contact_phone, :organization_address,
+                  :company_name, :contact_person, :contact_email, :contact_phone, :company_address,
                   :start_time, :end_time, :event_date, :submitter_attributes, :website
 
   #attr_accessor :start_time, :end_time, :event_date
@@ -22,7 +22,7 @@ class BookingRequest < ActiveRecord::Base
   accepts_nested_attributes_for :submitter
 
   validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people
-  validates_presence_of :contact_email, :contact_person, :contact_phone, :organization_address
+  validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address
   validates_associated :submitter, :on => :create
   validates :people, :numericality => { :greater_than_or_equal_to => 0 }
   validates :website, :allow_blank => true, :url => true
