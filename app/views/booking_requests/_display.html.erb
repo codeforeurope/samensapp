@@ -64,14 +64,14 @@
           <td><%= @booking_request.contact_phone %></td>
         </tr>
         <tr>
+          <td><strong><%= model_class.human_attribute_name(:website) %>:</strong></td>
+          <td><%= @booking_request.website%></td>
+        </tr>
+        <tr>
           <td><strong><%= model_class.human_attribute_name(:organization_address) %>:</strong></td>
           <td>
             <address><%= @booking_request.organization_address %></address>
           </td>
-        </tr>
-        <tr>
-          <td><strong><%= model_class.human_attribute_name(:website) %>:</strong></td>
-          <td><%= @booking_request.website%></td>
         </tr>
         </tbody>
       </table>
