@@ -2,7 +2,11 @@ Samensapp::Application.routes.draw do
 
   resources :events
 
-  resources :buildings
+  resources :buildings do
+    member do
+      match "/openingtimes", :to => "buildings#openingtimes"
+    end
+  end
 
   resources :booking_requests do
     collection do

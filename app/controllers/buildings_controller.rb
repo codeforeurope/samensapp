@@ -95,4 +95,12 @@ class BuildingsController < ApplicationController
     end
   end
 
+  def openingtimes
+    @building = Building.find(params[:id])
+    respond_to do |format|
+      format.html { render layout: "ajax" }
+      format.json { render json: @room_configuration }
+    end
+  end
+
 end

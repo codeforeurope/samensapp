@@ -1,5 +1,6 @@
 <%- model_class = BookingRequest -%>
 <%- submitter_class = User -%>
+<%- building_class = Building -%>
 <div class="page-header">
   <% if can? :make_offer, @booking_request %>
     <%=  link_to t('.make_offer'), offer_booking_request_path(@booking_request), :class => 'pull-right btn btn-primary' %>
@@ -82,6 +83,8 @@
       <div class="row">
         <div class="span5">
           <dl class="dl-horizontal">
+            <dt><strong><%= "#{building_class.model_name.human} #{building_class.human_attribute_name(:name)}" %>:</strong></dt>
+            <dd><%= @booking_request.building.name %></dd>
             <dt><strong><%= model_class.human_attribute_name(:event_date) %>:</strong></dt>
             <dd><%= @booking_request.event_date %></dd>
             <dt><strong><%= model_class.human_attribute_name(:people) %>:</strong></dt>
@@ -110,7 +113,6 @@
             <dd><%= @booking_request.equipment_needs %></dd>
             <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
             <dd><%= @booking_request.notes %></dd>
-
           </dl>
 
         </div>
