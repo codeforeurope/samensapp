@@ -10,7 +10,6 @@
   <script type="text/javascript">
     Gmaps.map.callback = function() {
      //your code
-      console.log('callback');
       $(document).trigger('map:ready');
     }
   </script>
@@ -22,6 +21,8 @@
   <tr>
     <th><%= model_class.human_attribute_name(:name) %></th>
     <th><%= model_class.human_attribute_name(:address) %></th>
+    <th><%= model_class.human_attribute_name(:open_from) %></th>
+    <th><%= model_class.human_attribute_name(:open_to) %></th>
     <th>
       <% if can? :manage, Building or can? :delete, Building %>
         <%= t '.actions', :default => t("helpers.actions") %>
@@ -33,6 +34,8 @@
     <tr>
       <td><%= link_to building.name, building_path(building) %></td>
       <td><%= building.address %></td>
+      <td><%= l building.open_from, :format => :hour_minute unless building.open_from.nil? %></td>
+      <td><%= l building.open_to, :format => :hour_minute unless building.open_to.nil? %></td>
       <td>
         <%= link_to t('visit'),
                     rooms_path(:building_id => building.id),  :class => 'btn btn-mini' %>

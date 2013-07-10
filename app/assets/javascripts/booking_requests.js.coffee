@@ -35,7 +35,7 @@ jQuery ->
 
   #when building is loaded, show the opening times
   $('#booking_request_building_id').change (e) ->
-    $('#building-opening-times').load("/buildings/" + $("#booking_request_building_id").val() + "/openingtimes/")
+    $(this).parent().find(".help-block").load("/buildings/" + $("#booking_request_building_id").val() + "/openingtimes/")
 
   ###
   # Modal dialog to lookup users

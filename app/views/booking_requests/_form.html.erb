@@ -33,8 +33,7 @@
           <legend><%= t :'.event_details' %></legend>
           <div class="row">
             <div class="span6">
-              <%= f.association :building, collection: @buildings, label_method: :name, value_method: :id %>
-              <div id="building-opening-times"></div>
+              <%= f.association :building, collection: @buildings, label_method: :name, value_method: :id, :hint => "" %>
               <%
                  data = {}
                  data[:start_date] = Time.zone.now().strftime("%d-%m-%Y") if @booking_request.new_record?

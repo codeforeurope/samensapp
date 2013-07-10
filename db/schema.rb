@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710132959) do
+ActiveRecord::Schema.define(:version => 20130710152212) do
 
   create_table "attachments", :force => true do |t|
     t.string   "description"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20130710132959) do
     t.integer  "organization_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.time     "open_from"
+    t.time     "open_to"
   end
 
   create_table "events", :force => true do |t|

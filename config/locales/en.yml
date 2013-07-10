@@ -2,6 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  time:
+    formats:
+      hour_minute: "%H:%M"
   booking_request: "Booking Request"
   mailer:
       request_confirmation:
@@ -110,6 +113,9 @@ en:
         requester: "Requester"
         assigned_to: "Assignee"
         notes: "Remarks"
+      building:
+        open_from: "Opens at"
+        open_to: "Closes at"
 
   activemodel:
     models:
