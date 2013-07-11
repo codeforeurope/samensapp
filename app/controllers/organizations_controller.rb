@@ -7,12 +7,8 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   # GET /organizations.json
   def index
-    @organizations = Organization.all
-
     @verified = Organization.where("status = 'verified'")
     @not_verified = Organization.where("status != 'verified'")
-
-
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,6 +20,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1.json
   def show
     @organization = Organization.find(params[:id])
+    @buildings = @organization.buildings
 
     respond_to do |format|
       format.html # show.html.erb

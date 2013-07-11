@@ -23,6 +23,8 @@ en:
       no_organizations: "There are no organizations in this list"
     index:
       start_your_organization: "Want to start a new organization? Click here:"
+    show:
+      buildings_in_organization: "Buildings managed by this Organization"
   rooms:
     new:
       title: 'New %{model}'
