@@ -11,6 +11,18 @@ en:
         subject: "Your booking request [#%{id}]"
 
   crop: "Crop Image"
+
+  organizations:
+    rest:
+      title: "Organizations not active"
+      subtitle: "These organizations are not shown to the users, and only administrators can see them"
+      no_organizations: "There are no organizations in this list"
+    verified:
+      title: "Organizations active in the neighborhood"
+      subtitle: "These organizations are active in the area"
+      no_organizations: "There are no organizations in this list"
+    index:
+      start_your_organization: "Want to start a new organization? Click here:"
   rooms:
     new:
       title: 'New %{model}'

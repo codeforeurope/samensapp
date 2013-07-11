@@ -9,6 +9,11 @@ class OrganizationsController < ApplicationController
   def index
     @organizations = Organization.all
 
+    @verified = Organization.where("status = 'verified'")
+    @not_verified = Organization.where("status != 'verified'")
+
+
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organizations }
@@ -60,18 +65,6 @@ class OrganizationsController < ApplicationController
         format.json { render json: @organization.errors, status: :unprocessable_entity }
       end
     end
-
-    #@organization = Organization.new(params[:organization])
-    #
-    #respond_to do |format|
-    #  if @organization.save
-    #    format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
-    #    format.json { render json: @organization, status: :created, location: @organization }
-    #  else
-    #    format.html { render action: "new" }
-    #    format.json { render json: @organization.errors, status: :unprocessable_entity }
-    #  end
-    #end
   end
 
   # PUT /organizations/1

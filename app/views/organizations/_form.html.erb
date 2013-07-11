@@ -21,6 +21,11 @@
     <div class="field">
       <%= f.input :image %>
     </div>
+    <% if current_user.role? :global_admin.to_s %>
+    <div class="field">
+      <%= f.input :status, collection: Organization::STATUSES, :hint => ""  %>
+    </div>
+    <% end %>
   </div>
   <div class="form-actions">
     <%= f.button :submit %>

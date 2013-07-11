@@ -1,0 +1,35 @@
+<%- model_class = Organization -%>
+
+<h2><%= t('.title') %></h2>
+<br/>
+<% if @not_verified.count == 0 %>
+  <div class="hero-unit">
+    <p><%= t('.no_organizations') %></p>
+  </div>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <% @not_verified.each do |organization| %>
+      <tr>
+        <td><%= organization.name %></td>
+        <td><%= organization.status.humanize %></td>
+        <td><%= link_to t('.show'),
+                        organization,
+                        :class => 'btn btn-mini' %>
+          <%= if can? :manage, organization
+                link_to t('.edit'),
+                        edit_organization_path(organization),
+                        :class => 'btn btn-mini btn-primary'
+              end %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <br/>
+<% end %>
