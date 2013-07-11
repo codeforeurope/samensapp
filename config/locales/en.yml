@@ -25,7 +25,9 @@ en:
     show:
       details: '%{model} Details'
       pictures: "Pictures"
-
+  buildings:
+    form:
+      description_help: "Use this field to talk about what events is this building used for, and what people can find there."
   booking_requests:
     new:
       title: "New Booking Request"

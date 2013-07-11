@@ -9,6 +9,10 @@
     <dd><%= @building.name %></dd>
   </div>
   <div class="row">
+    <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+    <dd><%= @building.description %></dd>
+  </div>
+  <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
     <dd><%= @building.address %></dd>
   </div>
