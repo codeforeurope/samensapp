@@ -27,6 +27,8 @@ Samensapp::Application.routes.draw do
   end
   get '/rooms_in_building', :to =>'rooms#in_building'
 
+  resources :organizations
+
   devise_for :users
   #resource to manage the user profile
   resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile

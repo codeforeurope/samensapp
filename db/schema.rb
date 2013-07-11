@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710100712) do
+ActiveRecord::Schema.define(:version => 20130710152212) do
+
+  create_table "attachments", :force => true do |t|
+    t.string   "description"
+    t.string   "file"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
