@@ -1,6 +1,6 @@
 #This is the building eg: Meevaart
 class Building < ActiveRecord::Base
-  attr_accessible :address, :name, :open_from, :open_to, :organization_id
+  attr_accessible :address, :name, :open_from, :open_to, :organization_id, :description
   belongs_to :organization
   has_many :rooms
 

@@ -10,6 +10,21 @@ en:
       request_confirmation:
         subject: "Your booking request [#%{id}]"
 
+  crop: "Crop Image"
+
+  organizations:
+    rest:
+      title: "Organizations not active"
+      subtitle: "These organizations are not shown to the users, and only administrators can see them"
+      no_organizations: "There are no organizations in this list"
+    verified:
+      title: "Organizations active in the neighborhood"
+      subtitle: "These organizations are active in the area"
+      no_organizations: "There are no organizations in this list"
+    index:
+      start_your_organization: "Want to start a new organization? Click here:"
+    show:
+      buildings_in_organization: "Buildings managed by this Organization"
   rooms:
     new:
       title: 'New %{model}'
@@ -24,7 +39,9 @@ en:
     show:
       details: '%{model} Details'
       pictures: "Pictures"
-
+  buildings:
+    form:
+      description_help: "Use this field to talk about what events is this building used for, and what people can find there."
   booking_requests:
     new:
       title: "New Booking Request"
@@ -90,6 +107,10 @@ en:
   activerecord:
     errors:
       models:
+        organization:
+          attributes:
+            image:
+              image_minimum_size: "The picture is below the minimum size. (570x380 pixel for pictures, 480x480 for rewards)"
         user:
           attributes:
             email:

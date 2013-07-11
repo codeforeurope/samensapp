@@ -28,6 +28,7 @@ class BuildingsController < ApplicationController
   # GET /buildings/1.json
   def show
     @building = Building.find(params[:id])
+    @organization = Organization.where("id = #{@building.id}").first
 
     respond_to do |format|
       format.html # show.html.erb

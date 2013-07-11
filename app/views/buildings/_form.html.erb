@@ -1,6 +1,7 @@
 
 <%= simple_form_for @building, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :name %>
+  <%= f.input :description, :hint => t('.description_help') %>
   <%= f.input :address %>
   <%= f.input :open_from%>
   <%= f.input :open_to %>

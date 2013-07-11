@@ -1,0 +1,14 @@
+<%- model_class = Building -%>
+
+<%= gmaps("map_options" => {"zoom" => 6}, "markers" => {"data" => @json, "options" => {"do_clustering" => true}}) %>
+
+<% content_for :scripts do %>
+  <script type="text/javascript">
+    Gmaps.map.callback = function() {
+      //your code
+      $(document).trigger('map:ready');
+    }
+  </script>
+<% end %>
+
+<br/>

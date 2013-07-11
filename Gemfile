@@ -41,6 +41,8 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
+  gem 'jcrop-rails' #image cropping
+
   gem 'uglifier', '>= 1.0.3'
   #jquery file upload
   gem "jquery-fileupload-rails", '~> 0.4.1'

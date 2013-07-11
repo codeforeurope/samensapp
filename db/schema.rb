@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710100712) do
+ActiveRecord::Schema.define(:version => 20130711142325) do
+
+  create_table "attachments", :force => true do |t|
+    t.string   "description"
+    t.string   "file"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -55,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20130710100712) do
     t.float    "longitude"
     t.time     "open_from"
     t.time     "open_to"
+    t.text     "description"
   end
 
   create_table "events", :force => true do |t|
@@ -75,8 +83,12 @@ ActiveRecord::Schema.define(:version => 20130710100712) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "address"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "icon"
+    t.string   "image"
+    t.string   "status"
+    t.text     "description"
   end
 
   create_table "pictures", :force => true do |t|
