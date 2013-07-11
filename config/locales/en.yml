@@ -10,6 +10,7 @@ en:
       request_confirmation:
         subject: "Your booking request [#%{id}]"
 
+  crop: "Crop Image"
   rooms:
     new:
       title: 'New %{model}'
@@ -90,6 +91,10 @@ en:
   activerecord:
     errors:
       models:
+        organization:
+          attributes:
+            image:
+              image_minimum_size: "The picture is below the minimum size. (570x380 pixel for pictures, 480x480 for rewards)"
         user:
           attributes:
             email:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710152212) do
+ActiveRecord::Schema.define(:version => 20130711102300) do
 
   create_table "attachments", :force => true do |t|
     t.string   "description"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20130710152212) do
     t.float    "longitude"
     t.time     "open_from"
     t.time     "open_to"
+    t.text     "description"
   end
 
   create_table "events", :force => true do |t|
@@ -84,6 +85,8 @@ ActiveRecord::Schema.define(:version => 20130710152212) do
     t.text     "address"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "icon"
+    t.string   "image"
   end
 
   create_table "pictures", :force => true do |t|

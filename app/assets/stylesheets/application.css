@@ -14,6 +14,7 @@
  *= require bootstrap-timepicker
  *= require bootstrap-datepicker
  *= require fullcalendar
+ *= require jcrop
  *= require_tree .
  */
 
