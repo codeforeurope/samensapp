@@ -18,7 +18,7 @@
   </div>
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:organization) %>:</strong></dt>
-    <dd><%= link_to  @organization.name, organization_url(@organization.id) %></dd>
+    <dd><%= link_to  @organization.name, organization_url(@organization.id) unless @organization.nil? %></dd>
   </div>
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:open_from) %>:</strong></dt>
