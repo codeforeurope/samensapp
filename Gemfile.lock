@@ -7,9 +7,10 @@ GIT
 
 GIT
   remote: git://github.com/tispratik/bootstrap-timepicker-rails.git
-  revision: 8d9e61cc6e61a98cece411c85fc44a9add321011
+  revision: ca57848827f8837148ebc05edcc44669dfb5fc71
+  ref: ca57848827f8837148ebc05edcc44669dfb5fc71
   specs:
-    bootstrap-timepicker-rails (0.1.3)
+    bootstrap-timepicker-rails (0.1.2)
       railties (>= 3.0)
 
 GIT

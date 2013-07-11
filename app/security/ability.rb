@@ -30,7 +30,7 @@ class Ability
       end
       can :make_offer, BookingRequest do |request|
         organization = request.building.organization
-        user.role? "admin", organization && ( request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
+       ( user.role? "admin", organization) && ( request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
       end
 
 

@@ -1,0 +1,34 @@
+// Place all the styles related to the offer controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/images";
+
+
+.request-header {
+  @include border-radius(6px);
+  border: 1px solid #dddddd;
+  width: auto;
+  z-index: 10001;
+  background: #ffffff;
+  padding: 6px;
+  height: 160px;
+  margin-top: -10px;
+  .tab-content {
+    border: 0;
+    height: 160px;
+    .tab-pane {
+      height: 160px;
+      overflow-y: scroll;
+    }
+  }
+}
+.request-summary {
+  overflow-y: scroll;
+  height: 160px;
+}
+.select-room {
+  margin-top: 250px;
+}

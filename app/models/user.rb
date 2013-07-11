@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
     end
   end
 
+
+
   protected
   def password_required?
     !create_account.to_i.zero? || (super()  && !(is_submitter && attribute(:password).nil? && attribute(:password_confirmation).nil?))

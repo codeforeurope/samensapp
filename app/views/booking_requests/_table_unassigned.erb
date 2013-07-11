@@ -2,7 +2,7 @@
 
 <h2><%= t('.outstanding_requests') %></h2>
 <br/>
-<% if @not_assigned_to_me_booking_requests.count == 0 %>
+<% if @unassigned_requests.count == 0 %>
   <div class="hero-unit">
     <h2><%= t('.awesome') %></h2>
     <p><%= t('.hero_subtitle_1')%><br /><%= t(".hero_subtitle_2")%>.</p>
@@ -21,7 +21,7 @@
     </tr>
     </thead>
 
-    <% @not_assigned_to_me_booking_requests.each do |booking_request| %>
+    <% @unassigned_requests.each do |booking_request| %>
       <tr>
         <td><%= format_date(booking_request.start_at) %></td>
         <td><%= booking_request.people %></td>

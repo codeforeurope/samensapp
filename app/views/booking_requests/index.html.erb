@@ -1,6 +1,6 @@
 <%- model_class = BookingRequest -%>
 
-<% if can? :manage, BookingRequest %>
+<% if !@unassigned_requests.empty? || !@assigned_requests.empty? %>
   <div class="row-fluid">
     <div class="span6">
       <%= render 'table_unassigned' %>

@@ -2,7 +2,7 @@
 
 <h2><%= t('.title') %></h2>
 <br/>
-<% if @assigned_to_me_booking_requests.count == 0 %>
+<% if @assigned_requests.count == 0 %>
   <div class="hero-unit">
     <h2><%= t('.hero_title') %></h2>
     <p><%= t('.hero_subtitle_1') %>
@@ -21,7 +21,7 @@
       <th></th>
     </tr>
     </thead>
-    <% @assigned_to_me_booking_requests.each do |booking_request| %>
+    <% @assigned_requests.each do |booking_request| %>
       <tr>
         <td><%= format_date(booking_request.start_at) %></td>
         <td><%= booking_request.people %></td>
@@ -31,8 +31,8 @@
         <td><%= link_to t('.show'),
                         booking_request,
                         :class => 'btn btn-mini' %></td>
-        <td><%= link_to t('.offer'),
-                        offer_booking_request_path(booking_request),
+        <td><%= link_to t('.make_offer'),
+                        new_booking_request_offer_path(booking_request),
                         :class => 'btn btn-mini btn-primary' %></td>
       </tr>
     <% end %>

@@ -1,5 +1,5 @@
 <!--<div class="page-header">-->
-<!--<h1><%= t '.offer' %></h1>-->
+<!--<h1><%= t '.offers' %></h1>-->
 <!--</div>-->
 <%- model_class = BookingRequest -%>
 <%- submitter_class = User -%>
@@ -12,7 +12,7 @@
   </ul>
 
   <div class="request-header" data-offset-top="50">
-    <div class="span4">
+    <div class="span4 request-summary">
       <table>
         <tbody>
         <tr>
@@ -29,7 +29,7 @@
         </tr>
         <tr>
           <td><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></td>
-          <td><%= @booking_request.organization_name %></td>
+          <td><%= @booking_request.company_name %></td>
         </tr>
         <tr>
           <td><strong><%= model_class.human_attribute_name(:contact_email) %>:</strong></td>
@@ -42,7 +42,7 @@
         <tr>
           <td><strong><%= model_class.human_attribute_name(:company_address) %>:</strong></td>
           <td>
-            <address><%= @booking_request.organization_address %></address>
+            <address><%= @booking_request.company_address %></address>
           </td>
         </tr>
         </tbody>
@@ -50,7 +50,7 @@
     </div>
 
 
-    <div class="span8   tabbable tabs-right">
+    <div class="span8 request-detail tabbable tabs-right">
       <ul class="nav nav-tabs">
         <li class="active">
           <a href="#description" data-toggle="tab"><%= model_class.human_attribute_name(:description) %></a></li>
@@ -70,14 +70,36 @@
   </div>
 
 </div>
-<div class="span5 select-room">
-  <div class="pull-left">
-    <%= select_tag :building, options_from_collection_for_select(@buildings, "id", "name"), :prompt => t(:'.select_building') %>
-  </div>
-  <div class="pull-right">
-    <%= render partial: 'booking_requests/offer/rooms', locals: {building_id: nil} %>
-  </div>
-  <div class="full-calendar">
+<div class="select-room">
+  <div class="span7 full-calendar">
 
   </div>
+  <div class="pull-right">
+    <div class="">
+      <%= select_tag :building, options_from_collection_for_select(@buildings, "id", "name"), :prompt => t(:'.select_building') %>
+    </div>
+    <div class="">
+      <%= render partial: 'booking_requests/offer/rooms', locals: {building_id: nil} %>
+    </div>
+    <div>
+      <div class="input-prepend bootstrap-datepicker-component date">
+        <div class="add-on"><i class="icon-calendar"></i></div>
+        <%= text_field_tag :event_date, @booking_request.event_date, {:class => ""} %>
+      </div>
+    </div>
+    <div>
+      <div class="input-prepend bootstrap-timepicker-component">
+        <div class="add-on"><i class="icon-time"></i></div>
+        <%= text_field_tag :start_time, @booking_request.start_time, {:class => ""} %>
+      </div>
+    </div>
+    <div>
+      <div class="input-prepend bootstrap-timepicker-component">
+        <div class="add-on"><i class="icon-time"></i></div>
+        <%= text_field_tag :end_time, @booking_request.end_time, {:class => ""} %>
+      </div>
+    </div>
+  </div>
+
+
 </div>

@@ -3,7 +3,7 @@
 <%- building_class = Building -%>
 <div class="page-header">
   <% if can? :make_offer, @booking_request %>
-    <%=  link_to t('.make_offer'), offer_booking_request_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+    <%=  link_to t('.make_offer'), new_booking_request_offer_path(@booking_request), :class => 'pull-right btn btn-primary' %>
   <% end %>
   <h1><%= t :'.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
     #<%= @booking_request.id %></h1>

@@ -38,28 +38,6 @@
 
 }
 
-.request-header {
-  @include border-radius(6px);
-  border: 1px solid #dddddd;
-  width: auto;
-  z-index: 10001;
-  background: #ffffff;
-  padding: 6px;
-  height: 160px;
-  margin-top: -10px;
-  .tab-content {
-    border: 0;
-    height: 160px;
-    .tab-pane {
-      height: 160px;
-      overflow-y: scroll;
-    }
-  }
-}
-
-.select-room {
-  margin-top: 250px;
-}
 
 fieldset {
 
@@ -94,8 +72,7 @@ fieldset {
 }
 
 .input-append.date .add-on i {
-  width: 14px;
-  height: 14px;
+
 }
 
 .help-block {

@@ -9,7 +9,7 @@ class BookingRequestsController < ApplicationController
     @event = @booking_request.events.build
 
     respond_to do |format|
-      format.html # offer.html.erb
+      format.html # offers.html.erb
       format.json { render json: @booking_requests }
     end
   end
@@ -20,8 +20,8 @@ class BookingRequestsController < ApplicationController
 
     #@unassigned_booking_requests = BookingRequest.where("assignee_id IS NULL").order("created_at desc")
     #@assigned_booking_requests = BookingRequest.where("assignee_id IS NOT NULL").order("created_at desc")
-    @not_assigned_to_me_booking_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
-    @assigned_to_me_booking_requests = BookingRequest.where("assignee_id = ? ", current_user.id).order("created_at desc")
+    @unassigned_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
+    @assigned_requests = BookingRequest.where("assignee_id = ? ", current_user.id).order("created_at desc")
 
     @booking_agents = User.joins(:roles).where('roles.name' => 'booking')
 

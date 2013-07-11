@@ -1,5 +1,6 @@
 Samensapp::Application.routes.draw do
 
+
   resources :events
 
   resources :buildings do
@@ -14,7 +15,11 @@ Samensapp::Application.routes.draw do
     end
     member do
       put :assign_to_user
-      get :offer
+    end
+    resource :offer do
+      put :accept
+      put :decline
+      put :invalidate
     end
   end
   get '/view_request/:code', :to => "booking_requests#by_code"
