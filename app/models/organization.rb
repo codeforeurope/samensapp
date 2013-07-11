@@ -5,7 +5,7 @@ class Organization < ActiveRecord::Base
   mount_uploader :image, OrganizationImageUploader
   mount_uploader :icon, OrganizationImageUploader
 
-  attr_accessible :address, :name, :image, :icon, :status
+  attr_accessible :address, :name, :image, :icon, :status, :description
 
   #for cropping to certain proportions
   attr_accessible :crop_x, :crop_y, :crop_w, :crop_h
