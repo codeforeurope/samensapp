@@ -14,21 +14,21 @@
   z-index: 10001;
   background: #ffffff;
   padding: 6px;
-  height: 160px;
+  height: 140px;
   margin-top: -10px;
   .tab-content {
     border: 0;
-    height: 160px;
+    height: 140px;
     .tab-pane {
-      height: 160px;
+      height: 140px;
       overflow-y: scroll;
     }
   }
 }
 .request-summary {
   overflow-y: scroll;
-  height: 160px;
+  height: 140px;
 }
 .select-room {
-  margin-top: 250px;
+  margin-top: 230px;
 }
