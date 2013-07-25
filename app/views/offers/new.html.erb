@@ -83,35 +83,31 @@
 
 </div>
 <div class="select-room">
-  <div class="span7 full-calendar">
+  <h4>Make offer</h4>
+  <h6>Suggest rooms</h6>
 
-  </div>
-  <div class="pull-right">
-    <div class="">
-      <%= select_tag :building, options_from_collection_for_select(@buildings, "id", "name"), :prompt => t(:'.select_building') %>
-    </div>
-    <div class="">
-      <%= render partial: 'booking_requests/offer/rooms', locals: {building_id: nil} %>
-    </div>
-    <div>
-      <div class="input-prepend bootstrap-datepicker-component date">
-        <div class="add-on"><i class="icon-calendar"></i></div>
-        <%= text_field_tag :event_date, @booking_request.event_date, {:class => ""} %>
+  <div class="span4">
+    <%= form_for @event, url: {action: 'create'}, html: {class: "form-horizontal"} do |f| %>
+      <div id="rooms-container">
+        <%= render partial: 'offers/form_room', :locals => {:f => f} %>
       </div>
-    </div>
-    <div>
-      <div class="input-prepend bootstrap-timepicker-component">
-        <div class="add-on"><i class="icon-time"></i></div>
-        <%= text_field_tag :start_time, @booking_request.start_time, {:class => ""} %>
+      <div>
+        <button id="add-room" data-booking-request-id="<%= @booking_request.id %>">Add Room</button>
       </div>
-    </div>
-    <div>
-      <div class="input-prepend bootstrap-timepicker-component">
-        <div class="add-on"><i class="icon-time"></i></div>
-        <%= text_field_tag :end_time, @booking_request.end_time, {:class => ""} %>
-      </div>
-    </div>
-  </div>
 
+      </div>
+      <div class="span4">
+        <!-- here goes the calculation of total for rooms charges-->
+      </div>
+      <div class="span4">
+        <!--here goes calculation of total for extra charges-->
+      </div>
+      <div class="span4">
+        <!--here goes NOTES for booking request -->
+      </div>
+      <div class="span4">
+        <%= f.button :submit %>
+      </div>
+    <% end %>
 
-</div>
+    </div>

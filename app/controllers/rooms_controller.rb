@@ -95,9 +95,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def in_building
+  def rooms_in_building
     @rooms = Room.where :building_id => params[:building_id].to_i
-
-    render :partial => 'booking_requests/offer/rooms'
   end
 end
