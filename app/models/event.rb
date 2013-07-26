@@ -9,4 +9,7 @@ class Event < ActiveRecord::Base
   validates :start_at, :presence => true
   validates :rooms, :presence => true
 
+  accepts_nested_attributes_for :event_rooms, :allow_destroy => true,
+                                :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+
 end
