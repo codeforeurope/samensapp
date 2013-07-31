@@ -27,6 +27,7 @@ class OffersController < ApplicationController
   end
 
   def rooms_for_event
+    render layout: false
   end
 
   private
