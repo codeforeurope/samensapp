@@ -95,7 +95,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def rooms_in_building
+  def in_building
     @rooms = Room.where :building_id => params[:building_id].to_i
     render layout: false
   end

@@ -8,27 +8,17 @@
 
 
 .request-header {
-  @include border-radius(6px);
-  border: 1px solid #dddddd;
   width: auto;
   z-index: 10001;
   background: #ffffff;
-  padding: 6px;
-  height: 140px;
   margin-top: -10px;
   .tab-content {
-    border: 0;
-    height: 140px;
-    .tab-pane {
-      height: 140px;
-      overflow-y: scroll;
-    }
+    min-height: 0;
   }
 }
-.request-summary {
-  overflow-y: scroll;
-  height: 140px;
+
+.breadcrumb {
+  margin-top: 10px;
 }
 .select-room {
-  margin-top: 230px;
 }

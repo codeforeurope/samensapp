@@ -1,14 +1,13 @@
 jQuery ->
-  onBuildingChange = ->
-    $(".building-select").change (e)->
-  #    console.log("changed", e, $(this).val())
-      select_wrapper = $(this).parent().next()
-      building_id = $(this).val()
-      url = "/rooms_in_building?building_id=#{building_id}"
-      console.log url
-      $.get(url, (data, xhr, status) ->
-        select_wrapper.html($(data).html())
-      )
+  $(".building-select").on "change", (e)->
+    room_select = $(this).parent().parent().next().find(".room-select")
+    building_id = $(this).val()
+    url = "/rooms_in_building/#{building_id}"
+    console.log url
+    $.get(url, (data, xhr, status) ->
+      room_select.html(data).prop("disabled", false)
+
+    )
 #      select_wrapper.load(url)
 
   $("#add-room").on 'click', (e) ->
@@ -23,8 +22,3 @@ jQuery ->
       onBuildingChange()
     )
 #
-#  $("#building").on 'shown', (e) ->
-#    console.log("shown!")
-#    onBuildingChange()
-
-  onBuildingChange()

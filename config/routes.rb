@@ -30,7 +30,7 @@ Samensapp::Application.routes.draw do
     end
 		resources :room_configurations
   end
-  get '/rooms_in_building', :to =>'rooms#rooms_in_building'
+  get '/rooms_in_building/:building_id', :to =>'rooms#in_building'
   get '/rooms_for_event', :to => 'offers#rooms_for_event'
 
   resources :organizations do
