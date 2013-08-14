@@ -77,22 +77,19 @@
     <div class="tab-pane" id="notes"><%= @booking_request.notes %></div>
   </div>
 </div>
+<%= simple_form_for @event do |f| %>
+  <div class="select-room">
+    <h4><%= t(:".rooms") %>
 
-<div class="select-room">
-  <h4><%= t(:".rooms") %>
-    <%= link_to t(:add_room), "#", :class => "btn btn-mini btn-success pull-right" %>
-  </h4>
+      <%= link_to_add_fields t(:add_room), f, :event_rooms, :class => "add-room btn btn-mini btn-success pull-right" %>
+    </h4>
 
-
-  <%= simple_form_for @event do |f| %>
     <div id="rooms-container">
-      <% @event.event_rooms.each do |event_room| %>
-        <%= render partial: 'offers/form_room', :locals => {:f => f, :event_room => event_room} %>
+      <%= f.fields_for(:event_rooms) do |g| %>
+        <%= render 'event_room_fields', :f => g %>
       <% end %>
     </div>
     <div>
     </div>
-
-
-  <% end %>
-</div>
+  </div>
+<% end %>

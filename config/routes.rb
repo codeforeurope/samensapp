@@ -29,6 +29,9 @@ Samensapp::Application.routes.draw do
       match '/carousel', :to => "pictures#carousel"
     end
 		resources :room_configurations
+    member do
+      get :prices
+    end
   end
   get '/rooms_in_building/:building_id', :to =>'rooms#in_building'
   get '/rooms_for_event', :to => 'offers#rooms_for_event'

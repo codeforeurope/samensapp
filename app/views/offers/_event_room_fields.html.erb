@@ -1,8 +1,35 @@
-<%= f.fields_for(:event_rooms) do |g| %>
-  <%= g.input :building, :collection => @buildings, :input_html => {:prompt => t(:'.select_building'), :class => "building-select"} %>
-  <%= g.association :room, :collection => [], :input_html => {:prompt => t(:'.select_building'), :class => "room-select"}, :disabled => g.object.room.blank?  %>
-  <%= g.input :event_date, :wrapper => :datepicker, :input_html => {:data => {}, :value => @booking_request.event_date} %>
-  <%= g.input :start_time, :wrapper => :timepicker, :hint => t('.start_time_help'), :input_html => {:data => {:"default-time" => @booking_request.start_time}} %>
-  <%= g.input :end_time, :wrapper => :timepicker, :hint => t('.start_time_help'), :input_html => {:data => {:"default-time" => @booking_request.end_time}} %>
+<fieldset>
+  <div class="room-info">
+    <%= link_to t(:remove_room), "#", class: "remove-room btn btn-mini pull-right btn-danger hidden" %>
 
-<% end %>
+    <%= f.input :building, :collection => @buildings, :input_html => {:prompt => t(:'.select_building'), :class => "building-select"} %>
+    <%= f.association :room, :collection => [], :input_html => {:prompt => t(:'.select_building'), :data => {:"rooms-url" => rooms_path}, :class => "room-select"}, :disabled => f.object.room.blank? %>
+    <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => {}, :value => @booking_request.event_date} %>
+    <%= f.input :start_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => @booking_request.start_time}} %>
+    <%= f.input :end_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => @booking_request.end_time}} %>
+    <%= f.input :_destroy, :as => :hidden %>
+
+
+  </div>
+
+  <div class="room-price">
+    <div class="control-group tariff">
+      <label class="string control-label"><%= t(:".tariff") %></label>
+
+      <div class="controls">
+        <div class="btn-group" data-toggle="buttons-radio">
+          <% [:gratis, :base_price, :blind_price].each_with_index do |tariff, index| %>
+            <button type="button" class="btn disabled<%= " active" if index == 0 %>" data-tariff="<%= tariff %>"><%= t(tariff) %></button>
+          <% end %>
+
+        </div>
+        <%= f.input :tariff, :as => :hidden %>
+
+      </div>
+    </div>
+    <%= f.input :price, :as => :currency, :input_html => {:readonly => true} %>
+    <%= f.input :units, :as => :numeric, :input_html => {:min => 1, :max => 3, :readonly => true} %>
+    <%= f.input :sub_total, :as => :currency, :input_html => {:readonly => true} %>
+  </div>
+
+</fieldset>

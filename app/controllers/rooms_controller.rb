@@ -26,7 +26,7 @@ class RoomsController < ApplicationController
     @attachable_picture = @room
     @pictures = @attachable_picture.pictures
     @picture = Picture.new
-	  @room_configurations = @room.room_configurations.order("name asc")
+    @room_configurations = @room.room_configurations.order("name asc")
 
 
     respond_to do |format|
@@ -98,5 +98,12 @@ class RoomsController < ApplicationController
   def in_building
     @rooms = Room.where :building_id => params[:building_id].to_i
     render layout: false
+  end
+
+  def prices
+    @room = Room.find(params[:id])
+    respond_to do |format|
+      format.json { render json: {:gratis => 0.0, :base_price => @room.base_price, :blind_price => @room.blind_price} }
+    end
   end
 end

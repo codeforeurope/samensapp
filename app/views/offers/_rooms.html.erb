@@ -1,6 +1,0 @@
-<% if @rooms %>
-  <%= f.select :room, options_from_collection_for_select(@rooms, "id", "name"), :prompt => t(:'.select_room') %>
-  <span class="help-block">Select a room to fit the desired number of people</span>
-<% else %>
-  <%= f.select :room, [], {:disabled =>true, :prompt => t(:'.select_room'), :hint => "Select a room to fit the desired number of people" } %>
-<% end %>

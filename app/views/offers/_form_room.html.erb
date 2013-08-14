@@ -1,8 +1,0 @@
-<%= f.fields_for(event_room) do |g| %>
-  <%= g.input :building, :collection => @buildings, :input_html => {:prompt => t(:'.select_building'), :class => "building-select"} %>
-  <%= g.association :room, :collection => [], :input_html => {:prompt => t(:'.select_building'), :class => "room-select"}, :disabled => g.object.room.blank?  %>
-  <%= g.input :event_date, :wrapper => :datepicker, :input_html => {:data => {}, :value => @booking_request.event_date} %>
-  <%= g.input :start_time, :wrapper => :timepicker, :hint => t('.start_time_help'), :input_html => {:data => {:"default-time" => @booking_request.start_time}} %>
-  <%= g.input :end_time, :wrapper => :timepicker, :hint => t('.start_time_help'), :input_html => {:data => {:"default-time" => @booking_request.end_time}} %>
-
-<% end %>
