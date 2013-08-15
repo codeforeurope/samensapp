@@ -66,8 +66,9 @@ jQuery ->
 
   $('form').on 'click', '.remove-room', (e) ->
     e.preventDefault()
-    $(this).prev('input[type=hidden]').val('1')
-    $(this).closest('fieldset').hide()
+    $fieldset = $(this).parentsUntil("fieldset").parent().first()
+    $fieldset.find('input[name*=_destroy]').val(true)
+    $fieldset.addClass("hidden")
     toggleRemoveRoomButtons()
     updateRoomTotal()
 
