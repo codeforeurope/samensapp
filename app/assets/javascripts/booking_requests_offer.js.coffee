@@ -10,7 +10,7 @@ toggleRemoveRoomButtons = (add = false)->
 jQuery ->
   updateRoomTotal = () ->
     roomTotal = 0.00
-    $("form input[name*=sub_total]").each (item)->
+    $("form input[name*=sub_total]:visible").each (item)->
       roomTotal += parseFloat($(this).val())
     $("form input[name*=room_total]").val(Number(roomTotal).toFixed(2))
 
@@ -69,6 +69,7 @@ jQuery ->
     $(this).prev('input[type=hidden]').val('1')
     $(this).closest('fieldset').hide()
     toggleRemoveRoomButtons()
+    updateRoomTotal()
 
   $('form').on 'click', '[data-toggle=buttons-radio] .btn', (e)->
     tariff = $(this).parent().data("tariffs")[$(this).data("tariff")]
