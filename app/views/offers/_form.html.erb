@@ -1,0 +1,98 @@
+
+
+<ul class="breadcrumb">
+  <li><%= link_to t(:requests), booking_requests_path %> <span class="divider">/</span></li>
+  <li><%= link_to t(:request_50), booking_request_path(@booking_request) %> <span class="divider">/</span></li>
+  <li class="active"><%= t(:'make_offer') %></li>
+</ul>
+
+
+<%- model_class = BookingRequest -%>
+<%- submitter_class = User -%>
+<div class="tabbable request-header">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#summary" data-toggle="tab"><%= t('.booking_request_summary') %></a>
+    </li>
+    <li><a href="#description" data-toggle="tab"><%= model_class.human_attribute_name(:description) %></a>
+    </li>
+    <li><a href="#time" data-toggle="tab"><%= model_class.human_attribute_name(:event_date) %></a>
+    </li>
+    <li><a href="#catering_needs" data-toggle="tab"><%= model_class.human_attribute_name(:catering_needs) %></a>
+    </li>
+    <li><a href="#equipment_needs" data-toggle="tab"><%= model_class.human_attribute_name(:equipment_needs) %></a>
+    </li>
+    <li><a href="#notes" data-toggle="tab"><%= model_class.human_attribute_name(:notes) %></a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="summary">
+
+      <!-- table req summary start -->
+      <table>
+        <tbody>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></td>
+          <td><%= @booking_request.company_name %></td>
+          <td><strong><%= model_class.human_attribute_name(:contact_email) %>:</strong></td>
+          <td><%= @booking_request.contact_email %></td>
+        </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:contact_phone) %>:</strong></td>
+          <td><%= @booking_request.contact_phone %></td>
+          <td><strong><%= model_class.human_attribute_name(:company_address) %>:</strong></td>
+          <td>
+            <address><%= @booking_request.company_address %></address>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- table req summary end -->
+
+    </div>
+    <div class="tab-pane" id="time">
+      <div class="row">
+        <div class="span4">
+          <dl class="dl-horizontal">
+            <dt><%= model_class.human_attribute_name(:event_date) %></dt>
+            <dd><%= @booking_request.event_date %></dd>
+            <dt><%= model_class.human_attribute_name(:start_time) %></dt>
+            <dd><%= @booking_request.start_time %></dd>
+          </dl>
+        </div>
+        <div class="span4">
+          <dl class="dl-horizontal">
+            <dt><%= model_class.human_attribute_name(:start_time) %></dt>
+            <dd><%= @booking_request.start_time %></dd>
+            <dt><%= model_class.human_attribute_name(:people) %></dt>
+            <dd><%= @booking_request.people %></dd>
+          </dl>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="tab-pane" id="description"><%= @booking_request.description %></div>
+    <div class="tab-pane" id="catering_needs"><%= @booking_request.catering_needs %></div>
+    <div class="tab-pane" id="equipment_needs"><%= @booking_request.equipment_needs %></div>
+    <div class="tab-pane" id="notes"><%= @booking_request.notes %></div>
+  </div>
+</div>
+<%= simple_form_for @event, :html => {:data => {:"hour-block" => 4}} do |f| %>
+  <div class="select-room">
+    <h4><%= t(:".rooms") %>
+
+      <%= link_to_add_fields t(:add_room), f, :event_rooms, :class => "add-room btn btn-mini btn-success pull-right" %>
+    </h4>
+
+    <div id="rooms-container">
+      <%= f.fields_for(:event_rooms) do |g| %>
+        <%= render 'event_room_fields', :f => g %>
+      <% end %>
+
+    </div>
+    <div id="room-totals">
+      <%= f.input :room_total, :as => :currency, :input_html => {:readonly => true} %>
+    </div>
+    <div id="extras-container">
+    </div>
+  </div>
+<% end %>
