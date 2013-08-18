@@ -6,7 +6,6 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
 
-
 .request-header {
   width: auto;
   z-index: 10001;
@@ -20,5 +19,14 @@
 .breadcrumb {
   margin-top: 10px;
 }
+
 .select-room {
+}
+
+.extras-total {
+  vertical-align: middle;
+}
+
+.sub-totals {
+  height: 70px;
 }

@@ -1,0 +1,7 @@
+<tr>
+  <td><%= f.input_field :name, :placeholder => "" %></td>
+  <td><%= f.input_field :price, :as => :currency, :pattern => "^\\d*(\\.\\d{2}$)?" %></td>
+  <td><%= f.input_field :units, :as => :numeric, :value => 1, :type => "number", :step => 1, :min => 1 %></td>
+  <td><%= f.input_field :total, :as => :currency, :disabled => true %></td>
+  <td><%= f.input_field :_destroy, :as => :hidden %><%= link_to t(:x), "#", class: "remove-charge btn btn-mini btn-danger" %></td>
+</tr>

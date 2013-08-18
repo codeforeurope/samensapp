@@ -27,6 +27,9 @@ class BookingRequest < ActiveRecord::Base
   validates :website, :allow_blank => true, :url => true
 
 
+  def event
+    @event ||= events.first
+  end
 
   private
 

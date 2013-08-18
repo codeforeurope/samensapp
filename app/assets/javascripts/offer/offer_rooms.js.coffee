@@ -1,3 +1,7 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
 toggleRemoveRoomButtons = (add = false)->
   #  if buttons.length < 2
   if add
@@ -7,16 +11,23 @@ toggleRemoveRoomButtons = (add = false)->
       $("form .remove-room:visible").addClass("hidden")
 
 
+window.updateGrandTotal = ()->
+  roomTotal = Number($("form input[name*=room_total]").val())
+  extrasTotal = Number($("form input[name*=extras_total]").val())
+  $("form input[name*=grand_total]").val(Number(roomTotal + extrasTotal).toFixed(2))
+
 jQuery ->
   updateRoomTotal = () ->
     roomTotal = 0.00
     $("form input[name*=sub_total]:visible").each (item)->
       roomTotal += parseFloat($(this).val())
     $("form input[name*=room_total]").val(Number(roomTotal).toFixed(2))
+    updateGrandTotal()
+
 
   updateSubTotal = ($source) ->
     hour_block = parseInt($("form").data("hour-block"))
-    $fieldset = $source.parentsUntil("fieldset").parent().first()
+    $fieldset = $source.parents("fieldset")
     $event_date = $fieldset.find("input[name*=event_date]")
     $start_time = $fieldset.find("input[name*=start_time]")
     $end_time = $fieldset.find("input[name*=end_time]")
@@ -45,7 +56,7 @@ jQuery ->
     $source = $(this)
     room_id = $source.val()
     url = $source.data("rooms-url") + "/#{room_id}/prices.json"
-    $fieldset = $source.parentsUntil("fieldset").parent().first()
+    $fieldset = $source.parents("fieldset")
     $.ajax({
       url: url,
       dataType: "json",
@@ -66,7 +77,7 @@ jQuery ->
 
   $('form').on 'click', '.remove-room', (e) ->
     e.preventDefault()
-    $fieldset = $(this).parentsUntil("fieldset").parent().first()
+    $fieldset = $(this).parents("fieldset")
     $fieldset.find('input[name*=_destroy]').val(true)
     $fieldset.addClass("hidden")
     toggleRemoveRoomButtons()
@@ -74,15 +85,15 @@ jQuery ->
 
   $('form').on 'click', '[data-toggle=buttons-radio] .btn', (e)->
     tariff = $(this).parent().data("tariffs")[$(this).data("tariff")]
-    $fieldset = $(this).parentsUntil("fieldset").parent().first()
+    $fieldset = $(this).parents("fieldset")
     $fieldset.find("input[name*=price]").val(Number(tariff).toFixed(2)).change()
 
 
-  $('form').on 'change', "input[name*=price]", (e) ->
+  $('form ').on 'change', ".select-room input[name*=price]", (e) ->
     updateSubTotal $(this)
 
   $('form').on 'changeTime.timepicker', ".bootstrap-timepicker-component input", (e)->
-    $fieldset = $(this).parentsUntil("fieldset").parent().first()
+    $fieldset = $(this).parents("fieldset")
     if !$fieldset.find("select[name*=room_id]").val()
       return
     $event_date = $fieldset.find("input[name*=event_date]")

@@ -18,4 +18,6 @@ module ApplicationHelper
     options[:data] = {id: id, fields: fields.gsub("\n", "")}
     link_to(name, '#', options, &block)
   end
+
+
 end

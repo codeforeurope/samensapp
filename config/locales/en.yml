@@ -12,6 +12,9 @@ en:
 
   crop: "Crop Image"
 
+  offers:
+    form:
+      make_offer: "Save Offer"
   organizations:
     rest:
       title: "Organizations not active"
@@ -163,3 +166,4 @@ en:
     booking_request:
       created: "Booking request was successfully created."
       updated: "Booking request was successfully updated."
+
