@@ -30,7 +30,6 @@ class OffersController < InheritedResources::Base
     if @event.blank?
       @event = @booking_request.events.first
       @event.event_rooms.each do |event_room|
-        event_room.building_id = event_room.room.building.id
         event_room.available_rooms = Room.where :building_id => event_room.building_id if event_room.building_id.present?
       end
     end
