@@ -1,1 +1,6 @@
+<ul class="breadcrumb">
+  <li><%= link_to t(:requests), booking_requests_path %> <span class="divider">/</span></li>
+  <li><%= link_to t(:request, :request_id => @booking_request.id), booking_request_path(@booking_request) %> <span class="divider">/</span></li>
+  <li class="active"><%= t(:'edit_offer') %></li>
+</ul>
 <%= render :partial => "form" %>

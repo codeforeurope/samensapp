@@ -9,16 +9,16 @@ module Dated
   end
 
   def end_time
-    @end_time || time_attr_from_datetime(end_at)
+    @end_time ||= time_attr_from_datetime(end_at)
   end
 
   def end_time=(end_time_value)
-    @end_time =end_time_value
+    @end_time = end_time_value
     set_end_at
   end
 
   def event_date
-    @event_date || (start_at.to_date.to_s(:db) if start_at)
+    @event_date ||= (start_at.to_date.to_s(:db) if start_at.present?)
   end
 
   def event_date=(event_date_value)
@@ -39,11 +39,11 @@ module Dated
 
   private
   def set_start_at
-    start_at = Time.zone.parse("#{event_date} #{start_time}:00") unless start_time.blank?
+    self.start_at = Time.zone.parse("#{event_date} #{start_time}:00") unless start_time.blank?
   end
 
   def set_end_at
-    end_at = Time.zone.parse("#{event_date} #{end_time}:00") unless end_time.blank?
+    self.end_at = Time.zone.parse("#{event_date} #{end_time}:00") unless end_time.blank?
   end
 
   def time_attr_from_datetime(datetime)

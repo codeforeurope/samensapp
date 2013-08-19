@@ -30,3 +30,42 @@
 .sub-totals {
   height: 70px;
 }
+
+.event-section {
+  margin-top: 20px;
+  border: 1px solid #dedede;
+  @include border-radius(6px);
+  //min-height: 300px;
+  //a.thumbnail {
+  //  width: 100px;
+  //  height: 100px;
+  //  background-image: image-url("default-avatar.png");
+  //  background-repeat: no-repeat;
+  //  background-size: contain;
+  //}
+  .section-header {
+    background-color: #d9edf7;
+    padding: 8px;
+    font-size: 17px;
+    font-weight: bold;
+    border-bottom: 1px solid #dedede;
+    @include border-top-radius(6px);
+    h5 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .event-data {
+    background-color: #eee;
+    padding: 8px;
+    border-bottom: 1px solid #dedede;
+  }
+}
+.section-total {
+  margin-top: 20px;
+  height: 35px;
+  border: 1px solid #dedede;
+  @include border-radius(6px);
+  background-color: #eee;
+}
