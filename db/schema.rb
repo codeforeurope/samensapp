@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816150003) do
+ActiveRecord::Schema.define(:version => 20130819141443) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -142,11 +142,12 @@ ActiveRecord::Schema.define(:version => 20130816150003) do
     t.integer  "capacity"
     t.text     "description"
     t.text     "notes"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.decimal  "cleaning_fee"
     t.integer  "building_id"
     t.boolean  "rentable"
+    t.integer  "minimum_block", :default => 1
   end
 
   create_table "users", :force => true do |t|

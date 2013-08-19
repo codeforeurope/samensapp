@@ -1,7 +1,7 @@
 
 <%= render :partial => "header" %>
 
-<%= simple_form_for @event, :url => booking_request_offer_path(@booking_request), :html => {:data => {:"hour-block" => 4}} do |f| %>
+<%= simple_form_for @event, :url => booking_request_offer_path(@booking_request), :html => {} do |f| %>
   <div class="event-details">
     <h4><%= t(:".details") %>     </h4>
     <%= f.input :name %>

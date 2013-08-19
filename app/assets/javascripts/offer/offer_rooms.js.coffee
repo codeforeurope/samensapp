@@ -26,15 +26,19 @@ jQuery ->
 
 
   updateSubTotal = ($source) ->
-    hour_block = parseInt($("form").data("hour-block"))
+
     $fieldset = $source.parents("fieldset")
+
+
     $event_date = $fieldset.find("input[name*=event_date]")
     $start_time = $fieldset.find("input[name*=start_time]")
     $end_time = $fieldset.find("input[name*=end_time]")
     $units = $fieldset.find("input[name*=units]")
+    $room = $fieldset.find("select[name*=room_id]")
 
     $price = $fieldset.find("input[name*=price]")
     $sub_total = $fieldset.find("input[name*=sub_total]")
+    hour_block = parseInt($room.find(":selected").data("hour-block"))
 
     hours = (Date.parse($event_date.val() + " " + $end_time.val()) - Date.parse($event_date.val() + " " + $start_time.val())) / 3600000
     units = Math.ceil(hours / hour_block)
