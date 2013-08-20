@@ -5,7 +5,8 @@
 <% if @unassigned_requests.count == 0 %>
   <div class="hero-unit">
     <h2><%= t('.awesome') %></h2>
-    <p><%= t('.hero_subtitle_1')%><br /><%= t(".hero_subtitle_2")%>.</p>
+
+    <p><%= t('.hero_subtitle_1') %><br/><%= t(".hero_subtitle_2") %>.</p>
   </div>
 <% else %>
   <table class="table table-striped">
@@ -34,25 +35,27 @@
 
         </td>
         <td>
-          <% if can? :assign_to_other, BookingRequest %>
+          <% if (can? :assign_to_other, BookingRequest) && @booking_agents.present? %>
+
             <div class="btn-group">
-              <button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><%= t('.assign_to') %><span class="caret"></span>
+              <button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><%= t('.assign_to') %>
+                <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
                 <% @booking_agents.each do |agent| %>
                   <li><%= link_to agent.name,
-                                  assign_to_user_booking_request_path(booking_request, :assignee_id => agent.id), :method => :put %>
+                                  assign_to_other_booking_request_path(booking_request, :assignee_id => agent.id), :method => :put %>
                   </li>
                 <% end %>
                 <li class="divider"></li>
                 <li><%= link_to t('.myself'),
-                                assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put%>
+                                assign_to_self_booking_request_path(booking_request), :method => :put %>
                 </li>
               </ul>
             </div>
           <% elsif can? :assign_to_self, BookingRequest %>
             <%= link_to t('.process'),
-                        assign_to_user_booking_request_path(booking_request, :assignee_id => current_user.id), :method => :put,
+                        assign_to_self_booking_request_path(booking_request), :method => :put,
                         :class => 'btn btn-mini btn-primary' %>
           <% end %>
         </td>

@@ -1,4 +1,3 @@
-
 <%= render :partial => "header" %>
 
 <%= simple_form_for @event, :url => booking_request_offer_path(@booking_request), :html => {} do |f| %>
@@ -20,19 +19,19 @@
 
     </div>
     <div class="sub-totals">
-      <%= f.input :room_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true} %>
+      <%= f.input :room_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true, :value => (number_with_precision(f.object.room_total||0, :precision => 2))} %>
     </div>
 
   </div>
   <div id="extras-container">
     <h4><%= t(:".extra_charges") %> <%= link_to_add_fields t(:add_charge), f, :event_charges, :class => "add-charge btn btn-mini btn-success pull-right" %> </h4>
-    <table class="table table-striped table-bordered table-hover<%= " hidden" if @event.event_charges.empty? %>">
+    <table class="extra-charges-table table table-striped table-bordered table-hover<%= " hidden" if @event.event_charges.empty? %>">
       <thead>
       <tr>
-        <th><%= t(:".items") %></th>
-        <th><%= t(:".price") %></th>
-        <th><%= t(:".units") %></th>
-        <th><%= t(:".item_total") %></th>
+        <th class="items"><%= t(:".items") %></th>
+        <th class="price"><%= t(:".price") %></th>
+        <th class="units"><%= t(:".units") %></th>
+        <th class="total"><%= t(:".item_total") %></th>
 
       </tr>
       </thead>
@@ -44,12 +43,12 @@
       </tbody>
     </table>
     <div class="sub-totals">
-      <%= f.input :extras_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true} %>
+      <%= f.input :extras_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true, :value => (number_with_precision(f.object.extras_total||0, :precision => 2))} %>
     </div>
   </div>
   <hr>
   <div class="sub-totals">
-    <%= f.input :grand_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true} %>
+    <%= f.input :grand_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true, :value => (number_with_precision(f.object.grand_total||0, :precision => 2))} %>
   </div>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary', :value => t(:".make_offer") %>

@@ -2,8 +2,12 @@
 <%- submitter_class = User -%>
 <%- building_class = Building -%>
 <div class="page-header">
-  <% if can? :make_offer, @booking_request %>
-    <%=  link_to t('.make_offer'), new_booking_request_offer_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+  <% if @booking_request.event.blank? %>
+    <% if can? :new, @booking_request.events.build %>
+      <%= link_to t('.make_offer'), new_booking_request_offer_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+    <% end %>
+  <% else %>
+    <%= link_to t('.view_offer'), booking_request_offer_path(@booking_request), :class => 'pull-right btn' %>
   <% end %>
   <h1><%= t :'.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
     #<%= @booking_request.id %></h1>
@@ -62,7 +66,7 @@
         </tr>
         <tr>
           <td><strong><%= model_class.human_attribute_name(:website) %>:</strong></td>
-          <td><%= @booking_request.website%></td>
+          <td><%= @booking_request.website %></td>
         </tr>
         <tr>
           <td><strong><%= model_class.human_attribute_name(:company_address) %>:</strong></td>
@@ -83,7 +87,8 @@
       <div class="row">
         <div class="span5">
           <dl class="dl-horizontal">
-            <dt><strong><%= "#{building_class.model_name.human} #{building_class.human_attribute_name(:name)}" %>:</strong></dt>
+            <dt><strong><%= "#{building_class.model_name.human} #{building_class.human_attribute_name(:name)}" %>
+              :</strong></dt>
             <dd><%= @booking_request.building.name %></dd>
             <dt><strong><%= model_class.human_attribute_name(:event_date) %>:</strong></dt>
             <dd><%= @booking_request.event_date %></dd>

@@ -1,7 +1,5 @@
 en:
-  offers:
-    form:
-      make_offer: "Save Offer"
+  total: "Total"
   organizations:
     rest:
       title: "Organizations not active"
@@ -80,3 +78,11 @@ en:
   offers:
     show:
       room: "Room #%{index}"
+      extra_charges: "Extra Charges"
+      extra_charges_total: "Extra Charges"
+      room_total: "Room Total"
+      confirm_decline: "Are you sure you want to decline this offer?"
+      confirm_cancel: "Are you sure you want to cancel this offer?"
+      confirm_send: "Once sent, the offer cannot be modified. Are you sure you want to send this offer?"
+    form:
+      make_offer: "Save Offer"

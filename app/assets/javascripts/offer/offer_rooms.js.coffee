@@ -26,7 +26,6 @@ jQuery ->
 
 
   updateSubTotal = ($source) ->
-
     $fieldset = $source.parents("fieldset")
 
 
@@ -66,8 +65,10 @@ jQuery ->
       dataType: "json",
       contentType: "application/json",
       success: (data, xhr, status) ->
-        $fieldset.find('.tariff [data-toggle=buttons-radio]').data("tariffs", data)
+        $buttons = $fieldset.find('.tariff [data-toggle=buttons-radio]')
+        $buttons.data("tariffs", data)
         $fieldset.find('.tariff .btn').removeClass("disabled")
+        $fieldset.find('input[name*=tariff]').val($buttons.find(".active").data("tariff"))
         updateSubTotal($source)
     })
 
@@ -90,6 +91,7 @@ jQuery ->
   $('form').on 'click', '[data-toggle=buttons-radio] .btn', (e)->
     tariff = $(this).parent().data("tariffs")[$(this).data("tariff")]
     $fieldset = $(this).parents("fieldset")
+    $fieldset.find('input[name*=tariff]').val($(this).data("tariff"))
     $fieldset.find("input[name*=price]").val(Number(tariff).toFixed(2)).change()
 
 

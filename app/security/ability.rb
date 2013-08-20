@@ -26,14 +26,31 @@ class Ability
       can :assign_to_self, BookingRequest do |request|
         # if the request is for one of the buildings I have booking privs to
         organization = request.building.organization
-        user.role? :booking, organization
+        (user.role? :booking, organization)
+      end
+      can :assign_to_other, BookingRequest do |request|
+        # if the request is for one of the buildings I have booking privs to
+        organization = request.building.organization
+        user.role? :admin, organization
       end
       can :make_offer, BookingRequest do |request|
         organization = request.building.organization
-       ( user.role? "admin", organization) && ( request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
+        (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
       end
 
+      can :read, Event do |event|
+        event.booking_request.submitter.id == current_user.id
+      end
 
+      can [:new, :read, :edit, :update, :cancel, :send_offer, :destroy, :index], Event do |event|
+        request = event.booking_request
+        organization = request.building.organization
+        (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
+      end
+
+      can [:accept, :decline] , Event do |event|
+        user.id == event.booking_request.submitter.id
+      end
       can :manage, RoomConfiguration do |configuration|
         organization = configuration.room.building.organization
         user.role? "admin", organization
@@ -51,8 +68,7 @@ class Ability
       end
 
 
-
-      can [:create], BookingRequest
+      can [:create, :find_user_by_email], BookingRequest
       can [:cancel, :read], BookingRequest do |request|
         user.id == request.submitter_id
       end
@@ -61,10 +77,8 @@ class Ability
       end
 
 
-
       can :read, :all
     end
-
 
 
     #

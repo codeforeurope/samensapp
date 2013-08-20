@@ -24,7 +24,9 @@
 <% @event.event_rooms.each_with_index do |event_room, index| %>
   <div class="event-section">
     <div class="section-header">
-      <h5><%= t(:".room", :index => (index+1)) %>: <%= event_room.room.name %></h5>
+      <h5><%= t(:".room", :index => (index+1)) %>: <%= event_room.room.name %>
+        <span class="pull-right"> <%= number_to_currency(event_room.sub_total, :locale => :nl) %></span>
+      </h5>
     </div>
 
     <table class="section-data">
@@ -51,46 +53,61 @@
   </div>
 <% end %>
 <div class="section-total">
-  <div class="pull-right">
-    <%= @event.room_total %>
-  </div>
+  <h5>
+    <%= t(:".room_total") %>
+    <span class="pull-right"> <%= number_to_currency(@event.room_total, :locale => :nl) %></span>
+  </h5>
 </div>
-<div id="extras-container">
+<div class="event-section">
   <div class="section-header">
     <h5><%= t(:".extra_charges") %>  </h5>
   </div>
-  <table class="table table-striped table-bordered table-hover<%= " hidden" if @event.event_charges.empty? %>">
-    <thead>
-    <tr>
-      <th><%= t(:".items") %></th>
-      <th><%= t(:".price") %></th>
-      <th><%= t(:".units") %></th>
-      <th><%= t(:".item_total") %></th>
+  <% if @event.event_charges %>
+    <table class="extra-charges-table table table-striped table-hover<%= " hidden" if @event.event_charges.empty? %>">
+      <thead>
+      <tr>
+        <th></th>
+        <th class="items"><%= t(:".items") %></th>
+        <th class="price"><%= t(:".price") %></th>
+        <th class="units"><%= t(:".units") %></th>
+        <th class="total"><%= t(:".item_total") %></th>
 
-    </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-  </table>
+      </tr>
+      </thead>
+      <tbody>
+      <% @event.event_charges.each_with_index do |event_charge, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td class="items"><%= event_charge.name %></td>
+          <td class="price"><%= number_to_currency(event_charge.price, :locale => :nl) %></td>
+          <td class="units"><%= event_charge.units %></td>
+          <td class="total"><%= number_to_currency(event_charge.total, :locale => :nl) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+<div class="section-total">
+  <h5>
+    <%= t(:".extra_charges_total") %>
+    <span class="pull-right"> <%= number_to_currency(@event.extras_total, :locale => :nl) %></span>
+  </h5>
 
 </div>
 <div class="section-total">
-  <div class="pull-right">
-    <%= @event.extras_total %>
-  </div>
-</div>
-<hr>
-<div class="section-total">
-  <div class="pull-right">
-    <%= @event.grand_total %>
-  </div>
+  <h5>
+    <%= t(:".grand_total") %>
+    <span class="pull-right"> <%= number_to_currency(@event.grand_total, :locale => :nl) %></span>
+  </h5>
+
 </div>
 
 <div class="form-actions">
-
-  <%= # f.button :submit, :class => 'btn-primary', :value => t(:".make_offer")
-  %>
-  <%= #link_to t('.cancel', :default => t("helpers.links.cancel")), booking_requests_path, :class => 'btn'
-  %>
+  <%= link_to t('.accept'), invalidate_booking_request_offer_path(@booking_request), :class => 'btn btn-success', :method => :put if can? :accept, @event %>
+  <%= link_to t('.decline'), invalidate_booking_request_offer_path(@booking_request), :class => 'btn btn-danger pull-right', :method => :put, :confirm => t(:".confirm_decline") if can? :decline, @event %>
+  <%= link_to t('.cancel'), cancel_booking_request_offer_path(@booking_request), :class => 'btn btn-danger pull-right', :method => :put, :confirm => t(:".confirm_cancel") if can? :cancel, @event %>
+  <%= link_to t('.modify'), edit_booking_request_offer_path(@booking_request), :class => 'btn' if can? :edit, @event %>
+  <%= link_to t('.send_offer'), send_booking_request_offer_path(@booking_request), :method => :put, :class => 'btn btn-primary', :confirm => t(:".confirm_send") if can? :send_offer, @event %>
+  <%= link_to t('.add_to_calendar'), ical_booking_request_offer_path(@booking_request), :class => 'btn btn-primary' if can? :read, @event %>
 </div>

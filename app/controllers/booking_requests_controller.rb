@@ -1,41 +1,27 @@
-class BookingRequestsController < ApplicationController
+class BookingRequestsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:new, :create, :by_code]
   load_and_authorize_resource :except => [:create, :index, :by_code]
-
-
-  def offer
-    @buildings = Building.all
-
-    @event = @booking_request.events.build
-
-    respond_to do |format|
-      format.html # offers.html.erb
-      format.json { render json: @booking_requests }
-    end
-  end
 
   # GET /booking_requests
   # GET /booking_requests.json
   def index
-
-    #@unassigned_booking_requests = BookingRequest.where("assignee_id IS NULL").order("created_at desc")
-    #@assigned_booking_requests = BookingRequest.where("assignee_id IS NOT NULL").order("created_at desc")
     @unassigned_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
     @assigned_requests = BookingRequest.where("assignee_id = ? ", current_user.id).order("created_at desc")
 
-    @booking_agents = User.joins(:roles).where('roles.name' => 'booking')
+    #TODO this needs updating based on new security model
+    @booking_agents = User.joins(:roles).where('roles.name' => 'booking', :"roles.authorizable_type" => 'Organization', :"roles.authorizable_id" => current_user.organizations).reject {|user| user.id == current_user.id}
 
     @booking_requests = !current_user.nil? ? current_user.booking_requests : []
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @booking_requests }
-    end
+    super
   end
 
-  def assign_to_user
-    @booking_request = BookingRequest.find(params[:id])
-    @booking_request.assignee_id = params[:assignee_id]
 
+  def assign_to_other
+    if params[:assignee_id]
+      @booking_request.assignee_id = params[:assignee_id]
+    else
+      @booking_request.assignee_id = current_user.id
+    end
     respond_to do |format|
       if @booking_request.save
         format.html { redirect_to :action => :index, notice: 'Booking request was successfully assigned.' }
@@ -47,22 +33,11 @@ class BookingRequestsController < ApplicationController
     end
   end
 
-
-  # GET /booking_requests/1
-  # GET /booking_requests/1.json
-  def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @booking_request }
-    end
-  end
+  alias :assign_to_self :assign_to_other
 
   def by_code
     @booking_request = BookingRequest.find_all_by_code(params[:code]).first
-    respond_to do |format|
-      format.html # by_code.html.erb
-      format.json { render json: @booking_request }
-    end
+    show
   end
 
   # GET /booking_requests/new
@@ -104,7 +79,7 @@ class BookingRequestsController < ApplicationController
     if params[:booking_request][:submitter_attributes][:id]
       submitter_attributes = params[:booking_request].delete :submitter_attributes
       @booking_request.submitter_id = submitter_attributes[:id]
-      if signed_in? && (@booking_request.submitter.id == current_user.id || can?(:create_on_behalf, BookingRequest) )
+      if signed_in? && (@booking_request.submitter.id == current_user.id || can?(:create_on_behalf, BookingRequest))
         @booking_request.submitter.address = submitter_attributes[:address]
         @booking_request.submitter.phone = submitter_attributes[:phone]
         @booking_request.submitter.mobile_phone = submitter_attributes[:mobile_phone]
@@ -147,7 +122,7 @@ class BookingRequestsController < ApplicationController
 
     respond_to do |format|
       if @booking_request.update_attributes(params[:booking_request])
-        format.html { redirect_to @booking_request, notice: t(:'flash.booking_request.updated')  }
+        format.html { redirect_to @booking_request, notice: t(:'flash.booking_request.updated') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

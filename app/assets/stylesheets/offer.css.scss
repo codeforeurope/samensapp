@@ -62,10 +62,63 @@
     border-bottom: 1px solid #dedede;
   }
 }
+
 .section-total {
+  padding: 8px;
   margin-top: 20px;
-  height: 35px;
   border: 1px solid #dedede;
   @include border-radius(6px);
   background-color: #eee;
+  h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
+
+form {
+  &.edit_event, &.new_event {
+    .input-prepend input[type=text].currency {
+      width: 70px;
+      text-align: right;
+    }
+    input[type=number] {
+      width: 98px;
+      text-align: right;
+    }
+    fieldset {
+      padding: 20px;
+      padding-bottom: 0px;
+    }
+  }
+
+}
+
+.extra-charges-table {
+  td {
+    text-align: right;
+    input {
+      text-align: right;
+    }
+  }
+  th {
+    text-align: center;
+
+  }
+
+  .items {
+    width: 80%;
+    text-align: left;
+    input {
+      width: 98%;
+      text-align: left;
+    }
+  }
+  .input-prepend input[type=text].currency {
+    width: 70px;
+  }
+  input[type=number] {
+    width: 50px;
+    text-align: right;
+  }
+}
+

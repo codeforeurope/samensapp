@@ -1,7 +1,7 @@
 <tr>
-  <td><%= f.input_field :name, :placeholder => "" %></td>
-  <td><%= f.input_field :price, :as => :currency, :pattern => "^\\d*(\\.\\d{2}$)?" %></td>
-  <td><%= f.input_field :units, :as => :numeric, :value => 1, :type => "number", :step => 1, :min => 1 %></td>
-  <td><%= f.input_field :total, :as => :currency, :disabled => true %></td>
-  <td><%= f.input_field :_destroy, :as => :hidden %><%= link_to t(:x), "#", class: "remove-charge btn btn-mini btn-danger" %></td>
+  <td class="items"><%= f.input_field :name, :placeholder => "" %></td>
+  <td class="price"><%= f.input_field :price, :as => :currency, :pattern => "^\\d*(\\.\\d{2}$)?", :value => (number_with_precision(f.object.price||0, :precision => 2))  %></td>
+  <td class="units"><%= f.input_field :units, :as => :numeric, :value => 1, :type => "number", :step => 1, :min => 1 %></td>
+  <td class="total"><%= f.input_field :total, :as => :currency, :disabled => true, :value => (number_with_precision(f.object.total||0, :precision => 2)) %></td>
+  <td class="remove"><%= f.input_field :_destroy, :as => :hidden %><%= link_to t(:x), "#", class: "remove-charge btn btn-mini btn-danger" %></td>
 </tr>

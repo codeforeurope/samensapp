@@ -1,5 +1,5 @@
 class OffersController < InheritedResources::Base
-  before_filter :authenticate_user!, :except => [:new, :create, :by_code]
+  before_filter :authenticate_user!, :except => [:by_code]
   before_filter :load_available_buildings
   load_and_authorize_resource :booking_request, :through => :event
   load_and_authorize_resource :event
@@ -8,17 +8,20 @@ class OffersController < InheritedResources::Base
 
   layout Proc.new { |controller| (controller.request.xhr?) ? 'ajax' : 'application' }
 
-  def create
-    super
-  end
-
   def accept
   end
 
   def decline
   end
 
-  def invalidate
+  def cancel
+  end
+
+  def send_offer
+
+  end
+
+  def ical
   end
 
   def rooms_for_event
@@ -26,6 +29,9 @@ class OffersController < InheritedResources::Base
   end
 
   protected
+
+
+
   def resource
     if @event.blank?
       @event = @booking_request.events.first

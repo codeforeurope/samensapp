@@ -14,12 +14,15 @@ Samensapp::Application.routes.draw do
       get :find_user_by_email
     end
     member do
-      put :assign_to_user
+      put :assign_to_self
+      put :assign_to_other
     end
     resource :offer do
       put :accept
       put :decline
-      put :invalidate
+      put :cancel
+      put :send
+      get :ical
     end
   end
   get '/view_request/:code', :to => "booking_requests#by_code"
