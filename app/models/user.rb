@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-
-
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
@@ -13,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :roles
   has_many :booking_requests, :foreign_key => :submitter_id
   has_many :organizations, :through => :roles, :source => :authorizable, :source_type => 'Organization'
+  attr_accessor :create_account, :is_submitter
 
   validates_presence_of :name, :email
 
@@ -20,7 +19,7 @@ class User < ActiveRecord::Base
   validates_presence_of [:phone, :address], :if => :is_submitter
   validate :validate_as_submitter
 
-  attr_accessor :create_account, :is_submitter
+
 
   def role? (name, resource = nil)
     if resource.nil?

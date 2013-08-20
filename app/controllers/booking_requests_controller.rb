@@ -1,15 +1,17 @@
 class BookingRequestsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:new, :create, :by_code]
-  load_and_authorize_resource :except => [:create, :index, :by_code]
+  load_resource
+  authorize_resource :except => [:create, :index, :by_code]
+  before_filter :load_buildings, :only => [:new, :create, :edit, :update]
 
   # GET /booking_requests
   # GET /booking_requests.json
   def index
     @unassigned_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
-    @assigned_requests = BookingRequest.where("assignee_id = ? ", current_user.id).order("created_at desc")
+    @assigned_requests = BookingRequest.where("assignee_id = ? AND status = 'assigned'", current_user.id).order("created_at desc")
 
     #TODO this needs updating based on new security model
-    @booking_agents = User.joins(:roles).where('roles.name' => 'booking', :"roles.authorizable_type" => 'Organization', :"roles.authorizable_id" => current_user.organizations).reject {|user| user.id == current_user.id}
+    @booking_agents = User.joins(:roles).where('roles.name' => 'booking', :"roles.authorizable_type" => 'Organization', :"roles.authorizable_id" => current_user.organizations).reject { |user| user.id == current_user.id }
 
     @booking_requests = !current_user.nil? ? current_user.booking_requests : []
     super
@@ -22,6 +24,7 @@ class BookingRequestsController < InheritedResources::Base
     else
       @booking_request.assignee_id = current_user.id
     end
+
     respond_to do |format|
       if @booking_request.save
         format.html { redirect_to :action => :index, notice: 'Booking request was successfully assigned.' }
@@ -44,7 +47,7 @@ class BookingRequestsController < InheritedResources::Base
   # GET /booking_requests/new.json
   def new
     @booking_request.submitter = User.new()
-    @buildings = Building.all
+
     #TODO:  if user can? create_onbehalf then filter buildings only based on the organization he/she belongs to
 
     # we will default to current user for logged in people
@@ -74,7 +77,6 @@ class BookingRequestsController < InheritedResources::Base
   # POST /booking_requests
   # POST /booking_requests.json
   def create
-    @booking_request = BookingRequest.new
     #first, let's get the submitter hash out so that there can't be any overwriting
     if params[:booking_request][:submitter_attributes][:id]
       submitter_attributes = params[:booking_request].delete :submitter_attributes
@@ -152,5 +154,9 @@ class BookingRequestsController < InheritedResources::Base
     end
   end
 
+  private
+  def load_buildings
+    @buildings = Building.all
+  end
 
 end

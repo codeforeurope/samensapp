@@ -14,7 +14,7 @@
       <% end %>
     </div>
     <div class="span2">
-      <% if can? :create_on_behalf, BookingRequest %>
+      <% if can? :create_on_behalf, @booking_request %>
         <%= link_to t(:'.lookup_user'), "#lookup_users_modal", {:class => "btn lookup-user", 'data-toggle' => "modal", :role => "button"} %>
       <% end %>
       <% if signed_in? and @booking_request.submitter.id == current_user.id %>

@@ -12,6 +12,8 @@ class Event < ActiveRecord::Base
                                 :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   accepts_nested_attributes_for :event_charges, :allow_destroy => true
 
+  after_create :update_request_status
+
   def room_total
     if @room_total.blank?
       @room_total = 0.00
@@ -34,5 +36,10 @@ class Event < ActiveRecord::Base
 
   def grand_total
     @grand_total ||= room_total + extras_total
+  end
+
+  private
+  def update_request_status
+    booking_request.update_attribute :status, :completed
   end
 end

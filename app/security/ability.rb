@@ -13,15 +13,8 @@ class Ability
       if user.role? :booking
         cannot :assign_to_other, BookingRequest
       end
-
-
       can :create_on_behalf, BookingRequest do |request|
-        if request.building.nil?
-          return true
-        else
-          organization = request.building.organization
-          return user.role? :booking, organization
-        end
+        user.role? :booking, Organization
       end
       can :assign_to_self, BookingRequest do |request|
         # if the request is for one of the buildings I have booking privs to
@@ -48,7 +41,7 @@ class Ability
         (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
       end
 
-      can [:accept, :decline] , Event do |event|
+      can [:accept, :decline], Event do |event|
         user.id == event.booking_request.submitter.id
       end
       can :manage, RoomConfiguration do |configuration|
