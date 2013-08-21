@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130819141443) do
+ActiveRecord::Schema.define(:version => 20130821134909) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -84,18 +84,16 @@ ActiveRecord::Schema.define(:version => 20130819141443) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.string   "start_at"
-    t.string   "end_at"
     t.integer  "booking_request_id"
-    t.integer  "room_id"
-    t.integer  "room_configuration_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "status"
+    t.string   "code"
   end
 
   add_index "events", ["booking_request_id"], :name => "index_events_on_booking_request_id"
-  add_index "events", ["room_configuration_id"], :name => "index_events_on_room_configuration_id"
-  add_index "events", ["room_id"], :name => "index_events_on_room_id"
+  add_index "events", ["code"], :name => "index_events_on_code"
+  add_index "events", ["status"], :name => "index_events_on_status"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
@@ -106,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20130819141443) do
     t.string   "image"
     t.string   "status"
     t.text     "description"
+    t.string   "email"
   end
 
   create_table "pictures", :force => true do |t|

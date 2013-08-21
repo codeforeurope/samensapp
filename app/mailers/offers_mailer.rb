@@ -1,8 +1,8 @@
-class BookingRequestsMailer < ActionMailer::Base
+class OffersMailer < ActionMailer::Base
   default from: "De Meevaart <demeevaart@gmail.com>"
 
-  def request_confirmation(request, target_url)
-    @booking_request = request
+  def offer_notification(event, target_url)
+    @event = event
     @target_url = target_url
     mail(:from => "#{request.building.organization.name} <#{request.building.organization.email}>",
          :to => "#{request.submitter.name} <#{request.submitter.email}>",

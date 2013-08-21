@@ -35,14 +35,30 @@ class Ability
         event.booking_request.submitter.id == current_user.id
       end
 
-      can [:new, :read, :edit, :update, :cancel, :send_offer, :destroy, :index], Event do |event|
+
+      #TODO: this may be trouble, needs reviewing
+      can [:new, :read, :edit, :update, :destroy], Event do |event|
         request = event.booking_request
         organization = request.building.organization
+        (user.role? :admin, organization) || (
         (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
+        )
+
       end
 
-      can [:accept, :decline], Event do |event|
-        user.id == event.booking_request.submitter.id
+      can :send_offer, Event do |event|
+        request = event.booking_request
+        organization = request.building.organization
+        (user.role? :booking, organization) && event.status == :new
+      end
+
+      can [:accept, :decline], Event do |event, params|
+        if params[:code].blank? && user.persisted?
+          result = (user.id == event.booking_request.submitter.id && event.status == :sent)
+        else
+          result = (event.code == params[:code] && event.status == :sent)
+        end
+        result
       end
       can :manage, RoomConfiguration do |configuration|
         organization = configuration.room.building.organization

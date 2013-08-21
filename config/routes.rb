@@ -25,8 +25,8 @@ Samensapp::Application.routes.draw do
       get :ical
     end
   end
-  get '/view_request/:code', :to => "booking_requests#by_code"
-
+  get '/view_request/:code', :to => "booking_requests#by_code", :as => :view_request
+  get '/view_offer/:code', :to => "offers#by_code", :as => :view_offer
   resources :rooms do
     resources :pictures do
       match '/carousel', :to => "pictures#carousel"
@@ -36,8 +36,7 @@ Samensapp::Application.routes.draw do
       get :prices
     end
   end
-  get '/rooms_in_building/:building_id', :to =>'rooms#in_building'
-  get '/rooms_for_event', :to => 'offers#rooms_for_event'
+  get '/rooms_in_building/:building_id', :to =>'rooms#in_building'  , :as => :rooms_in_building
 
   resources :organizations do
     member do

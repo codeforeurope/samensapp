@@ -1,17 +1,44 @@
 class OffersController < InheritedResources::Base
-  before_filter :authenticate_user!, :except => [:by_code]
+  before_filter :authenticate_user!, :except => [:by_code, :accept, :decline]
   before_filter :load_available_buildings
   load_and_authorize_resource :booking_request, :through => :event
   load_and_authorize_resource :event
   defaults :resource_class => 'Event', :singleton => true, :instance_name => :event
-  belongs_to :booking_request
+  optional_belongs_to :booking_request
 
   layout Proc.new { |controller| (controller.request.xhr?) ? 'ajax' : 'application' }
+  before_filter :resource, :only => [:accept, :decline]
+
+
+  def by_code
+
+    @event = Event.find_all_by_code(params[:code]).first
+    @booking_request = @event.booking_request
+
+    render :action => :show
+
+  end
 
   def accept
+    if can? :accept, @event, params
+      @event.status = :accepted
+      update! do |format|
+        format.html {
+          redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+        }
+      end
+    end
   end
 
   def decline
+    if can? :decline, @event, params
+      @event.status = :declined
+      update! do |format|
+        format.html {
+          redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+        }
+      end
+    end
   end
 
   def cancel
@@ -31,10 +58,9 @@ class OffersController < InheritedResources::Base
   protected
 
 
-
   def resource
     if @event.blank?
-      @event = @booking_request.events.first
+      @event = @booking_request.event
       @event.event_rooms.each do |event_room|
         event_room.available_rooms = Room.where :building_id => event_room.building_id if event_room.building_id.present?
       end

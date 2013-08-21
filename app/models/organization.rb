@@ -18,6 +18,7 @@ class Organization < ActiveRecord::Base
   has_many :admins, :through => :roles, :source => :user, :conditions => "name = 'admin'"
 
   before_create :set_default_status
+  validates_presence_of :name, :email, :address
 
   def set_default_status
     self.status = STATUSES[0] #unverified
