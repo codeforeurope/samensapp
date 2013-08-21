@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "compass/css3/images";
 
 #lookup_users_modal {
   .search {
@@ -36,6 +38,7 @@
 
 }
 
+
 fieldset {
 
   @include border-radius(5px);
@@ -67,7 +70,11 @@ fieldset {
     min-height: 130px;
   }
 }
+
 .input-append.date .add-on i {
-  width: 14px;
-  height: 14px;
+
+}
+
+.help-block {
+  font-size: small;
 }

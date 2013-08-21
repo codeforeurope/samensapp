@@ -4,7 +4,8 @@ class BookingRequestsMailer < ActionMailer::Base
   def request_confirmation(request, target_url)
     @booking_request = request
     @target_url = target_url
-    mail(:to => "#{request.submitter.name} <#{request.submitter.email}>",
+    mail(:from => "#{request.building.organization.name} <#{request.building.organization.email}>",
+         :to => "#{request.submitter.name} <#{request.submitter.email}>",
          :subject => t(:'mailer.request_confirmation.subject', :id => request.id.to_s),
          :content_type => "text/html"
     )

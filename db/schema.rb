@@ -11,14 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418145321) do
-
-  create_table "attachments", :force => true do |t|
-    t.string   "description"
-    t.string   "file"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
+ActiveRecord::Schema.define(:version => 20130821134909) do
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -31,14 +24,16 @@ ActiveRecord::Schema.define(:version => 20130418145321) do
     t.string   "status"
     t.integer  "submitter_id"
     t.integer  "assignee_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "code"
-    t.string   "organization_name"
+    t.string   "company_name"
     t.string   "contact_person"
     t.string   "contact_email"
     t.string   "contact_phone"
-    t.text     "organization_address"
+    t.text     "company_address"
+    t.string   "website"
+    t.integer  "building_id"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"
@@ -58,28 +53,58 @@ ActiveRecord::Schema.define(:version => 20130418145321) do
     t.integer  "organization_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.time     "open_from"
+    t.time     "open_to"
+    t.text     "description"
+  end
+
+  create_table "event_charges", :force => true do |t|
+    t.string   "name"
+    t.decimal  "price",      :precision => 6, :scale => 2, :default => 0.0
+    t.decimal  "decimal",    :precision => 6, :scale => 2, :default => 0.0
+    t.integer  "units",                                    :default => 1
+    t.integer  "event_id"
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+  end
+
+  add_index "event_charges", ["event_id"], :name => "index_event_charges_on_event_id"
+
+  create_table "event_rooms", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "room_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.string   "tariff"
+    t.decimal  "price",      :default => 0.0
+    t.integer  "units",      :default => 1
   end
 
   create_table "events", :force => true do |t|
     t.string   "name"
-    t.string   "start_at"
-    t.string   "end_at"
     t.integer  "booking_request_id"
-    t.integer  "room_id"
-    t.integer  "room_configuration_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "status"
+    t.string   "code"
   end
 
   add_index "events", ["booking_request_id"], :name => "index_events_on_booking_request_id"
-  add_index "events", ["room_configuration_id"], :name => "index_events_on_room_configuration_id"
-  add_index "events", ["room_id"], :name => "index_events_on_room_id"
+  add_index "events", ["code"], :name => "index_events_on_code"
+  add_index "events", ["status"], :name => "index_events_on_status"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "address"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "icon"
+    t.string   "image"
+    t.string   "status"
+    t.text     "description"
+    t.string   "email"
   end
 
   create_table "pictures", :force => true do |t|
@@ -94,8 +119,10 @@ ActiveRecord::Schema.define(:version => 20130418145321) do
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "authorizable_type"
+    t.integer  "authorizable_id"
   end
 
   create_table "room_configurations", :force => true do |t|
@@ -114,11 +141,12 @@ ActiveRecord::Schema.define(:version => 20130418145321) do
     t.integer  "capacity"
     t.text     "description"
     t.text     "notes"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.decimal  "cleaning_fee"
     t.integer  "building_id"
     t.boolean  "rentable"
+    t.integer  "minimum_block", :default => 1
   end
 
   create_table "users", :force => true do |t|

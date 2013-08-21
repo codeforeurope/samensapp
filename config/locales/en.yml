@@ -2,64 +2,18 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+#  offers:
+#    form:
+#      make_offer: "Save Offer"
+  time:
+    formats:
+      hour_minute: "%H:%M"
   booking_request: "Booking Request"
   mailer:
-      request_confirmation:
-        subject: "Your booking request [#%{id}]"
+    request_confirmation:
+      subject: "Your booking request [#%{id}]"
 
-  rooms:
-    new:
-      title: 'New %{model}'
-    edit:
-      title: 'Edit %{model}: %{name}'
-    index:
-      hero_title: "No rooms"
-      hero_subtitle: "This building has no rooms available for viewing, sorry."
-    buildings_form:
-      choose: "Choose"
-      select_building: "Select a Building"
-  booking_requests:
-    new:
-      title: "New Booking Request"
-    edit:
-      title: "Edit Booking Request"
-    display: &fieldset_labels
-      my_info: "My Information"
-      organization_info: "My Organization"
-      event_details: "Event Details"
-      view_request: "View this request online"
-    form:
-      my_info: "My Information"
-      organization_info: "My Organization"
-      event_details: "Event Details"
-    index:
-      new_booking_request: "New Booking Request"
-      your_booking_requests: "Here are your Booking Requests"
-      no_booking_requests: "You did not enter any Booking Request yet."
-      chart_title: "Requests received in the last two weeks"
-    table_unassigned:
-      awesome: "Awesome!"
-      hero_subtitle_1: "All the requests are assigned to booking agents!"
-      hero_subtitle_2: "Well done"
-      process: "Process"
-      outstanding_requests: "Outstanding Requests"
-      assign_to: "Assign to"
-      myself: "Myself"
-    table_assigned:
-      title: "Assigned Requests"
-      hero_title: ""
-      hero_subtitle_1: "You have no Booking Requests to manage."
-      hero_subtitle_2: "Start working on one by clicking on the \"Process\" button."
-    helper:
-      tooltip_none: "None"
-      tooltip_request_submitted: "Request has been received, but not processed yet."
-      tooltip_request_assigned: "A Booking Agent is working on it, right now."
-      tooltip_request_completed: "An offer has been sent for this request."
-      tooltip_request_canceled: "The request has been canceled."
-      tooltip_request_working: "Working on it."
-    submitter_fields:
-      lookup_user: "Lookup User"
-      edit_profile: "Edit Profile"
+  crop: "Crop Image"
 
 
   my_info: "Your Information"
@@ -78,41 +32,7 @@ en:
     manage_rooms: "Manage Rooms"
     manage_bookings: "Manage Bookings"
     view_bookings: "My Bookings"
-  activerecord:
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              taken: "account already exists. If it belongs to you please enter the password or log in before requesting the room"
-      template:
-        header:
-          other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
 
-    models:
-      booking_request: "Booking Request"
-    attributes:
-      booking_request:  &booking_request
-        people:  "Number of People"
-        start_at: "Start time"
-        end_at: "End time"
-        description: "Description"
-        catering_needs: "Catering Needs"
-        equipment_needs: "Equipment Needs"
-        notes: "Notes"
-        status: "Status"
-        requester: "Requester"
-        assigned_to: "Assignee"
-
-  activemodel:
-    models:
-      booking_request: "Booking Request"
-    errors:
-      template:
-        header:
-          other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
-      submitter:
-        account_exists: "account exists"
   helpers:
     links:
       show: "Show"
@@ -129,3 +49,4 @@ en:
     booking_request:
       created: "Booking request was successfully created."
       updated: "Booking request was successfully updated."
+

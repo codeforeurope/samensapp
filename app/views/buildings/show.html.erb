@@ -9,12 +9,24 @@
     <dd><%= @building.name %></dd>
   </div>
   <div class="row">
+    <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+    <dd><%= @building.description %></dd>
+  </div>
+  <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
     <dd><%= @building.address %></dd>
   </div>
   <div class="row">
-    <dt><strong><%= model_class.human_attribute_name(:organization_id) %>:</strong></dt>
-    <dd><%= @building.organization_id %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:organization) %>:</strong></dt>
+    <dd><%= link_to  @organization.name, organization_url(@organization.id) unless @organization.nil? %></dd>
+  </div>
+  <div class="row">
+    <dt><strong><%= model_class.human_attribute_name(:open_from) %>:</strong></dt>
+    <dd><%= l @building.open_from, :format => :hour_minute unless @building.open_from.nil? %></dd>
+  </div>
+  <div class="row">
+    <dt><strong><%= model_class.human_attribute_name(:open_to) %>:</strong></dt>
+    <dd><%= l @building.open_to, :format => :hour_minute unless @building.open_to.nil? %></dd>
   </div>
 </dl>
 

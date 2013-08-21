@@ -28,6 +28,7 @@ class BuildingsController < ApplicationController
   # GET /buildings/1.json
   def show
     @building = Building.find(params[:id])
+    @organization = Organization.where("id = #{@building.id}").first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -92,6 +93,14 @@ class BuildingsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to buildings_url }
       format.json { head :no_content }
+    end
+  end
+
+  def openingtimes
+    @building = Building.find(params[:id])
+    respond_to do |format|
+      format.html { render layout: "ajax" }
+      format.json { render json: @room_configuration }
     end
   end
 

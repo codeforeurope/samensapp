@@ -1,25 +1,14 @@
-<h1>Listing organizations</h1>
+<%- model_class = Organization -%>
+<div class="page-header">
+  <h1><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Address</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= render 'organizations/verified' %>
+<%= if current_user.role? :global_admin.to_s
+      render 'organizations/rest'
+    end
+%>
 
-<% @organizations.each do |organization| %>
-  <tr>
-    <td><%= organization.name %></td>
-    <td><%= organization.address %></td>
-    <td><%= link_to 'Show', organization %></td>
-    <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-    <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
+<br/>
+<%= t('.start_your_organization') %>
 <%= link_to 'New Organization', new_organization_path %>

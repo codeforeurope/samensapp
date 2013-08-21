@@ -1,0 +1,5 @@
+<%- model_class = Building -%>
+<%= "#{ model_class.human_attribute_name(:open_from)}
+    #{ l @building.open_from, :format => :hour_minute }" unless @building.open_from.nil? %>
+<%= "#{model_class.human_attribute_name(:open_to)}
+    #{l @building.open_to, :format => :hour_minute} " unless @building.open_to.nil? %>

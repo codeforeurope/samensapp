@@ -1,0 +1,44 @@
+en:
+  activerecord:
+    errors:
+      models:
+        organization:
+          attributes:
+            image:
+              image_minimum_size: "The picture is below the minimum size. (570x380 pixel for pictures, 480x480 for rewards)"
+        user:
+          attributes:
+            email:
+              taken: "account already exists. If it belongs to you please enter the password or log in before requesting the room"
+      template:
+        header:
+          other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
+
+    models:
+      booking_request: "Booking Request"
+    attributes:
+      booking_request:  &booking_request
+        people:  "Number of People"
+        start_at: "Start time"
+        end_at: "End time"
+        description: "Description"
+        catering_needs: "Catering Needs"
+        equipment_needs: "Equipment Needs"
+        notes: "Notes"
+        status: "Status"
+        requester: "Requester"
+        assigned_to: "Assignee"
+        notes: "Remarks"
+      building:
+        open_from: "Opens at"
+        open_to: "Closes at"
+
+  activemodel:
+    models:
+      booking_request: "Booking Request"
+    errors:
+      template:
+        header:
+          other: ! '%{count} errors prohibited this %{model} sddfs from being saved'
+      submitter:
+        account_exists: "account exists"

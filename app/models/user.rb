@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-
-
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
@@ -12,7 +10,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :roles
   has_many :booking_requests, :foreign_key => :submitter_id
-  belongs_to :organization
+  has_many :organizations, :through => :roles, :source => :authorizable, :source_type => 'Organization'
+  attr_accessor :create_account, :is_submitter
 
   validates_presence_of :name, :email
 
@@ -20,11 +19,21 @@ class User < ActiveRecord::Base
   validates_presence_of [:phone, :address], :if => :is_submitter
   validate :validate_as_submitter
 
-  attr_accessor :create_account, :is_submitter
 
-  def has_role? (role)
-    !roles.where(name: role).first.nil?
+
+  def role? (name, resource = nil)
+    if resource.nil?
+      !roles.where(:name => name, :authorizable_type => nil, :authorizable_id => nil).empty?
+    else
+      if resource.class.name == :class.to_s.camelize
+        !roles.where(:name => name, :authorizable_type => resource.to_s).empty?
+      else
+        !roles.where(:name => name, :authorizable_type => resource.class.name, :authorizable_id => resource.id).empty?
+      end
+    end
   end
+
+
 
   protected
   def password_required?

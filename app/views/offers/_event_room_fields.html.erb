@@ -1,0 +1,35 @@
+<fieldset>
+  <div class="room-info">
+    <%= link_to "X", "#", class: "remove-room btn btn-mini pull-right btn-danger" + (@event.event_rooms.count < 2 ? " hidden" : "") %>
+
+    <%= f.input :building_id, :collection => @buildings, :input_html => {:prompt => t(:'.select_building'), :class => "building-select"} %>
+    <%= f.association :room, :collection => f.object.available_rooms, :input_html => {:prompt => t(:'.select_building'), :data => {:"rooms-url" => rooms_path}, :class => "room-select"}, :disabled => f.object.room.blank? %>
+    <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => {}, :value => @booking_request.event_date} %>
+    <%= f.input :start_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => @booking_request.start_time}} %>
+    <%= f.input :end_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => @booking_request.end_time}} %>
+    <%= f.input :_destroy, :as => :hidden %>
+
+
+  </div>
+
+  <div class="room-price">
+    <div class="control-group tariff">
+      <label class="string control-label"><%= t(:".tariff") %></label>
+
+      <div class="controls">
+        <div class="btn-group" data-toggle="buttons-radio">
+          <% [:gratis, :base_price, :blind_price].each_with_index do |tariff, index| %>
+            <button type="button" class="btn disabled<%= " active" if index == 0 %>" data-tariff="<%= tariff %>"><%= t(tariff) %></button>
+          <% end %>
+
+        </div>
+        <%= f.input :tariff, :as => :hidden %>
+
+      </div>
+    </div>
+    <%= f.input :price, :as => :currency, :input_html => {:readonly => true, :value => (number_with_precision(f.object.price||0, :precision => 2))} %>
+    <%= f.input :units, :as => :numeric, :input_html => {:min => 1, :max => 3, :readonly => true} %>
+    <%= f.input :sub_total, :as => :currency, :input_html => {:disabled => true, :value => (number_with_precision(f.object.sub_total||0, :precision => 2)), :value => (number_with_precision(f.object.sub_total||0, :precision => 2))} %>
+  </div>
+
+</fieldset>

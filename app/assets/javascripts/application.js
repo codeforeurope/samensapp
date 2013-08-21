@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jcrop
 //= require bootstrap
 //= require jquery.ui.core
 //= require jquery.ui.draggable

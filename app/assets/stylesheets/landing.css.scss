@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3/border-radius";
-@import "bootstrap_setup";
 
 .events-container {
   margin-top: -60px;
@@ -47,7 +46,7 @@
     background-size: contain;
   }
   .event-name {
-    background-color: $infoBackground;
+    background-color: "#d9edf7";
     padding: 8px;
     font-size: 17px;
     font-weight: bold;
@@ -59,7 +58,7 @@
     }
   }
   .event-data {
-    background-color: $grayLighter;
+    background-color: #eee;
     padding: 8px;
     border-bottom: 1px solid #dedede;
   }
@@ -71,7 +70,7 @@
   .event-bottom {
     border-top: 1px solid #dedede;
     padding: 8px;
-    background-color: $grayLighter;
+    background-color: #eee;
     @include border-bottom-radius(6px);
   }
   .event-map {
@@ -99,5 +98,17 @@
       text-align: center;
     }
 
+  }
+}
+
+.icon-calendar {
+  background-position: -190px -118px;
+}
+.icon-time {
+  background-position: -47px -22px;
+}
+.input-prepend {
+  input[type=text] {
+    width: 180px;
   }
 }

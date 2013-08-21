@@ -62,5 +62,6 @@ module Samensapp
     # fix for Heroku
     config.assets.initialize_on_precompile = false
 
+    config.i18n.available_locales = [:en,:nl]
   end
 end

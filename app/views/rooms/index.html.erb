@@ -26,7 +26,6 @@
             <th><%= model_class.human_attribute_name(:name) %></th>
             <th><%= model_class.human_attribute_name(:base_price) %></th>
             <th><%= model_class.human_attribute_name(:blind_price) %></th>
-            <th><%= model_class.human_attribute_name(:capacity) %></th>
             <th><%= model_class.human_attribute_name(:description) %></th>
             <th><%= model_class.human_attribute_name(:notes) %></th>
             <th><%= model_class.human_attribute_name(:cleaning_fee) %></th>
@@ -42,7 +41,6 @@
               <td><%= link_to room.name, room_path(room) %></td>
               <td><%= room.base_price %></td>
               <td><%= room.blind_price %></td>
-              <td><%= room.capacity %></td>
               <td><%= room.description %></td>
               <td><%= room.notes %></td>
               <td><%= room.cleaning_fee %></td>

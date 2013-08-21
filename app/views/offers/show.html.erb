@@ -1,0 +1,113 @@
+<ul class="breadcrumb">
+  <li><%= link_to t(:requests), booking_requests_path %> <span class="divider">/</span></li>
+  <li><%= link_to t(:request, :request_id => @booking_request.id), booking_request_path(@booking_request) %>
+    <span class="divider">/</span></li>
+  <li class="active"><%= t(:'offer') %></li>
+</ul>
+
+<%= render :partial => "header" %>
+<%- model_class = Event -%>
+<div class="event-section">
+  <div class="section-header">
+    <h5><%= t(:".details") %></h5>
+  </div>
+
+  <table class="section-data">
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:name) %>:</strong></td>
+      <td><%= @event.name %></td>
+    </tr>
+  </table>
+</div>
+
+
+<% @event.event_rooms.each_with_index do |event_room, index| %>
+  <div class="event-section">
+    <div class="section-header">
+      <h5><%= t(:".room", :index => (index+1)) %>: <%= event_room.room.name %>
+        <span class="pull-right"> <%= number_to_currency(event_room.sub_total, :locale => :nl) %></span>
+      </h5>
+    </div>
+
+    <table class="section-data">
+      <tr>
+        <td><strong><%= t(:building) %>:</strong></td>
+        <td><%= event_room.room.building.name %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t(:event_date) %>:</strong></td>
+        <td><%= event_room.event_date %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t(:start_time) %>:</strong></td>
+        <td><%= event_room.start_time %></td>
+      </tr>
+      <tr>
+        <td><strong><%= t(:end_time) %>:</strong></td>
+        <td><%= event_room.end_time %></td>
+      </tr>
+
+    </table>
+
+
+  </div>
+<% end %>
+<div class="section-total">
+  <h5>
+    <%= t(:".room_total") %>
+    <span class="pull-right"> <%= number_to_currency(@event.room_total, :locale => :nl) %></span>
+  </h5>
+</div>
+<div class="event-section">
+  <div class="section-header">
+    <h5><%= t(:".extra_charges") %>  </h5>
+  </div>
+  <% if @event.event_charges %>
+    <table class="extra-charges-table table table-striped table-hover<%= " hidden" if @event.event_charges.empty? %>">
+      <thead>
+      <tr>
+        <th></th>
+        <th class="items"><%= t(:".items") %></th>
+        <th class="price"><%= t(:".price") %></th>
+        <th class="units"><%= t(:".units") %></th>
+        <th class="total"><%= t(:".item_total") %></th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <% @event.event_charges.each_with_index do |event_charge, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td class="items"><%= event_charge.name %></td>
+          <td class="price"><%= number_to_currency(event_charge.price, :locale => :nl) %></td>
+          <td class="units"><%= event_charge.units %></td>
+          <td class="total"><%= number_to_currency(event_charge.total, :locale => :nl) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+<div class="section-total">
+  <h5>
+    <%= t(:".extra_charges_total") %>
+    <span class="pull-right"> <%= number_to_currency(@event.extras_total, :locale => :nl) %></span>
+  </h5>
+
+</div>
+<div class="section-total">
+  <h5>
+    <%= t(:".grand_total") %>
+    <span class="pull-right"> <%= number_to_currency(@event.grand_total, :locale => :nl) %></span>
+  </h5>
+
+</div>
+
+<div class="form-actions">
+  <%= link_to t('.accept'), accept_booking_request_offer_path(@booking_request, :code => params[:code]), :class => 'btn btn-success', :method => :put if (can? :accept, @event, params) %>
+  <%= link_to t('.decline'), decline_booking_request_offer_path(@booking_request, :code => params[:code]), :class => 'btn btn-danger pull-right', :method => :put, :confirm => t(:".confirm_decline") if can? :decline, @event, params %>
+  <%= link_to t('.cancel'), cancel_booking_request_offer_path(@booking_request), :class => 'btn btn-danger pull-right', :method => :put, :confirm => t(:".confirm_cancel") if can? :cancel, @event, params %>
+  <%= link_to t('.modify'), edit_booking_request_offer_path(@booking_request), :class => 'btn' if can? :edit, @event %>
+  <%= link_to t('.send_offer'), send_booking_request_offer_path(@booking_request), :method => :put, :class => 'btn btn-primary', :confirm => t(:".confirm_send") if can? :send_offer, @event %>
+  <%= link_to t('.add_to_calendar'), ical_booking_request_offer_path(@booking_request), :class => 'btn btn-primary' if can? :read, @event %>
+</div>

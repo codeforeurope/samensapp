@@ -1,8 +1,13 @@
 <%- model_class = BookingRequest -%>
 <%- submitter_class = User -%>
+<%- building_class = Building -%>
 <div class="page-header">
-  <% if can? :make_offer, @booking_request %>
-    <%=  link_to t('.make_offer'), offer_booking_request_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+  <% if @booking_request.event.blank? %>
+    <% if can? :new, @booking_request.events.build %>
+      <%= link_to t('.make_offer'), new_booking_request_offer_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+    <% end %>
+  <% else %>
+    <%= link_to t('.view_offer'), booking_request_offer_path(@booking_request), :class => 'pull-right btn' %>
   <% end %>
   <h1><%= t :'.title', :default => [:'helpers.titles.show', '%{model}'], :model => model_class.model_name.human %>
     #<%= @booking_request.id %></h1>
@@ -44,16 +49,12 @@
   <div class="span5">
 
     <fieldset>
-      <legend><%= t :'.organization_info' %></legend>
+      <legend><%= t :'.company_info' %></legend>
       <table>
         <tbody>
         <tr>
-          <td><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></td>
-          <td><%= @booking_request.organization_name %></td>
-        </tr>
-        <tr>
-          <td><strong><%= model_class.human_attribute_name(:organization_name) %>:</strong></td>
-          <td><%= @booking_request.organization_name %></td>
+          <td><strong><%= model_class.human_attribute_name(:company_name) %>:</strong></td>
+          <td><%= @booking_request.company_name %></td>
         </tr>
         <tr>
           <td><strong><%= model_class.human_attribute_name(:contact_email) %>:</strong></td>
@@ -64,9 +65,13 @@
           <td><%= @booking_request.contact_phone %></td>
         </tr>
         <tr>
-          <td><strong><%= model_class.human_attribute_name(:organization_address) %>:</strong></td>
+          <td><strong><%= model_class.human_attribute_name(:website) %>:</strong></td>
+          <td><%= @booking_request.website %></td>
+        </tr>
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:company_address) %>:</strong></td>
           <td>
-            <address><%= @booking_request.organization_address %></address>
+            <address><%= @booking_request.company_address %></address>
           </td>
         </tr>
         </tbody>
@@ -82,6 +87,9 @@
       <div class="row">
         <div class="span5">
           <dl class="dl-horizontal">
+            <dt><strong><%= "#{building_class.model_name.human} #{building_class.human_attribute_name(:name)}" %>
+              :</strong></dt>
+            <dd><%= @booking_request.building.name %></dd>
             <dt><strong><%= model_class.human_attribute_name(:event_date) %>:</strong></dt>
             <dd><%= @booking_request.event_date %></dd>
             <dt><strong><%= model_class.human_attribute_name(:people) %>:</strong></dt>
@@ -110,7 +118,6 @@
             <dd><%= @booking_request.equipment_needs %></dd>
             <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
             <dd><%= @booking_request.notes %></dd>
-
           </dl>
 
         </div>

@@ -20,30 +20,32 @@
 
               </div>
 
-              <%= f.input :organization_name %>
+              <%= f.input :company_name %>
               <%= f.input :contact_person %>
               <%= f.input :contact_email %>
               <%= f.input :contact_phone, :type => "tel" %>
-              <%= f.input :organization_address, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :company_address, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :website %>
             </div>
           </div>
         </fieldset>
         <fieldset>
           <legend><%= t :'.event_details' %></legend>
           <div class="row">
-            <div class="span5">
+            <div class="span6">
+              <%= f.association :building, collection: @buildings, label_method: :name, value_method: :id, :hint => "" %>
               <%
                  data = {}
                  data[:start_date] = Time.zone.now().strftime("%d-%m-%Y") if @booking_request.new_record?
               %>
               <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => data} %>
-              <%= f.input :start_time, :wrapper => :timepicker %>
+              <%= f.input :start_time, :wrapper => :timepicker, :hint => t('.start_time_help') %>
               <%= f.input :end_time, :wrapper => :timepicker %>
               <%= f.input :people, :input_html => { :min => 0 }  %>
               <%= f.input :description, :input_html => {:rows => 5, :cols => 60} %>
               <%= f.input :catering_needs, :input_html => {:rows => 5, :cols => 60} %>
               <%= f.input :equipment_needs, :input_html => {:rows => 5, :cols => 60} %>
-              <%= f.input :notes, :input_html => {:rows => 5, :cols => 60} %>
+              <%= f.input :notes, :input_html => {:rows => 5, :cols => 60}, :hint => t('.notes_help') %>
             </div>
           </div>
         </fieldset>
@@ -67,7 +69,7 @@
       <script>
         $(document).ready(function () {
           $("#new_booking_request").trigger("disable");
-          $email_field = $('#booking_request_submitter_attributes_email')
+          $email_field = $('#booking_request_submitter_attributes_email');
 
           $email_field.keydown(function (e) {
             if (e.keyCode == 13) {

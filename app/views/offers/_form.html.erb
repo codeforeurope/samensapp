@@ -1,0 +1,58 @@
+<%= render :partial => "header" %>
+
+<%= simple_form_for @event, :url => booking_request_offer_path(@booking_request), :html => {} do |f| %>
+  <div class="event-details">
+    <h4><%= t(:".details") %>     </h4>
+    <%= f.input :name %>
+  </div>
+
+  <div class="select-room">
+    <h4><%= t(:".rooms") %>
+
+      <%= link_to_add_fields t(:add_room), f, :event_rooms, :class => "add-room btn btn-mini btn-success pull-right" %>
+    </h4>
+
+    <div id="rooms-container">
+      <%= f.simple_fields_for(:event_rooms) do |g| %>
+        <%= render 'event_room_fields', :f => g %>
+      <% end %>
+
+    </div>
+    <div class="sub-totals">
+      <%= f.input :room_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true, :value => (number_with_precision(f.object.room_total||0, :precision => 2))} %>
+    </div>
+
+  </div>
+  <div id="extras-container">
+    <h4><%= t(:".extra_charges") %> <%= link_to_add_fields t(:add_charge), f, :event_charges, :class => "add-charge btn btn-mini btn-success pull-right" %> </h4>
+    <table class="extra-charges-table table table-striped table-bordered table-hover<%= " hidden" if @event.event_charges.empty? %>">
+      <thead>
+      <tr>
+        <th class="items"><%= t(:".items") %></th>
+        <th class="price"><%= t(:".price") %></th>
+        <th class="units"><%= t(:".units") %></th>
+        <th class="total"><%= t(:".item_total") %></th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <%= f.simple_fields_for(:event_charges) do |g| %>
+        <%= render 'event_charge_fields', :f => g %>
+
+      <% end %>
+      </tbody>
+    </table>
+    <div class="sub-totals">
+      <%= f.input :extras_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true, :value => (number_with_precision(f.object.extras_total||0, :precision => 2))} %>
+    </div>
+  </div>
+  <hr>
+  <div class="sub-totals">
+    <%= f.input :grand_total, :as => :currency, :wrapper_html => {:class => "pull-right"}, :input_html => {:disabled => true, :value => (number_with_precision(f.object.grand_total||0, :precision => 2))} %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => t(:".make_offer") %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                booking_requests_path, :class => 'btn' %>
+  </div>
+<% end %>

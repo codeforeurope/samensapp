@@ -1,4 +1,5 @@
 class Role < ActiveRecord::Base
-  NAMES = %w"admin booking"
-  attr_accessible :name, :user_id
+  NAMES = %w"global_admin admin booking member"
+  attr_accessible :name, :user_id, :authorizable
+  belongs_to :authorizable, :polymorphic => true
 end
