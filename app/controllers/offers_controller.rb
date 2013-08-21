@@ -7,7 +7,7 @@ class OffersController < InheritedResources::Base
   optional_belongs_to :booking_request
 
   layout Proc.new { |controller| (controller.request.xhr?) ? 'ajax' : 'application' }
-  before_filter :resource, :only => [:accept, :decline]
+  before_filter :resource, :only => [:accept, :decline, :cancel]
 
 
   def by_code
@@ -20,28 +20,33 @@ class OffersController < InheritedResources::Base
   end
 
   def accept
-    if can? :accept, @event, params
-      @event.status = :accepted
-      update! do |format|
-        format.html {
-          redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
-        }
-      end
+    authorize! :accept, @event, params
+    @event.status = :accepted
+    update! do |format|
+      format.html {
+        redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+      }
     end
   end
 
   def decline
-    if can? :decline, @event, params
-      @event.status = :declined
-      update! do |format|
-        format.html {
-          redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
-        }
-      end
+    authorize! :decline, @event, params
+    @event.status = :declined
+    update! do |format|
+      format.html {
+        redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+      }
     end
   end
 
   def cancel
+    authorize! :cancel, @event, params
+    @event.status = :canceled
+    update! do |format|
+      format.html {
+        redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+      }
+    end
   end
 
   def send_offer

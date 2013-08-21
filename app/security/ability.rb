@@ -49,17 +49,30 @@ class Ability
       can :send_offer, Event do |event|
         request = event.booking_request
         organization = request.building.organization
-        (user.role? :booking, organization) && event.status == :new
+        (user.role? :booking, organization) && event.status.to_sym == :new
       end
 
+
       can [:accept, :decline], Event do |event, params|
-        if params[:code].blank? && user.persisted?
-          result = (user.id == event.booking_request.submitter.id && event.status == :sent)
+        if params.present? && params.has_key?(:code) && user.new_record?
+          result = (event.code == params[:code] && event.status.to_sym == :sent)
         else
-          result = (event.code == params[:code] && event.status == :sent)
+          result = (user.id == event.booking_request.submitter.id && event.status.to_sym == :sent)
         end
         result
       end
+
+      can :cancel, Event do |event, params|
+        request = event.booking_request
+        organization = request.building.organization
+        if params.present? && params.has_key?(:code) && user.new_record?
+          result = (event.code == params[:code] && ![:canceled, :sent].include?(event.status.to_sym))
+        else
+          result = ((user.role? :booking, organization) || user.id == event.booking_request.submitter.id) && ![:canceled].include?(event.status.to_sym)
+        end
+        result
+      end
+
       can :manage, RoomConfiguration do |configuration|
         organization = configuration.room.building.organization
         user.role? "admin", organization
