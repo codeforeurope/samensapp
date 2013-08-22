@@ -108,6 +108,6 @@
   <%= link_to t('.decline'), decline_booking_request_offer_path(@booking_request, :code => params[:code]), :class => 'btn btn-danger pull-right', :method => :put, :confirm => t(:".confirm_decline") if can? :decline, @event, params %>
   <%= link_to t('.cancel'), cancel_booking_request_offer_path(@booking_request), :class => 'btn btn-danger pull-right', :method => :put, :confirm => t(:".confirm_cancel") if can? :cancel, @event, params %>
   <%= link_to t('.modify'), edit_booking_request_offer_path(@booking_request), :class => 'btn' if can? :edit, @event %>
-  <%= link_to t('.send_offer'), send_booking_request_offer_path(@booking_request), :method => :put, :class => 'btn btn-primary', :confirm => t(:".confirm_send") if can? :send_offer, @event %>
+  <%= link_to t('.send_offer'), send_offer_booking_request_offer_path(@booking_request), :method => :put, :class => 'btn btn-primary', :confirm => t(:".confirm_send") if can? :send_offer, @event %>
   <%= link_to t('.add_to_calendar'), ical_booking_request_offer_path(@booking_request), :class => 'btn btn-primary' if can? :read, @event %>
 </div>

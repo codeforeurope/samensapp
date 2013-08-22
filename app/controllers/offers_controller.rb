@@ -7,7 +7,7 @@ class OffersController < InheritedResources::Base
   optional_belongs_to :booking_request
 
   layout Proc.new { |controller| (controller.request.xhr?) ? 'ajax' : 'application' }
-  before_filter :resource, :only => [:accept, :decline, :cancel]
+  before_filter :resource, :only => [:accept, :decline, :cancel, :send_offer]
 
 
   def by_code
@@ -50,7 +50,14 @@ class OffersController < InheritedResources::Base
   end
 
   def send_offer
-
+    authorize! :send_offer, @event, params
+    OffersMailer.offer_notification(@event).deliver
+    @event.status = :sent
+    update! do |format|
+      format.html {
+        redirect_to booking_request_offer_url(@booking_request)
+      }
+    end
   end
 
   def ical

@@ -21,7 +21,7 @@ Samensapp::Application.routes.draw do
       put :accept
       put :decline
       put :cancel
-      put :send
+      put :send_offer
       get :ical
     end
   end

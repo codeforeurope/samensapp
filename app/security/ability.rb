@@ -49,7 +49,7 @@ class Ability
       can :send_offer, Event do |event|
         request = event.booking_request
         organization = request.building.organization
-        (user.role? :booking, organization) && event.status.to_sym == :new
+        (user.role? :booking, organization) && (event.status.to_sym == :new ||event.status.to_sym == :sent)
       end
 
 
