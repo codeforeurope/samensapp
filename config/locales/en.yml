@@ -2,16 +2,11 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-#  offers:
-#    form:
-#      make_offer: "Save Offer"
+
   time:
     formats:
       hour_minute: "%H:%M"
   booking_request: "Booking Request"
-  mailer:
-    request_confirmation:
-      subject: "Your booking request [#%{id}]"
 
   crop: "Crop Image"
 
