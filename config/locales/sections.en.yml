@@ -1,6 +1,8 @@
 en:
   total: "Total"
   organizations:
+    mine:
+      title: "My organizations"
     rest:
       title: "Organizations not active"
       subtitle: "These organizations are not shown to the users, and only administrators can see them"

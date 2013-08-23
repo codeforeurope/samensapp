@@ -1,0 +1,35 @@
+<%- model_class = Organization -%>
+
+<h2><%= t('.title') %></h2>
+<br/>
+<% if @my_organizations.count == 0 %>
+  <div class="hero-unit">
+    <p><%= t('.no_my_organizations') %></p>
+  </div>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <% @my_organizations.each do |organization| %>
+      <tr>
+        <td><%= organization.name %></td>
+        <td><%= organization.address %></td>
+        <td><%= link_to t('.show'),
+                        organization,
+                        :class => 'btn btn-mini' %>
+        <%= if can? :update, organization
+                  link_to t('.edit'),
+                          edit_organization_path(organization),
+                          :class => 'btn btn-mini btn-primary'
+                end %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <br/>
+<% end %>

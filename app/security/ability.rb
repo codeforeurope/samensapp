@@ -81,15 +81,21 @@ class Ability
         organization = room.building.organization
         user.role? "admin", organization
       end
-      can :manage, Building do |building|
+
+
+      can [:edit, :update, :new, :create, :destroy], Building do |building|
         organization = building.organization
-        user.role? "admin", organization
+        user.role? :admin, organization
       end
+
+
       can [:update, :destroy], Organization do |organization|
         user.role? "admin", organization
       end
 
-
+      if user.role? :admin, Organization || (user.role? :booking, Organization)
+        can :see, Organization
+      end
       can [:create, :find_user_by_email], BookingRequest
       can [:cancel, :read], BookingRequest do |request|
         user.id == request.submitter_id

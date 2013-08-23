@@ -16,20 +16,20 @@
   <tbody>
   <% @buildings.each do |building| %>
     <tr>
-      <td><%= link_to building.name, building_path(building) %></td>
+      <td><%= link_to building.name, organization_building_path(building.organization, building) %></td>
       <td><%= building.address %></td>
       <td><%= l building.open_from, :format => :hour_minute unless building.open_from.nil? %></td>
       <td><%= l building.open_to, :format => :hour_minute unless building.open_to.nil? %></td>
       <td>
         <%= link_to t('visit'),
                     rooms_path(:building_id => building.id),  :class => 'btn btn-mini' %>
-        <% if can? :manage, building %>
+        <% if can? :edit, building %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_building_path(building), :class => 'btn btn-mini' %>
+                      edit_organization_building_path(building.organization,building), :class => 'btn btn-mini' %>
         <% end %>
-        <% if can? :delete, building %>
+        <% if can? :destroy, building %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      building_path(building),
+                      organization_building_path(building.organization,building),
                       :method => :delete,
                       :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
                       :class => 'btn btn-mini btn-danger' %>

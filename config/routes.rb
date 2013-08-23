@@ -42,6 +42,7 @@ Samensapp::Application.routes.draw do
     member do
       get :crop
     end
+    resources :buildings
   end
 
   devise_for :users

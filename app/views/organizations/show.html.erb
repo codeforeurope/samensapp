@@ -1,10 +1,9 @@
 <%- model_class = Organization -%>
-<p id="notice"><%= notice %></p>
+<ul class="breadcrumb">
+  <li><%= link_to t(:organization), organizations_path %> <span class="divider">/</span></li>
 
-<div class="page-header">
-  <h1><%= t '.title', :default => model_class.model_name.human %></h1>
-</div>
-
+  <li class="active"><%= @organization.name %></li>
+</ul>
 <dl class="dl-horizontal">
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
@@ -21,6 +20,10 @@
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:image) %>:</strong></dt>
     <dd> <img style="width: 300px; height: 200px;" src="<%= @organization.image.image %>"></dd>
+  </div>
+  <div class="row">
+    <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+    <dd><%= @organization.email %></dd>
   </div>
   <% if current_user.role? :global_admin.to_s %>
     <div class="row">

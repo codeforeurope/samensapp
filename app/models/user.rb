@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :roles
   has_many :booking_requests, :foreign_key => :submitter_id
-  has_many :organizations, :through => :roles, :source => :authorizable, :source_type => 'Organization'
+  has_many :organizations, :through => :roles, :source => :authorizable, :source_type => 'Organization', :uniq => true
   attr_accessor :create_account, :is_submitter
 
   validates_presence_of :name, :email
@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   validates_numericality_of [:phone, :mobile_phone], :allow_blank => true
   validates_presence_of [:phone, :address], :if => :is_submitter
   validate :validate_as_submitter
-
 
 
   def role? (name, resource = nil)
@@ -34,10 +33,9 @@ class User < ActiveRecord::Base
   end
 
 
-
   protected
   def password_required?
-    !create_account.to_i.zero? || (super()  && !(is_submitter && attribute(:password).nil? && attribute(:password_confirmation).nil?))
+    !create_account.to_i.zero? || (super() && !(is_submitter && attribute(:password).nil? && attribute(:password_confirmation).nil?))
   end
 
 
