@@ -45,7 +45,7 @@ Samensapp::Application.routes.draw do
     resources :buildings
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   #resource to manage the user profile
   resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile
   match 'users/profile' => 'users#profile'

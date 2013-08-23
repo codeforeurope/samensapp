@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821134909) do
+ActiveRecord::Schema.define(:version => 20130823145832) do
+
+  create_table "authorizations", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.string   "token"
+    t.string   "secret"
+    t.string   "name"
+    t.string   "link"
+    t.integer  "expires_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "authorizations", ["provider", "uid"], :name => "index_authorizations_on_provider_and_uid"
+  add_index "authorizations", ["provider"], :name => "index_authorizations_on_provider"
+  add_index "authorizations", ["token", "uid"], :name => "index_authorizations_on_token_and_uid"
+  add_index "authorizations", ["token"], :name => "index_authorizations_on_token"
+  add_index "authorizations", ["user_id"], :name => "index_authorizations_on_user_id"
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -98,13 +117,15 @@ ActiveRecord::Schema.define(:version => 20130821134909) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "address"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "icon"
     t.string   "image"
     t.string   "status"
     t.text     "description"
     t.string   "email"
+    t.string   "google_token"
+    t.integer  "google_token_expires_at"
   end
 
   create_table "pictures", :force => true do |t|

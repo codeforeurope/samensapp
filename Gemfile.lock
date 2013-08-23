@@ -81,10 +81,15 @@ GEM
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
     devise-i18n-views (0.2.6)
+    dotenv (0.7.0)
+    dotenv-rails (0.7.0)
+      dotenv (= 0.7.0)
     erubis (2.7.0)
     excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fog (1.14.0)
       builder
       excon (~> 0.25.0)
@@ -100,7 +105,9 @@ GEM
     geocoder (1.1.8)
     gmaps4rails (1.5.6)
     has_scope (0.5.1)
+    hashie (2.0.5)
     hike (1.2.3)
+    httpauth (0.2.0)
     i18n (0.6.1)
     inherited_resources (1.4.0)
       has_scope (~> 0.5.0)
@@ -119,6 +126,8 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.0)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
     launchy (2.3.0)
       addressable (~> 2.3)
     less (2.3.2)
@@ -137,11 +146,27 @@ GEM
       subexec (~> 0.2.1)
     mini_portile (0.5.1)
     multi_json (1.7.9)
+    multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-google-oauth2 (0.2.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2
+    omniauth-oauth2 (1.1.1)
+      oauth2 (~> 0.8.0)
+      omniauth (~> 1.0)
     orm_adapter (0.4.0)
     pg (0.16.0)
     polyglot (0.3.3)
@@ -220,6 +245,7 @@ DEPENDENCIES
   compass-rails
   devise
   devise-i18n-views
+  dotenv-rails
   fog
   fullcalendar-rails!
   geocoder
@@ -232,6 +258,7 @@ DEPENDENCIES
   less-rails
   letter_opener
   mini_magick
+  omniauth-google-oauth2
   pg
   rails (= 3.2.13)
   rails-i18n (~> 3.0.0.pre)
