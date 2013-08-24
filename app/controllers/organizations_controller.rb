@@ -27,7 +27,7 @@ class OrganizationsController < InheritedResources::Base
   def create
     create! do |success, failure|
       success.html {
-        redirect_to params[:location][:image].present? ? crop_organization_url(@organization) : organization_url(@organization)
+        redirect_to params[:organization][:image].present? ? crop_organization_url(@organization) : organization_url(@organization)
       }
     end
   end
@@ -37,7 +37,7 @@ class OrganizationsController < InheritedResources::Base
   def update
     update! do |success, failure|
       success.html {
-        redirect_to params[:location][:image].present? ? crop_organization_url(@organization) : organization_url(@organization)
+        redirect_to params[:organization][:image].present? ? crop_organization_url(@organization) : organization_url(@organization)
       }
     end
   end

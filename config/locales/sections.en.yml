@@ -1,6 +1,10 @@
 en:
   total: "Total"
   organizations:
+    calendar:
+      success: "Successfully connected calendar access for %{email}"
+      failure:
+        email_mismatch: "%{email_oauth} does not match the organization email %{email_organization}"
     mine:
       title: "My organizations"
     rest:

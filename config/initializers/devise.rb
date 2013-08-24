@@ -218,11 +218,12 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {
       #:name => "google",
-      access_type: "offline",
-      :scope => "userinfo.email, https://www.googleapis.com/auth/calendar",
+      :access_type => "offline",
+      :scope => "userinfo.email, userinfo.profile",
       :prompt => "select_account",
       :image_aspect_ratio => "square",
-      :image_size => 50
+      :image_size => 50,
+      :setup => true
   }
 
   # ==> Warden configuration

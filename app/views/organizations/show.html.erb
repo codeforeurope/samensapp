@@ -3,6 +3,10 @@
   <li><%= link_to t(:organization), organizations_path %> <span class="divider">/</span></li>
 
   <li class="active"><%= @organization.name %></li>
+  <% if can? :update, @organization %>
+    <li class="pull-right"><%= link_to t(:edit), edit_organization_path(@organization), :class => " btn btn-mini btn-primary pull-right" %></li>
+
+  <% end %>
 </ul>
 <dl class="dl-horizontal">
   <div class="row">
@@ -19,11 +23,17 @@
   </div>
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:image) %>:</strong></dt>
-    <dd> <img style="width: 300px; height: 200px;" src="<%= @organization.image.image %>"></dd>
+    <dd><img style="width: 300px; height: 200px;" src="<%= @organization.image.image %>"></dd>
   </div>
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
-    <dd><%= @organization.email %></dd>
+    <dd><%= @organization.email %>
+      <% if true || (@organization.google_token.blank? || @organization.google_token_expires_at < Time.now.to_i) && (can? :update, @organization) %>
+        <%= link_to user_omniauth_authorize_path(:google_oauth2, :organization_id => @organization.id) do %>
+          <%= image_tag "google-calendar.png", :class => "google-calendar" %><%= t(:connect_google_calendar) %>
+        <% end %>
+      <% end %>
+    </dd>
   </div>
   <% if current_user.role? :global_admin.to_s %>
     <div class="row">
@@ -44,13 +54,13 @@
 
   <% if current_user.role? :global_admin.to_s %>
 
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_organization_path(@organization), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              building_path(@organization),
-              :method => 'delete',
-              :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-              :class => 'btn btn-danger' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_organization_path(@organization), :class => 'btn' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                building_path(@organization),
+                :method => 'delete',
+                :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                :class => 'btn btn-danger' %>
   <% end %>
 
 </div>

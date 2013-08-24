@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(:version => 20130823145832) do
     t.text     "description"
     t.string   "email"
     t.string   "google_token"
+    t.string   "google_refresh_token"
     t.integer  "google_token_expires_at"
   end
 
