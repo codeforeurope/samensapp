@@ -17,4 +17,18 @@ class EventRoom < ActiveRecord::Base
   def building_id
     @building_id ||= (room.building.id if  room.present?)
   end
+
+  def to_google_calendar_json
+    output = {
+        :summary => "[option] #{event.name}",
+        #'location' => 'Somewhere',
+        :start => {
+            :dateTime => start_at.to_datetime
+        },
+        :end => {
+            :dateTime => end_at.to_datetime
+        }
+    }
+    JSON.dump(output)
+  end
 end

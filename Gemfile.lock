@@ -51,6 +51,10 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.5)
     arel (3.0.2)
+    autoparse (0.3.3)
+      addressable (>= 2.3.1)
+      extlib (>= 0.9.15)
+      multi_json (>= 1.0.0)
     bcrypt-ruby (3.1.1)
     bootstrap-sass (2.3.1.3)
       sass (~> 3.2)
@@ -88,6 +92,7 @@ GEM
     excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    extlib (0.9.16)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     fog (1.14.0)
@@ -104,6 +109,16 @@ GEM
     fssm (0.2.10)
     geocoder (1.1.8)
     gmaps4rails (1.5.6)
+    google-api-client (0.6.4)
+      addressable (>= 2.3.2)
+      autoparse (>= 0.3.3)
+      extlib (>= 0.9.15)
+      faraday (~> 0.8.4)
+      jwt (>= 0.1.5)
+      launchy (>= 2.1.1)
+      multi_json (>= 1.0.0)
+      signet (~> 0.4.5)
+      uuidtools (>= 2.1.0)
     has_scope (0.5.1)
     hashie (2.0.5)
     hike (1.2.3)
@@ -208,6 +223,11 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    signet (0.4.5)
+      addressable (>= 2.2.3)
+      faraday (~> 0.8.1)
+      jwt (>= 0.1.5)
+      multi_json (>= 1.0.0)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -229,6 +249,7 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
 
@@ -250,6 +271,7 @@ DEPENDENCIES
   fullcalendar-rails!
   geocoder
   gmaps4rails
+  google-api-client
   inherited_resources
   jcrop-rails
   jquery-fileupload-rails (~> 0.4.1)

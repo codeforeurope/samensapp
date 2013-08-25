@@ -1,6 +1,8 @@
+
 class OrganizationsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:index, :show]
   load_and_authorize_resource :organization
+
   def index
     if can? :new, Organization
       @verified = @organizations.where("status = 'verified'")
@@ -8,10 +10,7 @@ class OrganizationsController < InheritedResources::Base
     end
     @my_organizations = current_user.organizations
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @organizations }
-    end
+    super
   end
 
 # GET /organizations/1
@@ -43,6 +42,18 @@ class OrganizationsController < InheritedResources::Base
   end
 
   def crop
+  end
+
+  def calendars
+    client = Google::APIClient.new
+    client.authorization.client_id=ENV["GOOGLE_CLIENT_ID"]
+    client.authorization.client_secret=ENV["GOOGLE_CLIENT_SECRET"]
+    client.authorization.access_token= @organization.google_token
+    client.authorization.refresh_token= @organization.google_refresh_token
+    calendar= client.discovered_api('calendar', 'v3')
+
+    @calendars = client.execute(:api_method => calendar.calendar_list.list)
+
   end
 
 end

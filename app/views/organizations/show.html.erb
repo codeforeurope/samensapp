@@ -28,7 +28,7 @@
   <div class="row">
     <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
     <dd><%= @organization.email %>
-      <% if true || (@organization.google_token.blank? || @organization.google_token_expires_at < Time.now.to_i) && (can? :update, @organization) %>
+      <% if (@organization.google_token.blank? ||@organization.google_refresh_token.blank? || @organization.google_token_expires_at < Time.now.to_i) && (can? :update, @organization) %>
         <%= link_to user_omniauth_authorize_path(:google_oauth2, :organization_id => @organization.id) do %>
           <%= image_tag "google-calendar.png", :class => "google-calendar" %><%= t(:connect_google_calendar) %>
         <% end %>

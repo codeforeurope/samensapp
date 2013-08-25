@@ -22,7 +22,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       @organization = Organization.find(session['omniauth.organization_id'])
       if auth[:info][:email] == @organization.email
-        @organization.update_attributes :google_token => auth[:credentials][:token], :google_token_expires_at => auth[:credentials][:expires_at], :google_refresh_token => auth[:credentials][:refresh_token]
+        @organization.google_token=   auth[:credentials][:token]
+        @organization.google_token_expires_at = auth[:credentials][:expires_at]
+        @organization.google_refresh_token = auth[:credentials][:refresh_token] if auth[:credentials][:refresh_token].present?
+        @organization.save
         flash.notice = t(:"organizations.calendar.success", :email => auth[:info][:email])
       else
         set_flash_message :alert, :failure, :kind => OmniAuth::Utils.camelize(:google_oauth2), :reason => t(:"organizations.calendar.failure.email_mismatch", :email_oauth => auth[:info][:email], :email_organization => @organization.email)

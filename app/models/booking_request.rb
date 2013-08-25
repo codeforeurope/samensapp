@@ -42,7 +42,7 @@ class BookingRequest < ActiveRecord::Base
   end
 
   def set_status
-    if self.status == "submitted" and !self.assignee_id.nil? and event.empty?
+    if self.status == "submitted" and !self.assignee_id.nil? and event.nil?
       self.status = STATUSES[1] #assigned
     end
 

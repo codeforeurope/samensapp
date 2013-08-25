@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823145832) do
+ActiveRecord::Schema.define(:version => 20130825180704) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -94,11 +94,12 @@ ActiveRecord::Schema.define(:version => 20130823145832) do
     t.integer  "room_id"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "tariff"
-    t.decimal  "price",      :default => 0.0
-    t.integer  "units",      :default => 1
+    t.decimal  "price",             :default => 0.0
+    t.integer  "units",             :default => 1
+    t.string   "calendar_event_id"
   end
 
   create_table "events", :force => true do |t|
@@ -163,12 +164,13 @@ ActiveRecord::Schema.define(:version => 20130823145832) do
     t.integer  "capacity"
     t.text     "description"
     t.text     "notes"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.decimal  "cleaning_fee"
     t.integer  "building_id"
     t.boolean  "rentable"
-    t.integer  "minimum_block", :default => 1
+    t.integer  "minimum_block",   :default => 1
+    t.string   "google_calendar"
   end
 
   create_table "users", :force => true do |t|
