@@ -25,13 +25,25 @@ class OffersController < InheritedResources::Base
     }
   end
 
+  def update
+    update! {
+      booking_request_offer_url(@booking_request)
+    }
+  end
+
+
   def accept
     authorize! :accept, @event, params
     @event.status = :accepted
-    update! do |format|
-      format.html {
-        redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
-      }
+    if update_events_in_google_calendars
+      update! do |format|
+        format.html {
+          redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+        }
+      end
+    else
+      flash.error = t(:unable_to_save_event_in_calendar)
+      redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
     end
   end
 
@@ -57,16 +69,12 @@ class OffersController < InheritedResources::Base
 
   def send_offer
     authorize! :send_offer, @event, params
-    if add_events_to_google_calendars
-      OffersMailer.offer_notification(@event).deliver
-      @event.status = :sent
-      update! do |format|
-        format.html {
-          redirect_to booking_request_offer_url(@booking_request)
-        }
-      end
-    else
-      redirect_to booking_request_offer_url(@booking_request)
+    @event.status = :sent
+    update! do |success, failure|
+      success.html {
+        OffersMailer.offer_notification(@event).deliver
+        redirect_to booking_request_offer_url(@booking_request)
+      }
     end
   end
 
@@ -77,23 +85,6 @@ class OffersController < InheritedResources::Base
 
   protected
 
-  def add_events_to_google_calendars
-    @event.event_rooms.each do |event_room|
-      if event_room.calendar_event_id.blank?
-        client = calendar_client(event_room.room.building.organization)
-        calendar_event = event_room.to_google_calendar_json
-        result = client.execute(:api_method => calendar_api(event_room.room.building.organization).events.insert,
-                                :parameters => {:calendarId => event_room.room.google_calendar},
-                                :body => calendar_event,
-                                :headers => {'Content-Type' => 'application/json'})
-        if result.status >= 200 && result.status < 300
-          event_room.update_attribute :calendar_event_id, result.data.id
-        else
-          flash.error = t(:unable_to_save_event_in_calendar)
-        end
-      end
-    end
-  end
 
   def resource
     if @event.blank?

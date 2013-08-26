@@ -1,6 +1,7 @@
-require 'google/api_client'
+
 
 class RoomsController < InheritedResources::Base
+  include ::GoogleCalendar
   load_and_authorize_resource :room
   before_filter :load_calendars, :except => [:index, :show, :destroy]
 

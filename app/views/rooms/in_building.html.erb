@@ -1,2 +1,2 @@
-<%= options_from_collection_for_select_with_data @rooms, :id, :name, nil, :data => {:"hour-block" => :minimum_block} %>
+<%= options_for_select @rooms.map { |a| [a.name, a.id, {:"data-hour-block" => a.minimum_block}] } %>
 
