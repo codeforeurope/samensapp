@@ -35,15 +35,10 @@ class OffersController < InheritedResources::Base
   def accept
     authorize! :accept, @event, params
     @event.status = :accepted
-    if update_events_in_google_calendars
-      update! do |format|
-        format.html {
-          redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
-        }
-      end
-    else
-      flash.error = t(:unable_to_save_event_in_calendar)
-      redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+    update! do |format|
+      format.html {
+        redirect_to signed_in? ? booking_request_offer_url(@booking_request) : view_offer_url(@event.code)
+      }
     end
   end
 

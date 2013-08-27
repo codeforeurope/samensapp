@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
                                 :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 
 
+
   before_create :create_code
   before_create :set_default_status
   after_create :update_request_status
@@ -72,6 +73,9 @@ class Event < ActiveRecord::Base
 
   protected
 
+  def not_yet_sent?
+    changed_attributes["status"] == "new" && status == :sent
+  end
 
   def delete_from_google_calendar
     event_rooms.each do |event_room|
@@ -86,12 +90,12 @@ class Event < ActiveRecord::Base
 
   def update_in_google_calendar
     event_rooms.each do |event_room|
-      if event_room.organization.google_refresh_token.present? && ![:declined, :canceled].include?(status)
+      if event_room.organization.google_refresh_token.present? && ![:declined, :canceled].include?(status) && !not_yet_sent?
         client = calendar_client(event_room.organization)
         result = client.execute(:api_method => calendar_api(event_room.organization).events.get,
                                 :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id})
 
-        calendar_event = event_room.update_calendar_event result.data
+        calendar_event = event_room.update_calendar_event result.data, self
 
         result = client.execute(:api_method => calendar_api(event_room.organization).events.update,
                                 :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id},
@@ -107,14 +111,14 @@ class Event < ActiveRecord::Base
 
   def add_to_google_calendar
     event_rooms.each do |event_room|
-      if event_room.organization.google_refresh_token.present? && [:sent].include?(status)
+      if event_room.organization.google_refresh_token.present? && not_yet_sent?
         client = calendar_client(event_room.organization)
         result = client.execute(:api_method => calendar_api(event_room.organization).events.insert,
                                 :parameters => {:calendarId => event_room.room.google_calendar},
                                 :body => event_room.to_google_calendar_json,
                                 :headers => {'Content-Type' => 'application/json'})
         if result.status >= 200 && result.status < 300
-          calendar_event_id = result.data.id
+          event_room.calendar_event_id = result.data.id
         else
           # TODO: handle errors better
           errors.add(:base, :unable_to_save_event_in_calendar)
