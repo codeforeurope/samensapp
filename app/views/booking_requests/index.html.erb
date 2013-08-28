@@ -1,25 +1,5 @@
 <%- model_class = BookingRequest -%>
 
-<% if !@unassigned_requests.empty? || !@assigned_requests.empty? %>
-  <div class="row-fluid">
-    <div class="span6">
-      <%= render 'table_unassigned' %>
-    </div>
-    <div class="span6">
-      <%= render 'table_assigned' %>
-    </div>
-  </div>
-<% end %>
-
-
-<% if can? :manage, BookingRequest %>
-  <div class="row-fluid">
-    <fieldset>
-      <legend><h2><%= t('.chart_title') %></h2></legend>
-      <%= render 'chart' %>
-    </fieldset>
-  </div>
-<% end %>
 
 <h2><%= t ('.your_booking_requests') %></h2>
 <% if @booking_requests.count == 0 %>

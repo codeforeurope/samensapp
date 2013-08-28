@@ -1,5 +1,11 @@
 Samensapp::Application.routes.draw do
-
+  namespace :dashboard do
+    get "", :action => :incoming
+    get :incoming
+    get :sent
+    get :confirmed
+    get :to_invoice
+  end
 
   resources :events
 
@@ -21,7 +27,7 @@ Samensapp::Application.routes.draw do
       put :accept
       put :decline
       put :cancel
-      put :send
+      put :send_offer
       get :ical
     end
   end
@@ -31,20 +37,21 @@ Samensapp::Application.routes.draw do
     resources :pictures do
       match '/carousel', :to => "pictures#carousel"
     end
-		resources :room_configurations
+    resources :room_configurations
     member do
       get :prices
     end
   end
-  get '/rooms_in_building/:building_id', :to =>'rooms#in_building'  , :as => :rooms_in_building
+  get '/rooms_in_building/:building_id', :to => 'rooms#in_building', :as => :rooms_in_building
 
   resources :organizations do
     member do
       get :crop
     end
+    resources :buildings
   end
 
-  devise_for :users
+  devise_for :users, :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
   #resource to manage the user profile
   resource :user, :path => :profile, :except => :new, :controller => :profile, :as => :profile
   match 'users/profile' => 'users#profile'

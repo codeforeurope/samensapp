@@ -3,7 +3,7 @@
 <%= simple_form_for @event, :url => booking_request_offer_path(@booking_request), :html => {} do |f| %>
   <div class="event-details">
     <h4><%= t(:".details") %>     </h4>
-    <%= f.input :name %>
+    <%= f.input :name , :input_html=>{:value=> f.object.name || @booking_request.title}%>
   </div>
 
   <div class="select-room">

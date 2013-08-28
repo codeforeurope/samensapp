@@ -8,7 +8,7 @@
           <%= render 'submitter_fields', f: f %>
         </fieldset>
         <fieldset>
-          <legend><%= t :'.organization_info' %></legend>
+          <legend><%= t :'.billing_info' %></legend>
           <div class="row">
             <div class="span5">
               <div class="control-group">
@@ -17,7 +17,6 @@
                     <%= check_box_tag :copy_personal_info %> <%= t :copy_personal_info %>
                   <% end %>
                 </div>
-
               </div>
 
               <%= f.input :company_name %>
@@ -33,6 +32,7 @@
           <legend><%= t :'.event_details' %></legend>
           <div class="row">
             <div class="span6">
+              <%= f.input :title %>
               <%= f.association :building, collection: @buildings, label_method: :name, value_method: :id, :hint => "" %>
               <%
                  data = {}

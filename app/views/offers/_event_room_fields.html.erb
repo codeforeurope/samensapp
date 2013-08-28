@@ -3,10 +3,15 @@
     <%= link_to "X", "#", class: "remove-room btn btn-mini pull-right btn-danger" + (@event.event_rooms.count < 2 ? " hidden" : "") %>
 
     <%= f.input :building_id, :collection => @buildings, :input_html => {:prompt => t(:'.select_building'), :class => "building-select"} %>
-    <%= f.association :room, :collection => f.object.available_rooms, :input_html => {:prompt => t(:'.select_building'), :data => {:"rooms-url" => rooms_path}, :class => "room-select"}, :disabled => f.object.room.blank? %>
+    <%= f.input :room,
+
+                :disabled => f.object.room.blank? do
+    %>
+      <%= f.select :room_id, f.object.available_rooms.map { |a| [a.name, a.id, {:"data-hour-block" => a.minimum_block}] }, {include_blank: false}, {:data => {:"rooms-url" => rooms_path}, :class => "room-select"} %>
+    <% end %>
     <%= f.input :event_date, :wrapper => :datepicker, :input_html => {:data => {}, :value => @booking_request.event_date} %>
-    <%= f.input :start_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => @booking_request.start_time}} %>
-    <%= f.input :end_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => @booking_request.end_time}} %>
+    <%= f.input :start_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => f.object.start_time || @booking_request.start_time}} %>
+    <%= f.input :end_time, :wrapper => :timepicker, :input_html => {:data => {:"default-time" => f.object.end_time || @booking_request.end_time}} %>
     <%= f.input :_destroy, :as => :hidden %>
 
 
@@ -19,7 +24,9 @@
       <div class="controls">
         <div class="btn-group" data-toggle="buttons-radio">
           <% [:gratis, :base_price, :blind_price].each_with_index do |tariff, index| %>
-            <button type="button" class="btn disabled<%= " active" if index == 0 %>" data-tariff="<%= tariff %>"><%= t(tariff) %></button>
+            <button type="button" class="btn<%= " disabled" if f.object.tariff.blank? %>
+            <%= " active" if tariff.to_s == f.object.tariff || (index == 0 && f.object.tariff.blank?) %>
+            " data-tariff="<%= tariff %>"><%= t(tariff) %></button>
           <% end %>
 
         </div>

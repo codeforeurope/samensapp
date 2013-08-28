@@ -10,12 +10,11 @@ class Ability
       can :manage, :all
     else
       #cannot :make_offer, BookingRequest
-      if user.role? :booking
+      if user.role? :booking, Organization
         cannot :assign_to_other, BookingRequest
+        can :create_on_behalf, BookingRequest
       end
-      can :create_on_behalf, BookingRequest do |request|
-        user.role? :booking, Organization
-      end
+
       can :assign_to_self, BookingRequest do |request|
         # if the request is for one of the buildings I have booking privs to
         organization = request.building.organization
@@ -26,6 +25,7 @@ class Ability
         organization = request.building.organization
         user.role? :admin, organization
       end
+
       can :make_offer, BookingRequest do |request|
         organization = request.building.organization
         (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
@@ -36,12 +36,11 @@ class Ability
       end
 
 
-      #TODO: this may be trouble, needs reviewing
       can [:new, :read, :edit, :update, :destroy], Event do |event|
         request = event.booking_request
         organization = request.building.organization
         (user.role? :admin, organization) || (
-        (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
+        (user.role? :booking, organization) && ([:submitted, :completed].include?(request.status.to_sym) || (request.status == "assigned" && request.assignee_id == user.id))
         )
 
       end
@@ -49,7 +48,7 @@ class Ability
       can :send_offer, Event do |event|
         request = event.booking_request
         organization = request.building.organization
-        (user.role? :booking, organization) && event.status.to_sym == :new
+        (user.role? :booking, organization) && (event.status.to_sym == :new ||event.status.to_sym == :sent)
       end
 
 
@@ -81,15 +80,24 @@ class Ability
         organization = room.building.organization
         user.role? "admin", organization
       end
-      can :manage, Building do |building|
-        organization = building.organization
-        user.role? "admin", organization
+
+      can :prices, Room do |room|
+        organization = room.building.organization
+        user.role? "booking", organization
       end
+      can [:edit, :update, :new, :create, :destroy], Building do |building|
+        organization = building.organization
+        user.role? :admin, organization
+      end
+
+
       can [:update, :destroy], Organization do |organization|
         user.role? "admin", organization
       end
 
-
+      if user.role? :admin, Organization || (user.role? :booking, Organization)
+        can :see, Organization
+      end
       can [:create, :find_user_by_email], BookingRequest
       can [:cancel, :read], BookingRequest do |request|
         user.id == request.submitter_id

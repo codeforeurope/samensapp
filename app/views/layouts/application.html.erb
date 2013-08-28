@@ -32,23 +32,48 @@
         <div class="container nav-collapse">
           <ul class="nav">
             <li><%= link_to t('navbar.submit_request'), new_booking_request_path, :class => current_page?(:controller => "/booking_requests") ? "active" : "" %></li>
+
             <% if user_signed_in? %>
-              <% if cannot? :manage, Room %>
+              <% if cannot? :create_on_behalf, BookingRequest %>
+                <li><%= link_to t('navbar.view_bookings'), booking_requests_path, :class => current_page?(:controller => "/booking_requests") ? "active" : "" %></li>
+              <% end %>
+              <% unless cannot? :create_on_behalf, BookingRequest %>
                 <li><%= link_to t('navbar.rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
-              <% else %>
-                <li><%= link_to t('navbar.manage_rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
+
+                <li><%= link_to t('navbar.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
+                <li><%= link_to t('navbar.organizations'), organizations_path, :class => current_page?(:controller => "/organizations") ? "active" : "" %></li>
               <% end %>
-              <li><%= link_to t('navbar.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
-              <% if can? :manage, BookingRequest %>
-                <li><%= link_to t('navbar.manage_bookings'), booking_requests_path, :class => current_page?(:controller => "/booking_requests") ? "active" : ""  %></li>
-                <% else %>
-                <li><%= link_to t('navbar.view_bookings'), booking_requests_path, :class => current_page?(:controller => "/booking_requests") ? "active" : ""  %></li>
-              <% end %>
+
             <% end %>
+
           </ul>
           <ul class="nav pull-right">
+
             <% if user_signed_in? %>
-              <li><span class="user-email visible-desktop"><%= t('navbar.logged_in_as') + " " + current_user.email %></span></li>
+              <% if can? :update, BookingRequest %>
+                <li><%= link_to t('navbar.dashboard'), dashboard_path %></li>
+              <% end %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <%= t('navbar.manage.manage') %>
+                  <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+
+                  <% if can? :update, Room %>
+                    <li><%= link_to t('navbar.manage.rooms'), rooms_path, :class => current_page?(:controller => "/rooms") ? "active" : "" %></li>
+                  <% end %>
+
+                  <% if can? :update, Building %>
+                    <li><%= link_to t('navbar.manage.buildings'), buildings_path, :class => current_page?(:controller => "/buildings") ? "active" : "" %></li>
+                  <% end %>
+                  <% if can? :update, Organization %>
+                    <li><%= link_to t('navbar.organizations'), organizations_path, :class => current_page?(:controller => "/organizations") ? "active" : "" %></li>
+                  <% end %>
+                </ul>
+              </li>
+              <li class="visible-desktop">
+                <span class="user-email "><%= t('navbar.logged_in_as') + " " + current_user.email %></span>
+              </li>
 
               <li><%= link_to t('navbar.profile'), "/users/profile" %></li>
               <li class="divider"></li>

@@ -1,0 +1,13 @@
+en:
+  offers_mailer:
+    offer_notification:
+      offer_link_text: "offer"
+      subject: "Rental offer [#%{id}]"
+      offer_page: "offer page"
+      link_to_offer: "Please  %{accept_or_decline_link} this offer, by visiting the %{offer_link} on the website"
+      submitter_name: "Your Name"
+      accept_or_decline: "accept or decline"
+      disclaimer: "This offer is a good-faith estimate, not a guarantee of cost. The final cost is dependent on the consumption at the bar and through the kitchen and/or incurring additional charges for items not listed in this offer."
+  mailer:
+    request_confirmation:
+      subject: "Your booking request [#%{id}]"

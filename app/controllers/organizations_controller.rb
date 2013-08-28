@@ -1,104 +1,59 @@
-class OrganizationsController < ApplicationController
-  before_filter :authenticate_user!, :except=>[:index,:show]
-  load_and_authorize_resource
-  #TODO: use load_and_authorize_resource  + before_filter for applying authorizations
-  #load_resource
 
-  # GET /organizations
-  # GET /organizations.json
+class OrganizationsController < InheritedResources::Base
+  before_filter :authenticate_user!, :except => [:index, :show]
+  load_and_authorize_resource :organization
+
   def index
-    @verified = Organization.where("status = 'verified'")
-    @not_verified = Organization.where("status != 'verified'")
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @organizations }
+    if can? :new, Organization
+      @verified = @organizations.where("status = 'verified'")
+      @not_verified = @organizations.where("status != 'verified'")
     end
+    @my_organizations = current_user.organizations
+
+    super
   end
 
-  # GET /organizations/1
-  # GET /organizations/1.json
+# GET /organizations/1
+# GET /organizations/1.json
   def show
-    @organization = Organization.find(params[:id])
     @buildings = @organization.buildings
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @organization }
-    end
+    super
   end
 
-  # GET /organizations/new
-  # GET /organizations/new.json
-  def new
-    @organization = Organization.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @organization }
-    end
-  end
-
-  # GET /organizations/1/edit
-  def edit
-    @organization = Organization.find(params[:id])
-  end
-
-  # POST /organizations
-  # POST /organizations.json
+# POST /organizations
+# POST /organizations.json
   def create
-    respond_to do |format|
-      if @organization.save
-        format.html {
-          if params[:organization][:image].present?
-            redirect_to crop_organization_url(@organization), notice: 'Organization was successfully created.'
-          else
-            redirect_to organization_url(@organization), notice: 'Organization was successfully created.'
-          end
-        }
-        format.json { render json: @organization, status: :created, location: @organization }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
-      end
+    create! do |success, failure|
+      success.html {
+        redirect_to params[:organization][:image].present? ? crop_organization_url(@organization) : organization_url(@organization)
+      }
     end
   end
 
-  # PUT /organizations/1
-  # PUT /organizations/1.json
+# PUT /organizations/1
+# PUT /organizations/1.json
   def update
-    @organization = Organization.find(params[:id])
-
-    respond_to do |format|
-      if @organization.update_attributes(params[:organization])
-        format.html {
-          if params[:organization][:image].present?
-            redirect_to crop_organization_url(@organization), notice: 'Organization was successfully updated.'
-          else
-            redirect_to organization_url(@organization), notice: 'Organization was successfully updated.'
-          end
-        }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /organizations/1
-  # DELETE /organizations/1.json
-  def destroy
-    @organization = Organization.find(params[:id])
-    @organization.destroy
-
-    respond_to do |format|
-      format.html { redirect_to organizations_url }
-      format.json { head :no_content }
+    update! do |success, failure|
+      success.html {
+        redirect_to params[:organization][:image].present? ? crop_organization_url(@organization) : organization_url(@organization)
+      }
     end
   end
 
   def crop
+  end
+
+  def calendars
+    client = Google::APIClient.new
+    client.authorization.client_id=ENV["GOOGLE_CLIENT_ID"]
+    client.authorization.client_secret=ENV["GOOGLE_CLIENT_SECRET"]
+    client.authorization.access_token= @organization.google_token
+    client.authorization.refresh_token= @organization.google_refresh_token
+    calendar= client.discovered_api('calendar', 'v3')
+
+    @calendars = client.execute(:api_method => calendar.calendar_list.list)
+
   end
 
 end

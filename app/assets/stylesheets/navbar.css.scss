@@ -3,5 +3,14 @@
     display: block;
     padding: 15px 15px;
     color: #B6B6B6;
+    @media (max-width: 1200px) {
+
+      visibility: hidden;
+      width: 0px;
+      padding: 0;
+
+    }
   }
+  //Hide the user email below 1200px
+
 }

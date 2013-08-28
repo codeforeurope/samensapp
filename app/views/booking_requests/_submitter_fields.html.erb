@@ -4,9 +4,7 @@
     <div class="span5">
       <%= b.input :email, :input_html => {:class => "lockable"} %>
       <%= b.input :name, :input_html => {:class => "lockable"} %>
-      <%= b.input :phone, :type => :tel, :required => true %>
       <%= b.input :mobile_phone, :type => :tel %>
-      <%= b.input :address, :required => true, :input_html => {:rows => 5, :cols => 60} %>
       <% if !signed_in? %>
         <%= b.input :create_account, :as => :boolean %>
         <%= b.input :password, :required => true, :type => :password %>
@@ -14,7 +12,7 @@
       <% end %>
     </div>
     <div class="span2">
-      <% if can? :create_on_behalf, @booking_request %>
+      <% if can? :create_on_behalf, BookingRequest %>
         <%= link_to t(:'.lookup_user'), "#lookup_users_modal", {:class => "btn lookup-user", 'data-toggle' => "modal", :role => "button"} %>
       <% end %>
       <% if signed_in? and @booking_request.submitter.id == current_user.id %>

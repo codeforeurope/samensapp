@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  provider: MyString
+  uid: MyString
+  user: 
+  token: MyString
+  secret: MyString
+  name: MyString
+  link: MyString
+  expires_at: 2013-08-23 16:18:05
+
+two:
+  provider: MyString
+  uid: MyString
+  user: 
+  token: MyString
+  secret: MyString
+  name: MyString
+  link: MyString
+  expires_at: 2013-08-23 16:18:05

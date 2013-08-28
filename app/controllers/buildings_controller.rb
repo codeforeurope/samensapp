@@ -1,100 +1,14 @@
-class BuildingsController < ApplicationController
-# before_filter :authenticate_user!
-# load_and_authorize_resource
+class BuildingsController < InheritedResources::Base
+  before_filter :authenticate_user!
 
-# GET /buildings
-  # GET /buildings.json
-  def index
-    @buildings = Building.all
-    @json = Building.all.to_gmaps4rails do |building, marker|
-      #marker.infowindow render_to_string(:partial => "/users/my_template", :locals => { :object => user})
-      #marker.picture({
-      #                   :picture => "http://www.blankdots.com/img/github-32x32.png",
-      #                   :width   => 32,
-      #                   :height  => 32
-      #               })
-      #marker.title   "i'm the title"
-      #marker.sidebar "i'm the sidebar"
-      marker.json({ :id => building.id, :foo => building.name })
-    end
+  #load_and_authorize_resource :organization, :through => :building
+  load_and_authorize_resource :building
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @buildings }
-    end
-  end
+  #defaults :singleton => true
+  optional_belongs_to :organization
 
-  # GET /buildings/1
-  # GET /buildings/1.json
-  def show
-    @building = Building.find(params[:id])
-    @organization = Organization.where("id = #{@building.id}").first
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @building }
-    end
-  end
-
-  # GET /buildings/new
-  # GET /buildings/new.json
-  def new
-    @building = Building.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @building }
-    end
-  end
-
-  # GET /buildings/1/edit
-  def edit
-    @building = Building.find(params[:id])
-  end
-
-  # POST /buildings
-  # POST /buildings.json
-  def create
-    @building = Building.new(params[:building])
-
-    respond_to do |format|
-      if @building.save
-        format.html { redirect_to @building, notice: 'Building was successfully created.' }
-        format.json { render json: @building, status: :created, location: @building }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /buildings/1
-  # PUT /buildings/1.json
-  def update
-    @building = Building.find(params[:id])
-
-    respond_to do |format|
-      if @building.update_attributes(params[:building])
-        format.html { redirect_to @building, notice: 'Building was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @building.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /buildings/1
-  # DELETE /buildings/1.json
-  def destroy
-    @building = Building.find(params[:id])
-    @building.destroy
-
-    respond_to do |format|
-      format.html { redirect_to buildings_url }
-      format.json { head :no_content }
-    end
-  end
+  before_filter :load_markers, :only => :index
 
   def openingtimes
     @building = Building.find(params[:id])
@@ -104,4 +18,10 @@ class BuildingsController < ApplicationController
     end
   end
 
+
+  def load_markers
+    @json = @buildings.to_gmaps4rails do |building, marker|
+      marker.json({:id => building.id, :foo => building.name})
+    end
+  end
 end

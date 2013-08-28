@@ -1,0 +1,8 @@
+
+<ul class="dash-nav nav nav-pills">
+  <% controller.action_methods.each do |section|   %>
+    <li class="dash-nav-pill <%= " active" if section.to_s == params[:action]%>">
+      <%= link_to t(:".#{section}"), :action => section %>
+    </li>
+  <% end %>
+</ul>

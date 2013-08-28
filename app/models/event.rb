@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
+  include ::GoogleCalendar
   STATUSES = %w"new sent canceled accepted declined"
+  EXPIRATION_HOURS =  48
   belongs_to :booking_request
   attr_accessible :name, :event_charges, :event_charges_attributes, :event_rooms, :event_rooms_attributes
   attr_writer :room_total, :extras_total, :grand_total
@@ -18,6 +20,19 @@ class Event < ActiveRecord::Base
   before_create :create_code
   before_create :set_default_status
   after_create :update_request_status
+
+
+  before_update :add_to_google_calendar
+  before_update :update_in_google_calendar
+  before_update :delete_from_google_calendar
+
+  def expired?
+    expired_by > 0
+  end
+
+  def expired_by
+    (Time.now - updated_at)/1.hour - EXPIRATION_HOURS
+  end
 
   def room_total
     if @room_total.blank?
@@ -63,4 +78,74 @@ class Event < ActiveRecord::Base
     self.status = :new
   end
 
+  def self.sent(user)
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND events.status = 'sent'", user.buildings).order('events.updated_at ASC')
+
+  end
+
+  def self.confirmed(user)
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND (events.status = 'accepted') AND (SELECT max(end_at) from event_rooms where event_rooms.event_id = events.id) > now()", user.buildings).order('events.updated_at ASC')
+
+  end
+
+  def self.to_invoice(user)
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND (events.status = 'accepted') AND (SELECT max(end_at) from event_rooms where event_rooms.event_id = events.id) < now()", user.buildings).order('events.updated_at ASC')
+
+  end
+
+  protected
+
+  def not_yet_sent?
+    changed_attributes["status"] == "new" && status.to_sym == :sent
+  end
+
+  def delete_from_google_calendar
+    event_rooms.each do |event_room|
+      if event_room.organization.google_refresh_token.present? && [:declined, :canceled].include?(status.to_sym)
+        client = calendar_client(event_room.organization)
+        result = client.execute(:api_method => calendar_api(event_room.organization).events.delete,
+                                :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id},
+                                :headers => {'Content-Type' => 'application/json'})
+      end
+    end
+  end
+
+  def update_in_google_calendar
+    event_rooms.each do |event_room|
+      if event_room.organization.google_refresh_token.present? && ![:new, :declined, :canceled].include?(status.to_sym) && !not_yet_sent?
+        client = calendar_client(event_room.organization)
+        result = client.execute(:api_method => calendar_api(event_room.organization).events.get,
+                                :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id})
+
+        calendar_event = event_room.update_calendar_event result.data, self
+
+        result = client.execute(:api_method => calendar_api(event_room.organization).events.update,
+                                :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id},
+                                :body_object => calendar_event,
+                                :headers => {'Content-Type' => 'application/json'})
+        unless result.status >= 200 && result.status < 300
+          errors.add(:base, :unable_to_save_event_in_calendar)
+        end
+      end
+    end
+  end
+
+
+  def add_to_google_calendar
+    event_rooms.each do |event_room|
+      if event_room.organization.google_refresh_token.present? && not_yet_sent?
+        client = calendar_client(event_room.organization)
+        result = client.execute(:api_method => calendar_api(event_room.organization).events.insert,
+                                :parameters => {:calendarId => event_room.room.google_calendar},
+                                :body => event_room.to_google_calendar_json,
+                                :headers => {'Content-Type' => 'application/json'})
+        if result.status >= 200 && result.status < 300
+          event_room.calendar_event_id = result.data.id
+        else
+          # TODO: handle errors better
+          errors.add(:base, :unable_to_save_event_in_calendar)
+        end
+      end
+    end
+  end
 end

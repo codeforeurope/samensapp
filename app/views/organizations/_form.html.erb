@@ -1,34 +1,12 @@
 <%= simple_form_for(@organization, :html => {:multipart => true}) do |f| %>
-  <% if @organization.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
 
-      <ul>
-        <% @organization.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="form-inputs clearfix">
-    <div class="field">
       <%= f.input :name %>
-    </div>
-    <div class="field">
       <%= f.input :description %>
-    </div>
-    <div class="field">
       <%= f.input :address %>
-    </div>
-    <div class="field">
       <%= f.input :image %>
-    </div>
-    <% if current_user.role? :global_admin.to_s %>
-    <div class="field">
-      <%= f.input :status, collection: Organization::STATUSES, :hint => ""  %>
-    </div>
-    <% end %>
+      <%= f.input :email, input_html: {type: :email} %>
   </div>
   <div class="form-actions">
     <%= f.button :submit %>

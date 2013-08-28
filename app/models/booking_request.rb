@@ -5,7 +5,7 @@ class BookingRequest < ActiveRecord::Base
   STATUSES = %w"submitted assigned canceled completed"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
                   :company_name, :contact_person, :contact_email, :contact_phone, :company_address,
-                  :start_time, :end_time, :event_date, :submitter_attributes, :website, :building_id
+                  :start_time, :end_time, :event_date, :submitter_attributes, :website, :building_id, :title
 
   before_create :create_code
   before_create :set_default_status
@@ -21,15 +21,25 @@ class BookingRequest < ActiveRecord::Base
   accepts_nested_attributes_for :submitter
 
   validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people, :building_id
-  validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address
+  validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address, :title
   validates_associated :submitter, :on => :create
-  validates :people, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :people, :numericality => {:greater_than_or_equal_to => 0}
   validates :website, :allow_blank => true, :url => true
 
 
   def event
     @event ||= events.first
   end
+
+  def self.incoming(user)
+    if user.role? :admin, Organization
+      where("building_id IN (?) AND (status = 'submitted' OR status = 'assigned')", user.buildings).order('assignee_id, status, start_at DESC')
+    else
+      where("building_id IN (?) AND (status = 'submitted' OR (status = 'assigned' AND assignee_id = ?))", user.buildings, user.id).order('assignee_id, status, start_at DESC')
+    end
+
+  end
+
 
   private
 
@@ -42,7 +52,7 @@ class BookingRequest < ActiveRecord::Base
   end
 
   def set_status
-    if self.status == "submitted" and !self.assignee_id.nil? and event.empty?
+    if self.status == "submitted" and !self.assignee_id.nil? and event.nil?
       self.status = STATUSES[1] #assigned
     end
 

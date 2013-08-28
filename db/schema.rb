@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821134909) do
+ActiveRecord::Schema.define(:version => 20130827133957) do
+
+  create_table "authorizations", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.string   "token"
+    t.string   "secret"
+    t.string   "name"
+    t.string   "link"
+    t.integer  "expires_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "authorizations", ["provider", "uid"], :name => "index_authorizations_on_provider_and_uid"
+  add_index "authorizations", ["provider"], :name => "index_authorizations_on_provider"
+  add_index "authorizations", ["token", "uid"], :name => "index_authorizations_on_token_and_uid"
+  add_index "authorizations", ["token"], :name => "index_authorizations_on_token"
+  add_index "authorizations", ["user_id"], :name => "index_authorizations_on_user_id"
 
   create_table "booking_requests", :force => true do |t|
     t.datetime "start_at"
@@ -34,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130821134909) do
     t.text     "company_address"
     t.string   "website"
     t.integer  "building_id"
+    t.string   "title"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"
@@ -75,11 +95,12 @@ ActiveRecord::Schema.define(:version => 20130821134909) do
     t.integer  "room_id"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "tariff"
-    t.decimal  "price",      :default => 0.0
-    t.integer  "units",      :default => 1
+    t.decimal  "price",             :default => 0.0
+    t.integer  "units",             :default => 1
+    t.string   "calendar_event_id"
   end
 
   create_table "events", :force => true do |t|
@@ -98,13 +119,16 @@ ActiveRecord::Schema.define(:version => 20130821134909) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.text     "address"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "icon"
     t.string   "image"
     t.string   "status"
     t.text     "description"
     t.string   "email"
+    t.string   "google_token"
+    t.string   "google_refresh_token"
+    t.integer  "google_token_expires_at"
   end
 
   create_table "pictures", :force => true do |t|
@@ -141,12 +165,13 @@ ActiveRecord::Schema.define(:version => 20130821134909) do
     t.integer  "capacity"
     t.text     "description"
     t.text     "notes"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.decimal  "cleaning_fee"
     t.integer  "building_id"
     t.boolean  "rentable"
-    t.integer  "minimum_block", :default => 1
+    t.integer  "minimum_block",   :default => 1
+    t.string   "google_calendar"
   end
 
   create_table "users", :force => true do |t|

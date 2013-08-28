@@ -1,6 +1,13 @@
 en:
   total: "Total"
+
   organizations:
+    calendar:
+      success: "Successfully connected calendar access for %{email}"
+      failure:
+        email_mismatch: "%{email_oauth} does not match the organization email %{email_organization}"
+    mine:
+      title: "My organizations"
     rest:
       title: "Organizations not active"
       subtitle: "These organizations are not shown to the users, and only administrators can see them"
@@ -42,7 +49,7 @@ en:
       view_request: "View this request online"
     form:
       my_info: "My Information"
-      organization_info: "My Organization"
+      billing_info: "Billing Information"
       event_details: "Event Details"
       start_time_help: "Please include also the pre-event time. <br> For example, if the event starts at 20 and you need 15 minutes for preparation, please write 19:45."
       notes_help: "Use this field to indicate Urgency of this booking request."
@@ -86,3 +93,12 @@ en:
       confirm_send: "Once sent, the offer cannot be modified. Are you sure you want to send this offer?"
     form:
       make_offer: "Save Offer"
+  dashboard:
+    incoming:
+      status:
+        submitted: "Submitted"
+        assigned: "Assigned to %{assignee}"
+    sent:
+      confirm_cancel: "Are you sure you want to cancel this offer?"
+      status:
+        :expired: "Expired (%{hours} hours)"

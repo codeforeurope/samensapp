@@ -3,6 +3,10 @@
 
   <%= f.association :building %>
   <%= f.input :name %>
+  <% if @room.building.organization.google_refresh_token.present? %>
+
+    <%= f.input :google_calendar, :collection => @calendars, :label_method => lambda { |calendar| calendar.description || calendar.summary }, :value_method => :id %>
+  <% end %>
   <%= f.input :floor %>
   <%= f.input :rentable %>
 
@@ -12,7 +16,7 @@
   <%= f.input :cleaning_fee, :as => :currency %>
 
   <%= f.input :description, :input_html => {:rows => 5, :placeholder => t(:'helpers.placeholder.room.description')} %>
-  <%= f.input :notes, :input_html => {:rows => 5, :placeholder => t(:'helpers.placeholder.room.notes') } %>
+  <%= f.input :notes, :input_html => {:rows => 5, :placeholder => t(:'helpers.placeholder.room.notes')} %>
 
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
