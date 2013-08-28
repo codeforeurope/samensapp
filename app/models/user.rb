@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :roles
   has_many :booking_requests, :foreign_key => :submitter_id
   has_many :organizations, :through => :roles, :source => :authorizable, :source_type => 'Organization', :uniq => true
+  has_many :buildings, :through => :organizations, :uniq => true
   attr_accessor :create_account, :is_submitter
   has_many :authorizations
 

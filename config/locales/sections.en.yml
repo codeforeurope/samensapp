@@ -1,5 +1,6 @@
 en:
   total: "Total"
+
   organizations:
     calendar:
       success: "Successfully connected calendar access for %{email}"
@@ -92,3 +93,12 @@ en:
       confirm_send: "Once sent, the offer cannot be modified. Are you sure you want to send this offer?"
     form:
       make_offer: "Save Offer"
+  dashboard:
+    incoming:
+      status:
+        submitted: "Submitted"
+        assigned: "Assigned to %{assignee}"
+    sent:
+      confirm_cancel: "Are you sure you want to cancel this offer?"
+      status:
+        :expired: "Expired (%{hours} hours)"

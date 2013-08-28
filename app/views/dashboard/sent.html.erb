@@ -1,0 +1,46 @@
+<%- model_class = Event -%>
+<%= render 'nav' %>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th class="offer-id"><%= model_class.human_attribute_name(:req) %>#</th>
+    <th class="offer-date"><%= model_class.human_attribute_name(:date) %></th>
+    <th class="offer-title"><%= model_class.human_attribute_name(:title) %></th>
+    <th class="offer-submitter"><%= model_class.human_attribute_name(:submitter) %></th>
+    <th class="offer-status"><%= model_class.human_attribute_name(:status) %></th>
+    <th class="offer-actions"><%= t(:actions) %></th>
+  </tr>
+
+  </thead>
+  <tbody>
+  <% @items.each do |offer| %>
+    <tr>
+      <td class="offer-id"><%= link_to offer.booking_request.id, offer.booking_request %></td>
+      <td class="offer-date"><%= offer.event_rooms.first.start_at %></td>
+      <td class="offer-title"><%= offer.name %></td>
+      <td class="offer-submitter"><%= offer.booking_request.submitter.name %></td>
+      <td class="offer-status<%= " offer-expired" if offer.expired? %>">
+        <% if offer.expired? %>
+          <%= t(:".status.expired", :hours => offer.expired_by.round) %>
+        <% else %>
+          <%= t(:".status.#{offer.status}") %>
+        <% end %>
+
+      </td>
+      <td class="offer-actions">
+        <%= link_to t('.details', :default => t("helpers.links.show")),
+                    booking_request_offer_path(offer.booking_request),
+                    :class => 'btn btn-mini' %>
+        <% if offer.expired? %>
+          <%= link_to t('.cancel'),
+                      cancel_booking_request_offer_path(offer.booking_request),
+                      :class => 'btn btn-mini btn-danger', :method => :put, :confirm => t(:".confirm_cancel") if can? :cancel, offer, params %>
+        <% end %>
+      </td>
+
+    </tr>
+  <% end %>
+  </tbody>
+
+</table>

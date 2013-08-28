@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   include ::GoogleCalendar
   STATUSES = %w"new sent canceled accepted declined"
+  EXPIRATION_HOURS = 48
   belongs_to :booking_request
   attr_accessible :name, :event_charges, :event_charges_attributes, :event_rooms, :event_rooms_attributes
   attr_writer :room_total, :extras_total, :grand_total
@@ -16,7 +17,6 @@ class Event < ActiveRecord::Base
                                 :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 
 
-
   before_create :create_code
   before_create :set_default_status
   after_create :update_request_status
@@ -25,6 +25,14 @@ class Event < ActiveRecord::Base
   before_update :add_to_google_calendar
   before_update :update_in_google_calendar
   before_update :delete_from_google_calendar
+
+  def expired?
+    expired_by > 0
+  end
+
+  def expired_by
+    (Time.now - updated_at)/1.hour - EXPIRATION_HOURS
+  end
 
   def room_total
     if @room_total.blank?
@@ -70,6 +78,15 @@ class Event < ActiveRecord::Base
     self.status = :new
   end
 
+  def self.sent(user)
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND events.status = 'sent'", user.buildings).order('events.updated_at ASC')
+
+  end
+
+  def self.confirmed(user)
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND (events.status = 'accepted')", user.buildings).order('events.updated_at ASC')
+
+  end
 
   protected
 

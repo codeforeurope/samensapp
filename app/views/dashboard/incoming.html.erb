@@ -1,0 +1,62 @@
+<%- model_class = BookingRequest -%>
+<%= render 'nav' %>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th class="request-id">#</th>
+    <th class="request-date"><%= model_class.human_attribute_name(:date) %></th>
+    <th class="request-title"><%= model_class.human_attribute_name(:title) %></th>
+    <th class="request-submitter"><%= model_class.human_attribute_name(:submitter) %></th>
+    <th class="request-status"><%= model_class.human_attribute_name(:status) %></th>
+    <th class="request-actions"><%= t(:actions) %></th>
+  </tr>
+
+  </thead>
+  <tbody>
+  <% @items.each do |request| %>
+    <tr>
+      <td class="request-id"><%= request.id %></td>
+      <td class="request-date"><%= request.start_at %></td>
+      <td class="request-title"><%= request.title %></td>
+      <td class="request-submitter"><%= request.submitter.name %></td>
+      <td class="request-status">
+        <a href="#" rel="tooltip" data-toggle="tooltip"
+           data-placement="top" title="<%= format_status_tooltip(request.status) %>"
+           data-original-title="<%= format_status_tooltip(request.status) %>">
+          <%= t(".status.#{request.status}", :assignee => (current_user.id == request.assignee_id ? t(:me) : (request.booking_agent.present? ? request.booking_agent.name : "" ))) %>
+        </a>
+      </td>
+      <td class="request-actions">
+        <%= link_to t('.details', :default => t("helpers.links.show")),
+                    request,
+                    :class => 'btn btn-mini' %>
+        <% if (can? :assign_to_other, request) && @booking_agents.present? %>
+          <div class="btn-group">
+            <button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><%= t('.assign_to') %>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% @booking_agents.each do |agent| %>
+                <li><%= link_to agent.name,
+                                assign_to_other_booking_request_path(request, :assignee_id => agent.id), :method => :put %>
+                </li>
+              <% end %>
+              <li class="divider"></li>
+              <li><%= link_to t('.myself'),
+                              assign_to_self_booking_request_path(request), :method => :put %>
+              </li>
+            </ul>
+          </div>
+        <% elsif can? :assign_to_self, request %>
+          <%= link_to t('.process'),
+                      assign_to_self_booking_request_path(request), :method => :put,
+                      :class => 'btn btn-mini btn-primary' %>
+        <% end %>
+      </td>
+
+    </tr>
+  <% end %>
+  </tbody>
+
+</table>

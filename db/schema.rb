@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130825180704) do
+ActiveRecord::Schema.define(:version => 20130827133957) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130825180704) do
     t.text     "company_address"
     t.string   "website"
     t.integer  "building_id"
+    t.string   "title"
   end
 
   add_index "booking_requests", ["code"], :name => "index_booking_requests_on_code"

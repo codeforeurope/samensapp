@@ -7,12 +7,6 @@ class BookingRequestsController < InheritedResources::Base
   # GET /booking_requests
   # GET /booking_requests.json
   def index
-    @unassigned_requests = BookingRequest.where("assignee_id != ? OR assignee_id IS NULL", current_user.id).order("created_at desc")
-    @assigned_requests = BookingRequest.where("assignee_id = ? AND status = 'assigned'", current_user.id).order("created_at desc")
-
-    #TODO this needs updating based on new security model
-    @booking_agents = User.joins(:roles).where('roles.name' => 'booking', :"roles.authorizable_type" => 'Organization', :"roles.authorizable_id" => current_user.organizations).reject { |user| user.id == current_user.id }
-
     @booking_requests = !current_user.nil? ? current_user.booking_requests : []
     super
   end
@@ -25,14 +19,17 @@ class BookingRequestsController < InheritedResources::Base
       @booking_request.assignee_id = current_user.id
     end
 
-    respond_to do |format|
-      if @booking_request.save
-        format.html { redirect_to :action => :index, notice: 'Booking request was successfully assigned.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @booking_requests, notice: 'Booking request was not assigned.' }
-        format.json { render json: @booking_request.errors, status: :unprocessable_entity }
-      end
+    update! do |success, failure|
+      success.html {
+        if params[:assignee_id] && params[:assignee_id] != current_user.id
+          redirect_to :back
+        else
+          redirect_to new_booking_request_offer_url(@booking_request)
+        end
+      }
+      failure.html {
+        redirect_to :back
+      }
     end
   end
 

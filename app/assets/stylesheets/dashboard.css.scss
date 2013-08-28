@@ -1,0 +1,49 @@
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.dash-nav-pill {
+  width: 25%;
+  text-align: center;
+  a {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+}
+
+th, td {
+  &.request-id {
+    width: 30px;
+    text-align: center;
+  }
+  &.request-date {
+    white-space:nowrap;
+  }
+  &.request-title {
+    width:50%
+  }
+
+
+  &.request-actions, &.request-status,  &.request-date,  &.request-submitter  {
+    white-space:nowrap;
+  }
+}
+
+th, td {
+  &.offer-id {
+    width: 50px;
+    text-align: center;
+  }
+  &.offer-date {
+    white-space:nowrap;
+  }
+  &.offer-title {
+    width:50%
+  }
+
+
+  &.offer-actions, &.offer-status,  &.offer-date,  &.offer-submitter  {
+    white-space:nowrap;
+  }
+}

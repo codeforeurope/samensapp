@@ -23,13 +23,23 @@ class BookingRequest < ActiveRecord::Base
   validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people, :building_id
   validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address
   validates_associated :submitter, :on => :create
-  validates :people, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :people, :numericality => {:greater_than_or_equal_to => 0}
   validates :website, :allow_blank => true, :url => true
 
 
   def event
     @event ||= events.first
   end
+
+  def self.incoming(user)
+    if user.role? :admin, Organization
+      where("building_id IN (?) AND (status = 'submitted' OR status = 'assigned')", user.buildings).order('assignee_id, status, start_at DESC')
+    else
+      where("building_id IN (?) AND (status = 'submitted' OR (status = 'assigned' AND assignee_id = ?))", user.buildings, user.id).order('assignee_id, status, start_at DESC')
+    end
+
+  end
+
 
   private
 
