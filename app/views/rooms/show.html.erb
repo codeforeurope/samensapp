@@ -48,7 +48,7 @@
         </div>
       </div>
       <div>
-        <% if can? :create, @room.pictures %>
+        <% if can? :add_picture, @room %>
           <%= render "pictures/form" %>
         <% end %>
       </div>

@@ -12,5 +12,5 @@ class Building < ActiveRecord::Base
     "<h4>#{self.name}</h4>"
   end
 
-  validates_presence_of :name, :address
+  validates_presence_of :name, :address, :organization_id
 end

@@ -76,18 +76,32 @@ class Ability
         organization = configuration.room.building.organization
         user.role? "admin", organization
       end
+
+      ##special case for create/new
+
       can :manage, Room do |room|
-        organization = room.building.organization
-        user.role? "admin", organization
+        if room.building.present?
+          organization = room.building.organization
+          user.role? "admin", organization
+        else
+          user.role? "admin", Organization
+        end
+
       end
 
       can :prices, Room do |room|
         organization = room.building.organization
         user.role? "booking", organization
       end
+
       can [:edit, :update, :new, :create, :destroy], Building do |building|
-        organization = building.organization
-        user.role? :admin, organization
+        if building.organization.present?
+          organization = building.organization
+          user.role? :admin, organization
+        else
+          user.role? "admin", Organization
+        end
+
       end
 
 

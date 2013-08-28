@@ -6,7 +6,7 @@ class Room < ActiveRecord::Base
 	has_many :room_configurations
   has_many :event_rooms
   has_many :events, :through => :event_rooms
-  validates_presence_of :name, :floor, :base_price, :blind_price, :cleaning_fee, :description
+  validates_presence_of :name, :floor, :base_price, :blind_price, :cleaning_fee, :description, :building_id
 
   def max_capacity
     self.room_configurations.maximum(:capacity)
