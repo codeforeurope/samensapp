@@ -57,7 +57,7 @@ class RoomsController < InheritedResources::Base
 
   protected
   def load_calendars
-    if signed_in? && (can? :update, @room)
+    if signed_in? && (can? :update, @room) && @room.building.organization.google_refresh_token.present?
       client = calendar_client(@room.building.organization)
       @calendars = client.execute(:api_method => calendar_api(@room.building.organization).calendar_list.list).data.items
     end
