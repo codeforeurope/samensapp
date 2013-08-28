@@ -1,6 +1,8 @@
 class BookingRequestsController < InheritedResources::Base
+  layout Proc.new { |controller| (controller.request.xhr?) ? false : 'application' }
+
   before_filter :authenticate_user!, :except => [:new, :create, :by_code]
-  load_resource
+  load_resource :except => [:create]
   authorize_resource :except => [:create, :index, :by_code]
   before_filter :load_buildings, :only => [:new, :create, :edit, :update]
 
@@ -74,6 +76,7 @@ class BookingRequestsController < InheritedResources::Base
   # POST /booking_requests
   # POST /booking_requests.json
   def create
+    @booking_request = BookingRequest.new
     #first, let's get the submitter hash out so that there can't be any overwriting
     if params[:booking_request][:submitter_attributes][:id]
       submitter_attributes = params[:booking_request].delete :submitter_attributes

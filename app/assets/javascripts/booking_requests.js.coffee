@@ -9,11 +9,11 @@ jQuery ->
     if $(this).prop('checked') == true
       $("#booking_request_contact_person").val $("#booking_request_submitter_attributes_name").val()
       $("#booking_request_contact_email").val $("#booking_request_submitter_attributes_email").val()
-      $("#booking_request_contact_phone").val $("#booking_request_submitter_attributes_phone").val()
+      $("#booking_request_contact_phone").val $("#booking_request_submitter_attributes_mobile_phone").val()
       $("#booking_request_organization_address").val $("#booking_request_submitter_attributes_address").val()
 
   #create password
-  $("#booking_request_submitter_attributes_create_account").change((e)->
+  $("form").on('change', "#booking_request_submitter_attributes_create_account", (e)->
     if $(this).prop('checked') == true
       $(this).parent().parent().parent().find("input[type=password]").parent().parent().show()
     else
@@ -21,7 +21,7 @@ jQuery ->
   ).change()
 
   #edit profile
-  $('.edit-profile').click (e)->
+  $('form').on 'click', '.edit-profile', (e)->
     e.preventDefault()
 
 
@@ -62,11 +62,11 @@ jQuery ->
 
   # function: onSelectLookupUser
   onSelectLookupUser = (e)->
-    $("fieldset.submitter").load("/booking_requests/new?" + $.param({submitter_id: $(this).data("submitter-id")}) + " fieldset.submitter",onSelectLookupUserSuccess)
-
+    $.get "/booking_requests/new?" + $.param({submitter_id: $(this).data("submitter-id")}) + " fieldset.submitter", onSelectLookupUserSuccess
 
   # function: onSelectLookupUserSuccess
   onSelectLookupUserSuccess = (data, textStatus, xhr)->
+    $("fieldset.submitter").replaceWith($(data).find("fieldset.submitter"))
     $lookup_modal.modal 'hide'
     $('#new_booking_request').trigger 'disable'
 

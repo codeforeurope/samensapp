@@ -84,19 +84,24 @@ class Event < ActiveRecord::Base
   end
 
   def self.confirmed(user)
-    joins(:booking_request).where("booking_requests.building_id IN (?) AND (events.status = 'accepted')", user.buildings).order('events.updated_at ASC')
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND (events.status = 'accepted') AND (SELECT max(end_at) from event_rooms where event_rooms.event_id = events.id) > now()", user.buildings).order('events.updated_at ASC')
+
+  end
+
+  def self.to_invoice(user)
+    joins(:booking_request).where("booking_requests.building_id IN (?) AND (events.status = 'accepted') AND (SELECT max(end_at) from event_rooms where event_rooms.event_id = events.id) < now()", user.buildings).order('events.updated_at ASC')
 
   end
 
   protected
 
   def not_yet_sent?
-    changed_attributes["status"] == "new" && status == :sent
+    changed_attributes["status"] == "new" && status.to_sym == :sent
   end
 
   def delete_from_google_calendar
     event_rooms.each do |event_room|
-      if event_room.organization.google_refresh_token.present? && [:declined, :canceled].include?(status)
+      if event_room.organization.google_refresh_token.present? && [:declined, :canceled].include?(status.to_sym)
         client = calendar_client(event_room.organization)
         result = client.execute(:api_method => calendar_api(event_room.organization).events.delete,
                                 :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id},
@@ -107,7 +112,7 @@ class Event < ActiveRecord::Base
 
   def update_in_google_calendar
     event_rooms.each do |event_room|
-      if event_room.organization.google_refresh_token.present? && ![:declined, :canceled].include?(status) && !not_yet_sent?
+      if event_room.organization.google_refresh_token.present? && ![:new, :declined, :canceled].include?(status.to_sym) && !not_yet_sent?
         client = calendar_client(event_room.organization)
         result = client.execute(:api_method => calendar_api(event_room.organization).events.get,
                                 :parameters => {:calendarId => event_room.room.google_calendar, :eventId => event_room.calendar_event_id})

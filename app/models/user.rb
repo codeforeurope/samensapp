@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :phone, :mobile_phone, :address, :create_account
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :mobile_phone, :create_account
   # attr_accessible :title, :body
   has_many :roles
   has_many :booking_requests, :foreign_key => :submitter_id
@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name, :email
 
-  validates_numericality_of [:phone, :mobile_phone], :allow_blank => true
-  validates_presence_of [:phone, :address], :if => :is_submitter
+  validates_numericality_of [:mobile_phone], :allow_blank => true
+  validates_presence_of [:mobile_phone], :if => :is_submitter
   validate :validate_as_submitter
 
 

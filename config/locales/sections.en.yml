@@ -49,7 +49,7 @@ en:
       view_request: "View this request online"
     form:
       my_info: "My Information"
-      organization_info: "My Organization"
+      billing_info: "Billing Information"
       event_details: "Event Details"
       start_time_help: "Please include also the pre-event time. <br> For example, if the event starts at 20 and you need 15 minutes for preparation, please write 19:45."
       notes_help: "Use this field to indicate Urgency of this booking request."

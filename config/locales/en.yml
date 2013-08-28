@@ -24,9 +24,15 @@ en:
     profile: "Profile"
     logged_in_as: ""
     rooms: "Rooms"
-    manage_rooms: "Manage Rooms"
-    manage_bookings: "Manage Bookings"
-    view_bookings: "My Bookings"
+    manage:
+      manage: "Manage"
+      rooms: "Rooms"
+      bookings: "Bookings"
+      buildings: "Buildings"
+    view_bookings: "My Requests"
+    dashboard: "Dashboard"
+    organizations: "Organizations"
+
 
   helpers:
     links:
@@ -45,3 +51,4 @@ en:
       created: "Booking request was successfully created."
       updated: "Booking request was successfully updated."
 
+  please_check_email_and_confirm: "Please check your email in a few minutes. You should have received an email allowing you to confirm your account. Please take a minute to click the link in the email and confirm your account"

@@ -33,13 +33,7 @@ body {
   }
 }
 
-//Hide the user email below 1200px
-@media (max-width: 1200px) {
-  .user-email {
-    visibility: hidden;
-    width: 0px;
-  }
-}
+
 
 /* Custom page CSS
       -------------------------------------------------- */

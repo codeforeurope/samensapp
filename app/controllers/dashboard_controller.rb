@@ -15,6 +15,7 @@ class DashboardController < ApplicationController
   end
 
   def to_invoice
+    @items = Event.to_invoice(current_user)
   end
 
   private

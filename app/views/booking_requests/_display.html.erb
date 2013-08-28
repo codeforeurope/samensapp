@@ -3,8 +3,12 @@
 <%- building_class = Building -%>
 <div class="page-header">
   <% if @booking_request.event.blank? %>
-    <% if can? :new, @booking_request.events.build %>
-      <%= link_to t('.make_offer'), new_booking_request_offer_path(@booking_request), :class => 'pull-right btn btn-primary' %>
+    <% if can? :assign_to_self, @booking_request %>
+      <%= link_to t('.process'),
+                  assign_to_self_booking_request_path(@booking_request), :method => :put,
+                  :class => 'pull-right btn btn-primary' %>
+    <% elsif can? :new, @booking_request.events.build %>
+      <%= link_to t('.make_offer'), new_booking_request_offer_path(@booking_request), :class => 'pull-right btn btn-primary'  %>
     <% end %>
   <% else %>
     <%= link_to t('.view_offer'), booking_request_offer_path(@booking_request), :class => 'pull-right btn' %>
