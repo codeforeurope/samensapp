@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include ::GoogleCalendar
   STATUSES = %w"new sent canceled accepted declined"
-  EXPIRATION_HOURS = 48
+  EXPIRATION_HOURS =  48
   belongs_to :booking_request
   attr_accessible :name, :event_charges, :event_charges_attributes, :event_rooms, :event_rooms_attributes
   attr_writer :room_total, :extras_total, :grand_total

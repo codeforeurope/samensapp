@@ -21,7 +21,7 @@ class BookingRequest < ActiveRecord::Base
   accepts_nested_attributes_for :submitter
 
   validates_presence_of :submitter, :catering_needs, :description, :equipment_needs, :people, :building_id
-  validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address
+  validates_presence_of :contact_email, :contact_person, :contact_phone, :company_address, :title
   validates_associated :submitter, :on => :create
   validates :people, :numericality => {:greater_than_or_equal_to => 0}
   validates :website, :allow_blank => true, :url => true
