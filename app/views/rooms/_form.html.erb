@@ -3,7 +3,7 @@
 
   <%= f.association :building %>
   <%= f.input :name %>
-  <% if @room.building.organization.google_refresh_token.present? %>
+  <% if @calendars.present? %>
 
     <%= f.input :google_calendar, :collection => @calendars, :label_method => lambda { |calendar| calendar.description || calendar.summary }, :value_method => :id %>
   <% end %>
