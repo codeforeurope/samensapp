@@ -14,7 +14,7 @@
       <th><%= model_class.human_attribute_name(:start_at) %></th>
       <th><%= model_class.human_attribute_name(:end_at) %></th>
       <th><%= model_class.human_attribute_name(:people) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:catering_needs) %></th>
       <th><%= model_class.human_attribute_name(:equipment_needs) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
@@ -26,10 +26,10 @@
 
     <% @booking_requests.each do |booking_request| %>
       <tr>
-        <td><%= format_date(booking_request.start_at) %></td>
-        <td><%= format_date(booking_request.end_at) %></td>
+        <td><%= format_date_short(booking_request.start_at) %></td>
+        <td><%= format_date_short(booking_request.end_at) %></td>
         <td><%= booking_request.people %></td>
-        <td><%= booking_request.description %></td>
+        <td><%= booking_request.title %></td>
         <td><%= booking_request.catering_needs %></td>
         <td><%= booking_request.equipment_needs %></td>
         <td>

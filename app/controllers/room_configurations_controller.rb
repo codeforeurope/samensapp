@@ -1,5 +1,7 @@
 class RoomConfigurationsController < ApplicationController
-	before_filter :load_room
+  load_and_authorize_resource :load_room
+  before_filter :load_room
+
   # GET /room_configurations
   # GET /room_configurations.json
   def index

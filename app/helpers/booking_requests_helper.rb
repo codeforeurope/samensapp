@@ -8,7 +8,7 @@ module BookingRequestsHelper
     end
   end
 
-  def format_date(date)
+  def format_date_short(date)
     date.to_formatted_s(:short) unless date.nil?
   end
 

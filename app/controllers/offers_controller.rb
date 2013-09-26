@@ -75,7 +75,7 @@ class OffersController < InheritedResources::Base
 
 
   def rooms_for_event
-    render layout: false
+    render :layout => false
   end
 
   protected

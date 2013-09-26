@@ -13,7 +13,7 @@
       <tr>
         <td><%= configuration.name %></td>
         <td class="text-right"><%= configuration.capacity %></td>
-        <% if can? :manage, Room %>
+        <% if can? :manage, @room_configuration %>
           <td>
             <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_room_room_configuration_path(@room, configuration), {:data => {:toggle => :modal, :target => "#edit_room_config"}, :class => "btn btn-mini btn-primary pull-right"} %>
           </td>
