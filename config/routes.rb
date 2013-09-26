@@ -22,6 +22,7 @@ Samensapp::Application.routes.draw do
     member do
       put :assign_to_self
       put :assign_to_other
+      put :cancel
     end
     resource :offer do
       put :accept

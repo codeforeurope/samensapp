@@ -2,7 +2,7 @@ class BookingRequest < ActiveRecord::Base
   include ActiveModel::Validations
   include ::Dated
 
-  STATUSES = %w"submitted assigned canceled completed"
+  STATUSES = %w"submitted assigned canceled completed expired"
   attr_accessible :catering_needs, :description, :equipment_needs, :notes, :people, :submitter_id,
                   :company_name, :contact_person, :contact_email, :contact_phone, :company_address,
                   :start_time, :end_time, :event_date, :submitter_attributes, :website, :building_id, :title

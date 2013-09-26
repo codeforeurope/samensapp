@@ -39,10 +39,16 @@
                         booking_request, :class => 'btn btn-mini' %></td>
         <!-- <td><%= link_to t('.edit', :default => t("helpers.links.edit")),
                              edit_booking_request_path(booking_request), :class => 'btn btn-mini' %></td> -->
-        <td><%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                        "#",
+        <td><%= if can? :cancel, booking_request
+                  link_to t('.cancel', :default => t("helpers.links.cancel")),
+                        cancel_booking_request_path(booking_request),
+                        :method => :put,
                         :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
-                        :class => 'btn btn-mini btn-danger' %></td>
+                        :class => 'btn btn-mini btn-danger'
+                end %></td>
+
+
+
       </tr>
     <% end %>
   </table>

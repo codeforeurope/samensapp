@@ -1,7 +1,7 @@
 class BookingRequestsController < InheritedResources::Base
   layout Proc.new { |controller| (controller.request.xhr?) ? false : 'application' }
 
-  before_filter :authenticate_user!, :except => [:new, :create, :by_code]
+  before_filter :authenticate_user!, :except => [:new, :create, :by_code, :cancel]
   load_resource :except => [:create]
   authorize_resource :except => [:create, :index, :by_code]
   before_filter :load_buildings, :only => [:new, :create, :edit, :update]
@@ -46,9 +46,6 @@ class BookingRequestsController < InheritedResources::Base
   # GET /booking_requests/new.json
   def new
     @booking_request.submitter = User.new()
-
-    #TODO:  if user can? create_onbehalf then filter buildings only based on the organization he/she belongs to
-
     # we will default to current user for logged in people
     if signed_in?
       if cannot? :create_on_behalf, BookingRequest
@@ -142,6 +139,22 @@ class BookingRequestsController < InheritedResources::Base
       format.html { redirect_to booking_requests_url }
       format.json { head :no_content }
     end
+  end
+
+  def cancel
+    #@booking_request = BookingRequest.find(params[:id])
+    authorize! :cancel, @booking_request, params
+    @booking_request.status = :canceled
+    update! do |success, failure|
+      success.html {
+        #redirect_to signed_in? ? booking_requests_url : booking_request_url(@booking_request)
+        redirect_to :back
+      }
+      failure.html {
+        redirect_to :back
+      }
+    end
+
   end
 
   def find_user_by_email

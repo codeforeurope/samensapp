@@ -31,6 +31,16 @@ class Ability
         (user.role? :booking, organization) && (request.status == "submitted" || (request.status == "assigned" && request.assignee_id == user.id))
       end
 
+      can :cancel, BookingRequest do |request, params|
+        organization = request.building.organization
+        if params.present? && params.has_key?(:code) && user.new_record?
+          result = (request.code == params[:code] && ![:canceled].include?(request.status.to_sym))
+        else
+          result = ((user.role? :booking, organization) || user.id == request.submitter.id) && ![:canceled].include?(request.status.to_sym)
+        end
+        result
+      end
+
       can :read, Event do |event|
         event.booking_request.submitter.id == current_user.id
       end
