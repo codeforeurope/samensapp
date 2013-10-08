@@ -84,8 +84,10 @@ class Ability
 
       can :manage, RoomConfiguration do |configuration|
         organization = configuration.room.building.organization
-        user.role? "admin", organization
+        user.role? :admin, organization
       end
+
+      can [:carousel], Picture
 
       ##special case for create/new
 
