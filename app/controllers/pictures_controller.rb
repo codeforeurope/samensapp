@@ -54,7 +54,7 @@ class PicturesController < ApplicationController
 
   def create
     # Workaround for Rails 3.2.13, see: https://github.com/tors/jquery-fileupload-rails/issues/36
-    params[:picture][:image] = params[:picture][:image][0]
+    #params[:picture][:image] = params[:picture][:image][0]
     @picture = @attachable_picture.pictures.new(params[:picture])
     if @picture.save
       flash[:notice] = "Picture created."
